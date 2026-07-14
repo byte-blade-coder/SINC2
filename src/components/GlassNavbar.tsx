@@ -1,0 +1,186 @@
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, ArrowRight } from 'lucide-react';
+
+interface NavLinkProps {
+  href: string;
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}
+
+const NavLink: React.FC<NavLinkProps> = ({ href, active, onClick, children }) => {
+  return (
+    <a
+      href={href}
+      onClick={onClick}
+      className={`
+        relative px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider
+        transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500
+        ${active ? 'text-white' : 'text-white/60 hover:text-white'}
+      `}
+    >
+      <span className="relative z-10">{children}</span>
+      {active && (
+        <motion.div
+          layoutId="activeTab"
+          className="absolute inset-0 bg-white/10 rounded-lg -z-0"
+          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+        />
+      )}
+    </a>
+  );
+};
+
+export const GlassNavbar: React.FC = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [activeLink, setActiveLink] = useState('Home');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinks = ['Home', 'About', 'Services', 'Research', 'Projects', 'Contact'];
+
+  return (
+    <header className="absolute top-6 left-0 right-0 z-50 flex justify-center px-4 md:px-8 pointer-events-none">
+      <motion.nav
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 100, damping: 15, delay: 0.2 }}
+        className={`
+          pointer-events-auto
+          flex items-center justify-between
+          h-[90px] rounded-[20px]
+          border border-white/[0.06]
+          transition-all duration-500 ease-premium
+          w-full max-w-[1728px]
+          md:w-[90%]
+          lg:px-8
+          ${scrolled 
+            ? 'bg-black/75 backdrop-blur-lg shadow-nav-scrolled border-white/[0.04] px-6 py-2' 
+            : 'bg-black/35 backdrop-blur-md shadow-nav px-6 py-2'
+          }
+        `}
+      >
+        {/* Logo Section */}
+        <a 
+          href="#home" 
+          className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 rounded-lg"
+          onClick={() => setActiveLink('Home')}
+        >
+          {/* Logo Entry Blur-to-Sharp */}
+          <motion.div
+            initial={{ filter: 'blur(6px)', opacity: 0 }}
+            animate={{ filter: 'blur(0px)', opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex items-center"
+          >
+            <img 
+              src="/assets/logo.png" 
+              alt="SINC Logo" 
+              style={{ height: '60px', width: 'auto' }}
+              className="object-contain" 
+            />
+          </motion.div>
+        </a>
+
+        {/* Center Navigation Links (Hidden on Mobile/Tablet) */}
+        <div className="hidden lg:flex items-center gap-1">
+          {navLinks.map((link) => (
+            <NavLink
+              key={link}
+              href={`#${link.toLowerCase()}`}
+              active={activeLink === link}
+              onClick={() => {
+                setActiveLink(link);
+                setMobileMenuOpen(false);
+              }}
+            >
+              {link}
+            </NavLink>
+          ))}
+        </div>
+
+        {/* Right CTA Button (Hidden on Mobile) */}
+        <div className="hidden md:flex items-center gap-4">
+          <motion.a
+            href="#get-started"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            className="relative overflow-hidden group flex items-center justify-center gap-2 h-10 px-5 rounded-full text-xs font-semibold uppercase tracking-wider text-black bg-[#23abe6] hover:shadow-[0_0_20px_rgba(35,171,230,0.4)] transition-all duration-300"
+          >
+            {/* CTA Shine Sweep Effect */}
+            <span className="absolute inset-0 w-full h-full bg-white/20 -skew-x-12 -left-full group-hover:animate-shine pointer-events-none" />
+            
+            <span>Get Started</span>
+            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+          </motion.a>
+        </div>
+
+        {/* Mobile Hamburger Button */}
+        <div className="flex lg:hidden">
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-2 text-white/80 hover:text-white rounded-full hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
+            aria-label="Toggle Navigation Menu"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+      </motion.nav>
+
+      {/* Mobile Drawer Navigation (Overlay) */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            className="pointer-events-auto absolute top-[120px] left-4 right-4 z-40 p-6 rounded-2xl border border-white/10 bg-black/90 backdrop-blur-xl shadow-2xl flex flex-col gap-4 lg:hidden"
+          >
+            <div className="flex flex-col gap-2">
+              {navLinks.map((link) => (
+                <a
+                  key={link}
+                  href={`#${link.toLowerCase()}`}
+                  onClick={() => {
+                    setActiveLink(link);
+                    setMobileMenuOpen(false);
+                  }}
+                  className={`px-4 py-3 rounded-xl text-base font-medium transition-colors ${
+                    activeLink === link 
+                      ? 'bg-white/10 text-white' 
+                      : 'text-white/60 hover:text-white hover:bg-white/5'
+                  }`}
+                >
+                  {link}
+                </a>
+              ))}
+            </div>
+            
+            {/* CTA inside Mobile Drawer */}
+            <a
+              href="#get-started"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center justify-center gap-2 w-full py-4 rounded-xl text-sm font-semibold uppercase tracking-wider text-black bg-[#23abe6]"
+            >
+              <span>Get Started</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
+  );
+};
