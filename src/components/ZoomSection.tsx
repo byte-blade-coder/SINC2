@@ -5,6 +5,148 @@ import { MainPanel } from './MainPanel';
 
 gsap.registerPlugin(ScrollTrigger);
 
+interface StackCardProps {
+  card: {
+    num: string;
+    title: string;
+    desc: string;
+    image?: string;
+  };
+  index: number;
+}
+
+const StackCard: React.FC<StackCardProps> = ({ card, index }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [size, setSize] = useState({ width: 450, height: 450 });
+
+  useEffect(() => {
+    if (!cardRef.current) return;
+    const observer = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        setSize({
+          width: entry.contentRect.width,
+          height: entry.contentRect.height,
+        });
+      }
+    });
+    observer.observe(cardRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const r = 24; // corner radius
+  const nw = size.width > 300 ? 90 : 70; // notch width
+  const nh = size.width > 300 ? 90 : 70; // notch height
+
+  // SVG Path String for the card outline and image clipping
+  const pathD = `
+    M 0 ${nh + r}
+    L 0 ${size.height - r}
+    A ${r} ${r} 0 0 0 ${r} ${size.height}
+    L ${size.width - r} ${size.height}
+    A ${r} ${r} 0 0 0 ${size.width} ${size.height - r}
+    L ${size.width} ${r}
+    A ${r} ${r} 0 0 0 ${size.width - r} 0
+    L ${nw + r} 0
+    A ${r} ${r} 0 0 0 ${nw} ${r}
+    L ${nw} ${nh - r}
+    A ${r} ${r} 0 0 1 ${nw - r} ${nh}
+    L ${r} ${nh}
+    A ${r} ${r} 0 0 0 0 ${nh + r}
+    Z
+  `;
+
+  return (
+    <div
+      ref={cardRef}
+      className="stack-card absolute bg-transparent"
+      style={{
+        width: 'var(--card-width)',
+        height: 'var(--card-height)',
+        left: `calc(var(--card-spacing) * ${index})`,
+        top: '0px',
+        zIndex: 10 + index,
+        transformOrigin: 'bottom center',
+        willChange: 'transform, opacity',
+      }}
+    >
+      {/* SVG ClipPath Definition for the image (matches card body exactly) */}
+      <svg className="absolute w-0 h-0 pointer-events-none">
+        <defs>
+          <clipPath id={`clip-card-${index}`} clipPathUnits="userSpaceOnUse">
+            <path d={pathD} />
+          </clipPath>
+        </defs>
+      </svg>
+
+      {/* Full Width Image Background Container (Clipped to Card Shape) */}
+      {card.image && (
+        <div
+          className="absolute inset-0 w-full h-full overflow-hidden"
+          style={{
+            clipPath: `url(#clip-card-${index})`,
+          }}
+        >
+          <img
+            src={card.image}
+            alt={card.title}
+            className="w-full h-full object-cover"
+          />
+          {/* Subtle Dark Gradient Overlay at the bottom for text readability on dark images */}
+          <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+        </div>
+      )}
+
+      {/* Background Card Shape SVG with Outline Border and Shadow */}
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        style={{ filter: 'drop-shadow(0 12px 25px rgba(0,0,0,0.05))' }}
+      >
+        <path
+          d={pathD}
+          fill={card.image ? "none" : "#f6f6f6"}
+          stroke="rgba(0, 0, 0, 0.08)"
+          strokeWidth="1"
+        />
+      </svg>
+
+      {/* Card Section Number (inside cutout as a blue rounded square with gap spacing) */}
+      <div
+        className="absolute top-0 left-0 flex items-center justify-center pointer-events-none"
+        style={{
+          width: `${nw}px`,
+          height: `${nh}px`,
+        }}
+      >
+        <div
+          className="bg-[#23abe6] text-white font-black flex items-center justify-center shadow-[0_4px_12px_rgba(35,171,230,0.2)] select-none tracking-tighter"
+          style={{
+            width: size.width > 300 ? '64px' : '48px',
+            height: size.width > 300 ? '64px' : '48px',
+            fontSize: size.width > 300 ? '32px' : '22px',
+            borderRadius: size.width > 300 ? '16px' : '12px',
+          }}
+        >
+          {card.num.replace(/^0/, '')}
+        </div>
+      </div>
+
+
+
+      {/* Card Bottom Description Overlay (Absolute positioned on top of the image) */}
+      <div
+        className="absolute left-6 right-6 bottom-6 select-none text-white pointer-events-none z-10"
+      >
+        <h3 className="font-display font-black text-white text-xs md:text-lg leading-tight uppercase tracking-tight">
+          {card.title}
+        </h3>
+        <p className="text-[9px] md:text-[11px] text-gray-200 font-semibold mt-1.5 leading-snug uppercase">
+          {card.desc}
+        </p>
+      </div>
+    </div>
+  );
+};
+
 export const ZoomSection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const heroWrapperRef = useRef<HTMLDivElement>(null);
@@ -17,10 +159,30 @@ export const ZoomSection: React.FC = () => {
   const [isMeasured, setIsMeasured] = useState(false);
 
   const cardsData = [
-    { num: '01', title: 'Edge Telemetry', desc: 'Real-time telemetry streams processed at the network border.' },
-    { num: '02', title: 'Autonomous Sensing', desc: 'Intelligent sensor nodes operating independently in deep water.' },
-    { num: '03', title: 'Quantum Security', desc: 'Secure quantum-resistant encryption protocols for data integrity.' },
-    { num: '04', title: '3D Sensor Fusion', desc: 'Aggregating radar, lidar, and sonar data into a single point cloud.' },
+    {
+      num: '01',
+      title: 'Sensing',
+      desc: 'Intelligent autonomous sensor systems detecting signals in real-time.',
+      image: '/assets/sensing_clean.png'
+    },
+    {
+      num: '02',
+      title: 'Processing',
+      desc: 'High-speed computation at the edge for split-second decisions.',
+      image: '/assets/processing_clean.png'
+    },
+    {
+      num: '03',
+      title: 'Communication',
+      desc: 'Secure, encrypted, quantum-resistant data transmission networks.',
+      image: '/assets/communication_clean.png'
+    },
+    {
+      num: '04',
+      title: 'Data Analytics',
+      desc: 'Intelligent fusion of multidimensional data for total situational awareness.',
+      image: '/assets/data_analytics_clean.png'
+    },
   ];
 
   useEffect(() => {
@@ -39,7 +201,7 @@ export const ZoomSection: React.FC = () => {
       // Exact letter 'i' body center relative to the 803x270 canvas
       const iLocalX = 495.0;
       const iLocalY = 129.5;
-      
+
       // Bounding box of 'i' white body
       const iLocalWidth = 26;
       const iLocalHeight = 132;
@@ -135,10 +297,25 @@ export const ZoomSection: React.FC = () => {
         },
       });
 
-      // Set initial state of cards off-screen right
+      // Set initial state of cards off-screen bottom-right
       gsap.set(cardElements, {
-        x: window.innerWidth,
-        rotation: 15,
+        x: (index: number, target: any) => {
+          const clientWidth = document.documentElement.clientWidth;
+          const cardWidth = target.offsetWidth;
+          // Calculate gap based on screen size (matching the CSS variables)
+          const cardGap = clientWidth >= 1024 ? 24 : (clientWidth >= 768 ? 16 : 12);
+          const cardSpacing = cardWidth + cardGap;
+          const wrapperWidth = cardWidth * 4 + cardGap * 3;
+          const cardLeft = (clientWidth - wrapperWidth) / 2 + (cardSpacing * index);
+          return clientWidth - cardLeft;
+        },
+        y: (index: number, target: any) => {
+          const clientHeight = document.documentElement.clientHeight;
+          const cardHeight = target.offsetHeight;
+          const cardTop = (clientHeight - cardHeight) / 2;
+          return clientHeight - cardTop;
+        },
+        rotation: 0,
         opacity: 0,
       });
 
@@ -149,51 +326,52 @@ export const ZoomSection: React.FC = () => {
         duration: 1,
         ease: 'power1.inOut',
       })
-      .to(sincText, {
-        opacity: 1,
-        duration: 0.4,
-        ease: 'power1.out',
-      }, '-=0.5')
-      // Zoom the logo container
-      .to(sincText, {
-        scale: dimensions.baseScale * dimensions.scale,
-        duration: 2.5,
-        ease: 'power2.in',
-      })
-      // Fade in the white backing inside the 'i' outline during the scale zoom
-      .to(backing, {
-        opacity: 1,
-        duration: 1.5,
-        ease: 'power2.inOut',
-      }, '-=2.0') // Overlaps with scale zoom
-      // Simultaneously fade background to white and fade out logo near the peak zoom
-      .to(container, {
-        backgroundColor: '#ffffff',
-        duration: 0.8,
-        ease: 'power1.inOut',
-      }, '-=0.8')
-      .to(sincText, {
-        opacity: 0,
-        duration: 0.4,
-        ease: 'power1.inOut',
-      }, '-=0.4')
-      // Smoothly fade in and reveal the next section content wrapper
-      .to(revealContent, {
-        opacity: 1,
-        pointerEvents: 'auto',
-        duration: 0.8,
-        ease: 'power2.out',
-      }, '-=0.2');
+        .to(sincText, {
+          opacity: 1,
+          duration: 0.4,
+          ease: 'power1.out',
+        }, '-=0.5')
+        // Zoom the logo container
+        .to(sincText, {
+          scale: dimensions.baseScale * dimensions.scale,
+          duration: 2.5,
+          ease: 'power2.in',
+        })
+        // Fade in the white backing inside the 'i' outline during the scale zoom
+        .to(backing, {
+          opacity: 1,
+          duration: 1.5,
+          ease: 'power2.inOut',
+        }, '-=2.0') // Overlaps with scale zoom
+        // Simultaneously fade background to white and fade out logo near the peak zoom
+        .to(container, {
+          backgroundColor: '#ffffff',
+          duration: 0.8,
+          ease: 'power1.inOut',
+        }, '-=0.8')
+        .to(sincText, {
+          opacity: 0,
+          duration: 0.4,
+          ease: 'power1.inOut',
+        }, '-=0.4')
+        // Smoothly fade in and reveal the next section content wrapper
+        .to(revealContent, {
+          opacity: 1,
+          pointerEvents: 'auto',
+          duration: 0.8,
+          ease: 'power2.out',
+        }, '-=0.2');
 
-      // Card Stacking animation - cards slide in and stack ONE BY ONE
+      // Card Stacking animation - cards slide in from bottom-right and stack ONE BY ONE
       cardElements.forEach((card, i) => {
         tl.to(card, {
-          x: 0, // slides to its CSS calculated offset left
-          rotation: -4 + (i * 1.5), // subtle stagger angle like a card deck
+          x: 0,
+          y: 0,
+          rotation: 0,
           opacity: 1,
-          duration: 1.2,
+          duration: 1.0,
           ease: 'power2.out',
-        }, i === 0 ? '+=0.2' : '+=0.1'); // sequential chaining
+        }, i === 0 ? '+=0.2' : '-=0.6'); // sequential stacking with overlap
       });
     }, container);
 
@@ -296,72 +474,85 @@ export const ZoomSection: React.FC = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: '#ffffff',
+          background: 'radial-gradient(140% 140% at 100% 100%, #AEE8FF 0%, #DFF4FF 25%, #F4FAFF 60%, #FFFFFF 100%)',
           color: '#1d1d1f',
           zIndex: 4,
           padding: '0 24px',
           overflow: 'hidden',
         }}
       >
-        {/* Set up responsive variables: card-width, card-height and spacing width */}
-        <div className="w-full max-w-[1400px] h-full flex flex-col justify-center relative px-4 md:px-8 [--card-width:180px] md:[--card-width:270px] lg:[--card-width:320px] [--card-height:250px] md:[--card-height:380px] lg:[--card-height:450px] [--card-spacing:35px] md:[--card-spacing:65px] lg:[--card-spacing:80px]">
-          
-          {/* Title Header Section on Right Side */}
-          <div className="absolute right-6 top-10 md:top-20 z-10 text-right pointer-events-none select-none max-w-sm md:max-w-md">
-            <h2 className="font-display font-black text-[32px] sm:text-[44px] md:text-[60px] leading-[0.9] text-black tracking-tighter uppercase">
-              SINC BRINGS <br />
-              <span className="text-gray-300">THE POWER</span>
+        <style>{`
+          .zoom-cards-container {
+            --card-gap: 12px;
+            --card-width: calc(((100vw - 40px) - 36px) / 4);
+            --card-height: var(--card-width);
+            --card-spacing: calc(var(--card-width) + var(--card-gap));
+          }
+          @media (min-width: 768px) {
+            .zoom-cards-container {
+              --card-gap: 16px;
+              --card-width: min(280px, calc(((100vw - 80px) - 48px) / 4));
+              --card-height: var(--card-width);
+            }
+          }
+          @media (min-width: 1024px) {
+            .zoom-cards-container {
+              --card-gap: 24px;
+              --card-width: min(390px, calc(((100vw - 80px) - 72px) / 4));
+              --card-height: var(--card-width);
+            }
+          }
+          .stack-card {
+            transition: top 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          }
+          .stack-card:hover {
+            top: -15px !important;
+            z-index: 50 !important;
+          }
+          .stack-card svg {
+            transition: filter 0.3s ease;
+          }
+          .stack-card:hover svg {
+            filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.06)) drop-shadow(0 0 15px rgba(35, 171, 230, 0.22)) !important;
+          }
+          .stack-card path {
+            transition: stroke 0.3s ease;
+          }
+          .stack-card:hover path {
+            stroke: rgba(35, 171, 230, 0.45) !important;
+          }
+        `}</style>
+
+        <div className="zoom-cards-container w-full max-w-[1720px] h-full flex flex-col justify-center relative px-4 md:px-8">
+
+          {/* Title Header Section above the cards, aligned left */}
+          <div className="w-full flex flex-col justify-start z-10 pointer-events-none select-none mb-8 md:mb-12">
+            <h2 className="w-fit inline-block font-display font-black text-[36px] sm:text-[54px] md:text-[76px] leading-[0.95] tracking-tighter bg-gradient-to-r from-[#2ba9e3] to-[#050c26] bg-clip-text text-transparent pb-3 pt-1">
+              Core <br /> Technology Pillars
             </h2>
-            <p className="text-[9px] text-gray-400 font-semibold tracking-widest uppercase mt-3">
-              Scroll down to stack key specifications
-            </p>
+            <div className="mt-4 md:mt-6 text-gray-600 font-normal text-[18px] leading-relaxed max-w-[60%] space-y-4">
+              <p className="text-[18px]">
+                SINC Lab’s engineering and research activities are structured around four core technology domains that enable the development of mission-relevant sensing, processing, communication, and data analytics solutions.
+              </p>
+              <p className="text-[18px]">
+                These pillars collectively support situational awareness, system intelligence, and operational decision support for maritime environments.
+              </p>
+            </div>
           </div>
 
           {/* Centered Stacking Cards Deck */}
-          <div className="relative w-full h-[65vh] flex items-center justify-center select-none overflow-hidden">
-            <div 
-              className="relative flex items-center h-full"
+          <div className="relative w-full flex items-center justify-center select-none" style={{ height: 'var(--card-height)' }}>
+            <div
+              className="relative flex items-center"
               style={{
-                width: 'calc(var(--card-width) + (var(--card-spacing) * 3))',
+                width: 'calc(var(--card-width) * 4 + var(--card-gap) * 3)',
                 height: 'var(--card-height)',
               }}
             >
               {cardsData.map((card, i) => (
-                <div
-                  key={i}
-                  className="stack-card absolute bg-[#f6f6f6] border border-black/[0.08] rounded-2xl shadow-[0_15px_35px_rgba(0,0,0,0.06)] p-6 md:p-10 flex flex-col justify-between"
-                  style={{
-                    width: 'var(--card-width)',
-                    height: 'var(--card-height)',
-                    left: `calc(var(--card-spacing) * ${i})`,
-                    zIndex: 10 + i,
-                    transformOrigin: 'bottom center',
-                    willChange: 'transform, opacity',
-                  }}
-                >
-                  {/* Card Big Brand Blue Number */}
-                  <div className="text-[52px] md:text-[80px] font-black text-[#23abe6] leading-none select-none tracking-tighter">
-                    {card.num}
-                  </div>
-                  
-                  {/* Card Bottom Description */}
-                  <div className="mt-auto select-none">
-                    <h3 className="font-display font-black text-black text-sm md:text-xl leading-tight uppercase tracking-tight">
-                      {card.title}
-                    </h3>
-                    <p className="text-[10px] md:text-[12px] text-gray-500 font-semibold mt-2 leading-snug uppercase">
-                      {card.desc}
-                    </p>
-                  </div>
-                </div>
+                <StackCard key={i} card={card} index={i} />
               ))}
             </div>
-          </div>
-          
-          {/* Bottom Specifications Guide */}
-          <div className="absolute bottom-8 left-6 right-6 md:left-10 md:right-10 flex justify-between items-center text-[9px] uppercase tracking-[0.25em] text-gray-400 font-semibold select-none">
-            <span>SINC 3D Platform Spec Deck</span>
-            <span>Keep Scrolling</span>
           </div>
 
         </div>
