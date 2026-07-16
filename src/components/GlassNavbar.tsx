@@ -6,10 +6,11 @@ interface NavLinkProps {
   href: string;
   active: boolean;
   onClick: () => void;
+  scrolled: boolean;
   children: React.ReactNode;
 }
 
-const NavLink: React.FC<NavLinkProps> = ({ href, active, onClick, children }) => {
+const NavLink: React.FC<NavLinkProps> = ({ href, active, onClick, scrolled, children }) => {
   return (
     <a
       href={href}
@@ -17,14 +18,17 @@ const NavLink: React.FC<NavLinkProps> = ({ href, active, onClick, children }) =>
       className={`
         relative px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider
         transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500
-        ${active ? 'text-white' : 'text-white/60 hover:text-white'}
+        ${scrolled 
+          ? (active ? 'text-[#050c26]' : 'text-[#050c26]/60 hover:text-[#050c26]') 
+          : (active ? 'text-white' : 'text-white/60 hover:text-white')
+        }
       `}
     >
       <span className="relative z-10">{children}</span>
       {active && (
         <motion.div
           layoutId="activeTab"
-          className="absolute inset-0 bg-white/10 rounded-lg -z-0"
+          className={`absolute inset-0 rounded-lg -z-0 ${scrolled ? 'bg-black/5' : 'bg-white/10'}`}
           transition={{ type: 'spring', stiffness: 380, damping: 30 }}
         />
       )}
@@ -52,7 +56,7 @@ export const GlassNavbar: React.FC = () => {
   const navLinks = ['Home', 'About', 'Services', 'Research', 'Projects', 'Contact'];
 
   return (
-    <header className="absolute top-6 left-0 right-0 z-50 flex justify-center px-4 md:px-8 pointer-events-none">
+    <header className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 md:px-8 pointer-events-none">
       <motion.nav
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -61,14 +65,14 @@ export const GlassNavbar: React.FC = () => {
           pointer-events-auto
           flex items-center justify-between
           h-[90px] rounded-[20px]
-          border border-white/[0.06]
+          border
           transition-all duration-500 ease-premium
           w-full max-w-[1728px]
           md:w-[90%]
           lg:px-8
           ${scrolled 
-            ? 'bg-black/75 backdrop-blur-lg shadow-nav-scrolled border-white/[0.04] px-6 py-2' 
-            : 'bg-black/35 backdrop-blur-md shadow-nav px-6 py-2'
+            ? 'bg-white/15 backdrop-blur-xl shadow-md border-black/[0.08] px-6 py-2' 
+            : 'bg-black/35 backdrop-blur-md shadow-nav border-white/[0.06] px-6 py-2'
           }
         `}
       >
@@ -86,10 +90,10 @@ export const GlassNavbar: React.FC = () => {
             className="flex items-center"
           >
             <img 
-              src="/assets/logo.png" 
+              src={scrolled ? "/assets/dark-logo.png" : "/assets/logo.png"} 
               alt="SINC Logo" 
               style={{ height: '60px', width: 'auto' }}
-              className="object-contain" 
+              className="object-contain transition-all duration-300"
             />
           </motion.div>
         </a>
@@ -101,6 +105,7 @@ export const GlassNavbar: React.FC = () => {
               key={link}
               href={`#${link.toLowerCase()}`}
               active={activeLink === link}
+              scrolled={scrolled}
               onClick={() => {
                 setActiveLink(link);
                 setMobileMenuOpen(false);
@@ -131,7 +136,9 @@ export const GlassNavbar: React.FC = () => {
         <div className="flex lg:hidden">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-white/80 hover:text-white rounded-full hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
+            className={`p-2 rounded-full hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 ${
+              scrolled ? 'text-[#050c26] hover:bg-black/5' : 'text-white/80 hover:bg-white/5'
+            }`}
             aria-label="Toggle Navigation Menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

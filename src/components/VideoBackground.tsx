@@ -4,15 +4,33 @@ import { motion } from 'framer-motion';
 export const VideoBackground: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoSrc, setVideoSrc] = useState('');
+
+  useEffect(() => {
+    // Only load the heavy video after the page completes its initial load
+    const handleLoad = () => {
+      const timer = setTimeout(() => {
+        setVideoSrc('/assets/Hero-banner.mp4');
+      }, 800);
+      return () => clearTimeout(timer);
+    };
+
+    if (document.readyState === 'complete') {
+      handleLoad();
+    } else {
+      window.addEventListener('load', handleLoad);
+      return () => window.removeEventListener('load', handleLoad);
+    }
+  }, []);
 
   useEffect(() => {
     // If browser blocks autoplay or in Low Power Mode, ensure fallback works.
-    if (videoRef.current) {
+    if (videoRef.current && videoSrc) {
       if (videoRef.current.readyState >= 3) {
         setVideoLoaded(true);
       }
     }
-  }, []);
+  }, [videoSrc]);
 
   const handleVideoPlay = () => {
     setVideoLoaded(true);
@@ -22,7 +40,7 @@ export const VideoBackground: React.FC = () => {
     <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none">
       {/* Fallback Poster Image with smooth fade-out */}
       <motion.img
-        src="/assets/hero-poster.png"
+        src="/assets/hero-poster.webp"
         alt="Ocean surveillance background"
         initial={{ opacity: 1 }}
         animate={{ opacity: videoLoaded ? 0 : 1 }}
@@ -33,19 +51,20 @@ export const VideoBackground: React.FC = () => {
       {/* Background Video */}
       <video
         ref={videoRef}
+        src={videoSrc || undefined}
         autoPlay
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
         onPlay={handleVideoPlay}
         onLoadedData={handleVideoPlay}
         className="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-[2000ms] ease-premium"
         style={{
           scale: videoLoaded ? 1.0 : 1.05,
+          willChange: 'transform',
         }}
       >
-        <source src="/assets/HERO SECTION VIDEO_processed.mp4" type="video/mp4" />
       </video>
 
       {/* Black-to-transparent gradient overlay (40:70 ratio) */}

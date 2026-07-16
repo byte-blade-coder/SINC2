@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { MouseParallaxProvider } from './components/MouseParallaxProvider';
 import { ZoomSection } from './components/ZoomSection';
 import { InfoSection } from './components/InfoSection';
+import { GlassNavbar } from './components/GlassNavbar';
 import { Shield, Cpu, Compass, Globe, CheckCircle, ArrowUpRight } from 'lucide-react';
 
 export default function App() {
@@ -18,6 +19,8 @@ export default function App() {
   return (
     <MouseParallaxProvider>
       <div className="w-full min-h-screen bg-[#050505] relative overflow-x-hidden selection:bg-cyan-500/30 selection:text-white flex flex-col items-center">
+        <h1 className="sr-only">SINC 3D - Engineering Maritime Domain Awareness & Advanced Sensory Systems</h1>
+        <GlassNavbar />
         
         {/* 1. HERO & LOGO ZOOM SECTION */}
         <section id="home" className="w-full">
@@ -146,10 +149,11 @@ export default function App() {
               
               <div className="relative w-full lg:w-1/2 max-w-[500px] aspect-square rounded-2xl overflow-hidden border border-white/10 group shadow-2xl">
                 <img 
-                  src="/assets/hero-poster.png" 
+                  src="/assets/hero-poster.webp" 
                   alt="3D Sensor fusion graphics" 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   style={{ filter: 'brightness(0.7) contrast(1.1)' }}
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6">

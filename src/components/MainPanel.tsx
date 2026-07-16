@@ -3,7 +3,6 @@ import { useMouseParallax } from './MouseParallaxProvider';
 import { VideoBackground } from './VideoBackground';
 import { AmbientLights } from './AmbientLights';
 import { NoiseOverlay } from './NoiseOverlay';
-import { GlassNavbar } from './GlassNavbar';
 import { HeroContent } from './HeroContent';
 import { ScrollIndicator } from './ScrollIndicator';
 
@@ -34,8 +33,6 @@ export const MainPanel: React.FC = () => {
       {/* Visual Layer 3: Film-grain Noise */}
       <NoiseOverlay />
 
-      {/* Visual Layer 4: Glassmorphism Nav bar */}
-      <GlassNavbar />
 
       {/* Visual Layer 5: Staggered Content */}
       <HeroContent />

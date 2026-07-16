@@ -90,6 +90,7 @@ const StackCard: React.FC<StackCardProps> = ({ card, index }) => {
             src={card.image}
             alt={card.title}
             className="w-full h-full object-cover"
+            loading="lazy"
           />
           {/* Subtle Dark Gradient Overlay at the bottom for text readability on dark images */}
           <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
@@ -242,16 +243,10 @@ export const ZoomSection: React.FC = () => {
       setIsMeasured(true);
     };
 
-    // Ensure image is loaded before measuring
-    const img = new Image();
-    img.src = '/assets/logo.png';
-    img.onload = calculatePositions;
-
-    const timer = setTimeout(calculatePositions, 200);
+    calculatePositions();
 
     window.addEventListener('resize', calculatePositions);
     return () => {
-      clearTimeout(timer);
       window.removeEventListener('resize', calculatePositions);
     };
   }, []);
