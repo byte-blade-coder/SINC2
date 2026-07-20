@@ -33,9 +33,10 @@ const StackCard: React.FC<StackCardProps> = ({ card, index }) => {
     return () => observer.disconnect();
   }, []);
 
-  const r = 24; // corner radius
-  const nw = size.width > 300 ? 90 : 70; // notch width
-  const nh = size.width > 300 ? 90 : 70; // notch height
+  const r = size.width > 300 ? 12 : 6; // main corner radius
+  const nr = r; // notch side corners radius matching the rest of the card
+  const nw = size.width > 300 ? 90 : 54; // notch width
+  const nh = size.width > 300 ? 90 : 54; // notch height
 
   // SVG Path String for the card outline and image clipping
   const pathD = `
@@ -46,10 +47,10 @@ const StackCard: React.FC<StackCardProps> = ({ card, index }) => {
     A ${r} ${r} 0 0 0 ${size.width} ${size.height - r}
     L ${size.width} ${r}
     A ${r} ${r} 0 0 0 ${size.width - r} 0
-    L ${nw + r} 0
-    A ${r} ${r} 0 0 0 ${nw} ${r}
-    L ${nw} ${nh - r}
-    A ${r} ${r} 0 0 1 ${nw - r} ${nh}
+    L ${nw + nr} 0
+    A ${nr} ${nr} 0 0 0 ${nw} ${nr}
+    L ${nw} ${nh - nr}
+    A ${nr} ${nr} 0 0 1 ${nw - nr} ${nh}
     L ${r} ${nh}
     A ${r} ${r} 0 0 0 0 ${nh + r}
     Z
@@ -58,15 +59,21 @@ const StackCard: React.FC<StackCardProps> = ({ card, index }) => {
   return (
     <div
       ref={cardRef}
-      className="stack-card absolute bg-transparent"
+      className={`stack-card absolute bg-transparent stack-card-${index} ${card.title === 'Sensing' ? 'cursor-pointer hover:scale-[1.02] transition-transform duration-300' : ''}`}
       style={{
         width: 'var(--card-width)',
         height: 'var(--card-height)',
-        left: `calc(var(--card-spacing) * ${index})`,
-        top: '0px',
         zIndex: 10 + index,
         transformOrigin: 'bottom center',
         willChange: 'transform, opacity',
+      }}
+      onClick={() => {
+        if (card.title === 'Sensing') {
+          const el = document.getElementById('sensing-capabilities');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
       }}
     >
       {/* SVG ClipPath Definition for the image (matches card body exactly) */}
@@ -121,26 +128,29 @@ const StackCard: React.FC<StackCardProps> = ({ card, index }) => {
         <div
           className="bg-[#23abe6] text-white font-black flex items-center justify-center shadow-[0_4px_12px_rgba(35,171,230,0.2)] select-none tracking-tighter"
           style={{
-            width: size.width > 300 ? '64px' : '48px',
-            height: size.width > 300 ? '64px' : '48px',
-            fontSize: size.width > 300 ? '32px' : '22px',
-            borderRadius: size.width > 300 ? '16px' : '12px',
+            width: size.width > 300 ? '64px' : '42px',
+            height: size.width > 300 ? '64px' : '42px',
+            fontSize: size.width > 300 ? '32px' : '18px',
+            borderRadius: size.width > 300 ? '8px' : '6px',
+            transform: size.width > 300 ? 'none' : 'translate(-2px, -2px)', // Shift slightly up-left on mobile for space optimization
           }}
         >
           {card.num.replace(/^0/, '')}
         </div>
       </div>
 
-
-
-      {/* Card Bottom Description Overlay (Absolute positioned on top of the image) */}
+      {/* Card Content Overlay (Constrained to never overlap with the top cutout notch) */}
       <div
-        className="absolute left-6 right-6 bottom-6 select-none text-white pointer-events-none z-10"
+        className="absolute left-3 right-3 bottom-3 md:left-6 md:right-6 md:bottom-6 select-none text-white pointer-events-none z-10 flex flex-col justify-end"
+        style={{
+          top: size.width > 300 ? '95px' : '62px', // Reserves dedicated padding space below the notch
+        }}
       >
-        <h3 className="font-display font-black text-white text-xs md:text-lg leading-tight uppercase tracking-tight">
+        <h3 className="font-display font-bold text-white text-[12px] md:text-lg leading-tight uppercase tracking-tight">
           {card.title}
         </h3>
-        <p className="text-[9px] md:text-[11px] text-gray-200 font-semibold mt-1.5 leading-snug uppercase">
+        <div className="h-1 md:h-2" /> {/* Consistent spacing between title and description */}
+        <p className="text-[9.5px] md:text-[11px] text-gray-200 font-semibold leading-[1.3] md:leading-[1.45] uppercase">
           {card.desc}
         </p>
       </div>
@@ -156,7 +166,14 @@ export const ZoomSection: React.FC = () => {
   const backingRef = useRef<HTMLDivElement>(null);
   const revealContentRef = useRef<HTMLDivElement>(null);
 
-  const [dimensions, setDimensions] = useState({ scale: 100, x: 0, y: 0, baseScale: 1 });
+  const [dimensions, setDimensions] = useState({
+    scale: 100,
+    xStart: 0,
+    yStart: 0,
+    xEnd: 0,
+    yEnd: 0,
+    baseScale: 1
+  });
   const [isMeasured, setIsMeasured] = useState(false);
 
   const cardsData = [
@@ -207,6 +224,10 @@ export const ZoomSection: React.FC = () => {
       const iLocalWidth = 26;
       const iLocalHeight = 132;
 
+      // Center of the logo canvas
+      const cx = logoWidth / 2; // 401.5
+      const cy = logoHeight / 2; // 135
+
       // Fit the logo inside the viewport (max 85% width or 85% height of viewport)
       const baseScale = Math.min(
         1.0,
@@ -223,21 +244,23 @@ export const ZoomSection: React.FC = () => {
       const scaleY = (vh / iScaledHeight) * 1.5;
       const targetScaleMultiplier = Math.max(scaleX, scaleY);
 
-      // Center of the letter 'i' on screen when the logo is centered
-      const screenIX = (vw - logoWidth * baseScale) / 2 + iLocalX * baseScale;
-      const screenIY = (vh - logoHeight * baseScale) / 2 + iLocalY * baseScale;
+      // Translation to center the logo itself initially (accounting for custom transformOrigin)
+      const xStart = (cx - iLocalX) * (1 - baseScale);
+      const yStart = (cy - iLocalY) * (1 - baseScale);
 
-      // Translation needed to center 'i' in the viewport
-      const translateX = vw / 2 - screenIX;
-      const translateY = vh / 2 - screenIY;
+      // Translation to center the letter 'i' at peak zoom (independent of scale factor)
+      const xEnd = cx - iLocalX;
+      const yEnd = cy - iLocalY;
 
       // Set transform origin of the logo container to the center of 'i' in local coordinates
       textNode.style.transformOrigin = `${iLocalX}px ${iLocalY}px`;
 
       setDimensions({
         scale: targetScaleMultiplier,
-        x: translateX,
-        y: translateY,
+        xStart: xStart,
+        yStart: yStart,
+        xEnd: xEnd,
+        yEnd: yEnd,
         baseScale: baseScale,
       });
       setIsMeasured(true);
@@ -262,11 +285,11 @@ export const ZoomSection: React.FC = () => {
 
     if (!container || !heroWrapper || !sincText || !backing || !revealContent) return;
 
-    // Apply measured base scale, origin, and translation
+    // Apply measured base scale, origin, and translation to center the logo itself initially
     gsap.set(sincText, {
       transformOrigin: `495px 129.5px`,
-      x: dimensions.x,
-      y: dimensions.y,
+      x: dimensions.xStart,
+      y: dimensions.yStart,
       scale: dimensions.baseScale,
       opacity: 0,
     });
@@ -292,23 +315,39 @@ export const ZoomSection: React.FC = () => {
         },
       });
 
-      // Set initial state of cards off-screen bottom-right
       gsap.set(cardElements, {
         x: (index: number, target: any) => {
           const clientWidth = document.documentElement.clientWidth;
           const cardWidth = target.offsetWidth;
-          // Calculate gap based on screen size (matching the CSS variables)
-          const cardGap = clientWidth >= 1024 ? 24 : (clientWidth >= 768 ? 16 : 12);
-          const cardSpacing = cardWidth + cardGap;
-          const wrapperWidth = cardWidth * 4 + cardGap * 3;
-          const cardLeft = (clientWidth - wrapperWidth) / 2 + (cardSpacing * index);
-          return clientWidth - cardLeft;
+          const cardGap = clientWidth >= 768 ? (clientWidth >= 1024 ? 24 : 16) : 12;
+
+          if (clientWidth >= 768) {
+            const cardSpacing = cardWidth + cardGap;
+            const wrapperWidth = cardWidth * 4 + cardGap * 3;
+            const cardLeft = (clientWidth - wrapperWidth) / 2 + (cardSpacing * index);
+            return clientWidth - cardLeft;
+          } else {
+            const cardSpacingX = cardWidth + cardGap;
+            const wrapperWidth = cardWidth * 2 + cardGap;
+            const cardLeft = (clientWidth - wrapperWidth) / 2 + (cardSpacingX * (index % 2));
+            return clientWidth - cardLeft;
+          }
         },
         y: (index: number, target: any) => {
           const clientHeight = document.documentElement.clientHeight;
+          const clientWidth = document.documentElement.clientWidth;
           const cardHeight = target.offsetHeight;
-          const cardTop = (clientHeight - cardHeight) / 2;
-          return clientHeight - cardTop;
+          const cardGap = clientWidth >= 768 ? (clientWidth >= 1024 ? 24 : 16) : 12;
+
+          if (clientWidth >= 768) {
+            const cardTop = (clientHeight - cardHeight) / 2;
+            return clientHeight - cardTop;
+          } else {
+            const cardSpacingY = cardHeight + cardGap;
+            const wrapperHeight = cardHeight * 2 + cardGap;
+            const cardTop = (clientHeight - wrapperHeight) / 2 + (cardSpacingY * Math.floor(index / 2));
+            return clientHeight - cardTop;
+          }
         },
         rotation: 0,
         opacity: 0,
@@ -326,9 +365,11 @@ export const ZoomSection: React.FC = () => {
           duration: 0.4,
           ease: 'power1.out',
         }, '-=0.5')
-        // Zoom the logo container
+        // Zoom the logo container and pan to the letter 'i' to align its zoom path
         .to(sincText, {
           scale: dimensions.baseScale * dimensions.scale,
+          x: dimensions.xEnd,
+          y: dimensions.yEnd,
           duration: 2.5,
           ease: 'power2.in',
         })
@@ -338,9 +379,9 @@ export const ZoomSection: React.FC = () => {
           duration: 1.5,
           ease: 'power2.inOut',
         }, '-=2.0') // Overlaps with scale zoom
-        // Simultaneously fade background to white and fade out logo near the peak zoom
+        // Simultaneously fade background to transparent to reveal the global fixed gradient
         .to(container, {
-          backgroundColor: '#ffffff',
+          backgroundColor: 'rgba(255, 255, 255, 0)',
           duration: 0.8,
           ease: 'power1.inOut',
         }, '-=0.8')
@@ -424,6 +465,7 @@ export const ZoomSection: React.FC = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            flexShrink: 0,
           }}
         >
           {/* White solid backing behind the transparent letter 'i' (X: 482 to 508, Y: 64 to 195) */}
@@ -457,9 +499,10 @@ export const ZoomSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Reveal Content (shown on white background) */}
+      {/* Reveal Content (shown on transparent background to inherit global gradient) */}
       <div
         ref={revealContentRef}
+        className=""
         style={{
           position: 'absolute',
           top: 0,
@@ -469,40 +512,75 @@ export const ZoomSection: React.FC = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          background: 'radial-gradient(140% 140% at 100% 100%, #AEE8FF 0%, #DFF4FF 25%, #F4FAFF 60%, #FFFFFF 100%)',
+          background: 'transparent',
           color: '#1d1d1f',
           zIndex: 4,
           padding: '0 24px',
           overflow: 'hidden',
         }}
       >
+        {/* Mobile-only Premium Ambient Radial Blurs (matches heading gradient colors) */}
+        <div className="absolute top-[10%] -left-[30vw] w-[90vw] h-[90vw] bg-[#2ba9e3]/30 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
+        <div className="absolute bottom-[10%] -right-[30vw] w-[90vw] h-[90vw] bg-[#050c26]/20 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
+
         <style>{`
           .zoom-cards-container {
             --card-gap: 12px;
-            --card-width: calc(((100vw - 40px) - 36px) / 4);
+            --card-width: min(165px, calc(((100vw - 24px) - 12px) / 2));
             --card-height: var(--card-width);
-            --card-spacing: calc(var(--card-width) + var(--card-gap));
+            --card-spacing-x: calc(var(--card-width) + var(--card-gap));
+            --card-spacing-y: calc(var(--card-width) + var(--card-gap));
+            --container-width: calc(var(--card-width) * 2 + var(--card-gap));
+            --container-height: calc(var(--card-height) * 2 + var(--card-gap));
+            padding-top: 0px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
           }
+          .stack-card-0 { left: 0; top: 0; }
+          .stack-card-1 { left: var(--card-spacing-x); top: 0; }
+          .stack-card-2 { left: 0; top: var(--card-spacing-y); }
+          .stack-card-3 { left: var(--card-spacing-x); top: var(--card-spacing-y); }
+
           @media (min-width: 768px) {
             .zoom-cards-container {
               --card-gap: 16px;
               --card-width: min(280px, calc(((100vw - 80px) - 48px) / 4));
               --card-height: var(--card-width);
+              --card-spacing-x: calc(var(--card-width) + var(--card-gap));
+              --card-spacing-y: 0px;
+              --container-width: calc(var(--card-width) * 4 + var(--card-gap) * 3);
+              --container-height: var(--card-height);
+              padding-top: 0px;
+              justify-content: center;
             }
+            .stack-card-2 { left: calc(var(--card-spacing-x) * 2); top: 0; }
+            .stack-card-3 { left: calc(var(--card-spacing-x) * 3); top: 0; }
           }
           @media (min-width: 1024px) {
             .zoom-cards-container {
               --card-gap: 24px;
               --card-width: min(390px, calc(((100vw - 80px) - 72px) / 4));
               --card-height: var(--card-width);
+              --card-spacing-x: calc(var(--card-width) + var(--card-gap));
+              --card-spacing-y: 0px;
+              --container-width: calc(var(--card-width) * 4 + var(--card-gap) * 3);
+              --container-height: var(--card-height);
             }
           }
           .stack-card {
-            transition: top 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-top: 0px;
+            transition: margin-top 0.3s cubic-bezier(0.16, 1, 0.3, 1);
           }
-          .stack-card:hover {
-            top: -15px !important;
+          .stack-card:hover, .stack-card:active {
+            margin-top: -5px !important;
             z-index: 50 !important;
+          }
+          @media (min-width: 768px) {
+            .stack-card:hover, .stack-card:active {
+              margin-top: -15px !important;
+            }
           }
           .stack-card svg {
             transition: filter 0.3s ease;
@@ -518,30 +596,30 @@ export const ZoomSection: React.FC = () => {
           }
         `}</style>
 
-        <div className="zoom-cards-container w-full max-w-[1720px] h-full flex flex-col justify-center relative px-4 md:px-8">
+        <div className="zoom-cards-container w-full max-w-[1720px] relative px-4 md:px-8">
 
           {/* Title Header Section above the cards, aligned left */}
-          <div className="w-full flex flex-col justify-start z-10 pointer-events-none select-none mb-8 md:mb-12">
-            <h2 className="w-fit inline-block font-display font-black text-[36px] sm:text-[54px] md:text-[76px] leading-[0.95] tracking-tighter bg-gradient-to-r from-[#2ba9e3] to-[#050c26] bg-clip-text text-transparent pb-3 pt-1">
+          <div className="w-full flex flex-col items-center md:items-start text-center md:text-left z-10 pointer-events-none select-none mb-4 md:mb-12">
+            <h2 className="w-fit inline-block mx-auto md:mx-0 font-display font-black text-[28px] sm:text-[54px] md:text-[76px] leading-[0.95] tracking-tighter bg-gradient-to-r from-[#2ba9e3] to-[#050c26] bg-clip-text text-transparent pb-2 md:pb-3 pt-1">
               Core <br /> Technology Pillars
             </h2>
-            <div className="mt-4 md:mt-6 text-gray-600 font-normal text-[18px] leading-relaxed max-w-[60%] space-y-4">
-              <p className="text-[18px]">
+            <div className="mt-2 md:mt-6 text-center md:text-left text-gray-600 font-normal text-[13px] sm:text-[14px] md:text-[18px] leading-relaxed max-w-full md:max-w-[60%] space-y-2 md:space-y-4">
+              <p className="text-[13px] sm:text-[14px] md:text-[18px]">
                 SINC Lab’s engineering and research activities are structured around four core technology domains that enable the development of mission-relevant sensing, processing, communication, and data analytics solutions.
               </p>
-              <p className="text-[18px]">
+              <p className="text-[13px] sm:text-[14px] md:text-[18px]">
                 These pillars collectively support situational awareness, system intelligence, and operational decision support for maritime environments.
               </p>
             </div>
           </div>
 
           {/* Centered Stacking Cards Deck */}
-          <div className="relative w-full flex items-center justify-center select-none" style={{ height: 'var(--card-height)' }}>
+          <div className="relative w-full flex items-center justify-center select-none" style={{ height: 'var(--container-height)' }}>
             <div
               className="relative flex items-center"
               style={{
-                width: 'calc(var(--card-width) * 4 + var(--card-gap) * 3)',
-                height: 'var(--card-height)',
+                width: 'var(--container-width)',
+                height: 'var(--container-height)',
               }}
             >
               {cardsData.map((card, i) => (
@@ -555,4 +633,3 @@ export const ZoomSection: React.FC = () => {
     </div>
   );
 };
-

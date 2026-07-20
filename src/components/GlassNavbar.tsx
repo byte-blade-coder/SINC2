@@ -56,7 +56,7 @@ export const GlassNavbar: React.FC = () => {
   const navLinks = ['Home', 'About', 'Services', 'Research', 'Projects', 'Contact'];
 
   return (
-    <header className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 md:px-8 pointer-events-none">
+    <header className="fixed top-3 md:top-6 left-0 right-0 z-50 flex justify-center px-4 md:px-8 pointer-events-none">
       <motion.nav
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -64,7 +64,7 @@ export const GlassNavbar: React.FC = () => {
         className={`
           pointer-events-auto
           flex items-center justify-between
-          h-[90px] rounded-[20px]
+          h-[70px] md:h-[90px] rounded-[20px]
           border
           transition-all duration-500 ease-premium
           w-full max-w-[1728px]
@@ -92,8 +92,7 @@ export const GlassNavbar: React.FC = () => {
             <img 
               src={scrolled ? "/assets/dark-logo.png" : "/assets/logo.png"} 
               alt="SINC Logo" 
-              style={{ height: '60px', width: 'auto' }}
-              className="object-contain transition-all duration-300"
+              className="h-[45px] md:h-[60px] w-auto object-contain transition-all duration-300"
             />
           </motion.div>
         </a>
@@ -154,7 +153,7 @@ export const GlassNavbar: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="pointer-events-auto absolute top-[120px] left-4 right-4 z-40 p-6 rounded-2xl border border-white/10 bg-black/90 backdrop-blur-xl shadow-2xl flex flex-col gap-4 lg:hidden"
+            className="pointer-events-auto absolute top-[95px] md:top-[125px] left-4 right-4 z-40 p-6 rounded-2xl border border-white/10 bg-black/90 backdrop-blur-xl shadow-2xl flex flex-col gap-4 lg:hidden"
           >
             <div className="flex flex-col gap-2">
               {navLinks.map((link) => (

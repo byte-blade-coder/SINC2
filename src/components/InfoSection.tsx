@@ -83,6 +83,7 @@ export const InfoSection: React.FC = () => {
     <section
       ref={sectionRef}
       id="features"
+      className="relative mobile-transparent-bg overflow-hidden"
       style={{
         backgroundColor: '#ffffff',
         color: '#1d1d1f',
@@ -95,9 +96,14 @@ export const InfoSection: React.FC = () => {
         zIndex: 5,
       }}
     >
+      {/* Mobile-only Ambient Blurs */}
+      <div className="absolute top-[10%] -left-[30vw] w-[100vw] h-[100vw] bg-[#2ba9e3]/15 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
+      <div className="absolute bottom-[10%] -right-[30vw] w-[100vw] h-[100vw] bg-[#050c26]/10 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
+
       {/* Header */}
       <div
         ref={headerRef}
+        className="relative z-10"
         style={{
           textAlign: 'center',
           maxWidth: '800px',
@@ -145,6 +151,7 @@ export const InfoSection: React.FC = () => {
       {/* Feature Grid */}
       <div
         ref={gridRef}
+        className="relative z-10"
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',

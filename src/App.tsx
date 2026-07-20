@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { MouseParallaxProvider } from './components/MouseParallaxProvider';
 import { ZoomSection } from './components/ZoomSection';
-import { InfoSection } from './components/InfoSection';
 import { GlassNavbar } from './components/GlassNavbar';
+import { CapabilitiesShowcase } from './components/CapabilitiesShowcase';
 import { Shield, Cpu, Compass, Globe, CheckCircle, ArrowUpRight } from 'lucide-react';
 
 export default function App() {
@@ -18,7 +18,7 @@ export default function App() {
 
   return (
     <MouseParallaxProvider>
-      <div className="w-full min-h-screen bg-[#050505] relative overflow-x-hidden selection:bg-cyan-500/30 selection:text-white flex flex-col items-center">
+      <div className="w-full min-h-screen root-bg relative selection:bg-cyan-500/30 selection:text-white flex flex-col items-center">
         <h1 className="sr-only">SINC 3D - Engineering Maritime Domain Awareness & Advanced Sensory Systems</h1>
         <GlassNavbar />
         
@@ -27,20 +27,126 @@ export default function App() {
           <ZoomSection />
         </section>
 
-        {/* 2. INFO SECTION (White background capabilities grid) */}
-        <InfoSection />
-
-        {/* Padded container for the rest of the dark sections */}
-        <div className="w-full p-3 md:p-4 lg:p-5 flex flex-col items-center">
+        {/* Padded container for the rest of the sections */}
+        <div className="w-full p-3 md:p-4 lg:p-5 flex flex-col items-center transparent-bg invert-text relative z-20 -mt-[5vh] md:-mt-[10vh] lg:-mt-[15vh]">
           
-          {/* 3. MISSION SECTION */}
-          <section id="about" className="w-full max-w-7xl px-6 py-20 md:py-32 flex flex-col items-center border-t border-white/[0.03]">
+          {/* NEW CAPABILITIES SHOWCASE */}
+          <CapabilitiesShowcase />
+
+          {/* ADVANCED SENSING SECTION */}
+          <section id="advanced-sensing" className="relative w-full max-w-7xl px-6 py-20 md:py-32 flex flex-col items-center border-t border-white/[0.03]">
+            {/* Mobile-only Ambient Blurs */}
+            <div className="absolute top-[10%] -left-[30vw] w-[100vw] h-[100vw] bg-[#2ba9e3]/15 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
+            <div className="absolute bottom-[10%] -right-[30vw] w-[100vw] h-[100vw] bg-[#050c26]/10 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
+
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
               variants={fadeUpVariants}
-              className="text-center max-w-3xl"
+              className="relative z-10 text-center max-w-4xl mb-16"
+            >
+              <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-cyan-400">
+                Advanced Sensing Technologies
+              </span>
+              <h2 className="font-display font-semibold text-3xl md:text-5xl lg:text-6xl text-white tracking-tight mt-4 leading-[1.1]">
+                Advanced Sensing Technologies
+              </h2>
+              <p className="text-white/60 font-sans text-base md:text-lg leading-relaxed mt-6">
+                SINC Lab develops and integrates sensing systems that enable the collection of critical operational data from maritime environments and onboard systems. These sensing solutions provide the foundational input required for real-time monitoring, control, and situational awareness.
+              </p>
+            </motion.div>
+
+            {/* Technology Areas Grid */}
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
+              {/* Card 1: Radar & RF */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 hover:bg-white/[0.04] hover:border-white/12 transition-all duration-300 flex flex-col group"
+              >
+                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-400 mb-2">Technology Areas</span>
+                <h3 className="font-display font-semibold text-2xl text-white tracking-tight mb-4">Radar & RF Sensing</h3>
+                <p className="text-white/60 text-sm leading-relaxed mb-4">
+                  SINC Lab is actively engaged in the development and application of Radar and RF sensing technologies for maritime surveillance and navigation. The lab has established strong capabilities in:
+                </p>
+                <ul className="list-disc list-inside text-white/50 text-sm space-y-2 mb-6 flex-grow">
+                  <li>Radar systems</li>
+                  <li>RF and Microwave sensing technologies</li>
+                  <li>Signal acquisition and modelling</li>
+                  <li>Enabling radio demonstration, testing, and analysis of electromagnetic signals</li>
+                </ul>
+                <p className="text-white/50 text-xs leading-relaxed border-t border-white/[0.06] pt-4 mt-auto">
+                  These technologies form a critical component of SINC Lab's sensing domain, providing high-fidelity data inputs for detection, perception, communication, and maritime awareness systems.
+                </p>
+              </motion.div>
+
+              {/* Card 2: Environmental */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 hover:bg-white/[0.04] hover:border-white/12 transition-all duration-300 flex flex-col group"
+              >
+                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-400 mb-2">Technology Areas</span>
+                <h3 className="font-display font-semibold text-2xl text-white tracking-tight mb-4">Environmental Sensors</h3>
+                <p className="text-white/60 text-sm leading-relaxed mb-4">
+                  We develop and deploy environmental sensing systems to measure and monitor key physical variables such as:
+                </p>
+                <ul className="list-disc list-inside text-white/50 text-sm space-y-2 mb-4">
+                  <li>Temperature</li>
+                  <li>Pressure</li>
+                  <li>Gas Presence</li>
+                  <li>Humidity</li>
+                </ul>
+                <p className="text-white/60 text-sm leading-relaxed mb-6 flex-grow">
+                  and more. These systems continuously capture data from the surrounding environment to support the performance, reliability, and health of operational systems.
+                </p>
+                <p className="text-white/50 text-xs leading-relaxed border-t border-white/[0.06] pt-4 mt-auto">
+                  We also extend our capabilities to the environmental monitoring of electrical networks, and other critical operational parameters, delivering valuable data inputs for further processing and analysis.
+                </p>
+              </motion.div>
+
+              {/* Card 3: Control & Interface */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-8 hover:bg-white/[0.04] hover:border-white/12 transition-all duration-300 flex flex-col group"
+              >
+                <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-cyan-400 mb-2">Technology Areas</span>
+                <h3 className="font-display font-semibold text-2xl text-white tracking-tight mb-4">Control & Interface Sensors</h3>
+                <p className="text-white/60 text-sm leading-relaxed mb-4">
+                  Control and interface sensing systems are designed to bridge physical sensors with embedded and digital platforms, enabling accurate data acquisition and system interaction. These include:
+                </p>
+                <ul className="list-disc list-inside text-white/50 text-sm space-y-2 mb-6 flex-grow">
+                  <li>Electrical Control Units (ECUs)</li>
+                  <li>Embedded sensing modules</li>
+                  <li>Sensor interface and signal conditioning systems</li>
+                </ul>
+                <p className="text-white/50 text-xs leading-relaxed border-t border-white/[0.06] pt-4 mt-auto">
+                  These solutions ensure that sensor outputs are properly captured, conditioned, and converted into digital signals, allowing reliable communication between hardware components and higher-level processing systems.
+                </p>
+              </motion.div>
+            </div>
+          </section>
+
+          {/* 3. MISSION SECTION */}
+          <section id="about" className="relative w-full max-w-7xl px-6 py-20 md:py-32 flex flex-col items-center border-t border-white/[0.03]">
+            {/* Mobile-only Ambient Blurs */}
+            <div className="absolute top-[5%] -left-[30vw] w-[100vw] h-[100vw] bg-[#2ba9e3]/15 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
+            <div className="absolute bottom-[5%] -right-[30vw] w-[100vw] h-[100vw] bg-[#050c26]/10 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={fadeUpVariants}
+              className="relative z-10 text-center max-w-3xl"
             >
               <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-cyan-400">
                 Our Mission
@@ -54,7 +160,7 @@ export default function App() {
             </motion.div>
 
             {/* Key Metrics grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mt-16">
+            <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-6 w-full mt-16">
               {[
                 { val: "99.9%", label: "System Autonomy", desc: "Unmanned operations in hostile remote environments." },
                 { val: "< 50ms", label: "Latency Fusion", desc: "Ultra-fast telemetry aggregation from multi-spectral arrays." },
@@ -77,8 +183,12 @@ export default function App() {
           </section>
 
           {/* 4. CAPABILITIES SECTION */}
-          <section id="services" className="w-full max-w-7xl px-6 py-20 md:py-32 border-t border-white/[0.03]">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
+          <section id="services" className="relative w-full max-w-7xl px-6 py-20 md:py-32 border-t border-white/[0.03]">
+            {/* Mobile-only Ambient Blurs */}
+            <div className="absolute top-[10%] -left-[30vw] w-[100vw] h-[100vw] bg-[#2ba9e3]/15 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
+            <div className="absolute bottom-[10%] -right-[30vw] w-[100vw] h-[100vw] bg-[#050c26]/10 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
+
+            <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between mb-16">
               <div className="max-w-xl">
                 <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-cyan-400">
                   Capabilities
@@ -93,7 +203,7 @@ export default function App() {
             </div>
 
             {/* Capabilities Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 { icon: Shield, title: "Threat Detection", desc: "Immediate classification of surface, sub-surface, and aerial anomalies." },
                 { icon: Compass, title: "Smart Navigation", desc: "Machine-learning navigation systems capable of extreme condition pathfinding." },
@@ -124,8 +234,12 @@ export default function App() {
           </section>
 
           {/* 5. TECHNOLOGY SECTION */}
-          <section id="research" className="w-full max-w-7xl px-6 py-20 md:py-32 border-t border-white/[0.03]">
-            <div className="bg-gradient-to-br from-white/[0.02] to-transparent border border-white/[0.06] rounded-3xl p-8 md:p-16 flex flex-col lg:flex-row items-center justify-between gap-12">
+          <section id="research" className="relative w-full max-w-7xl px-6 py-20 md:py-32 border-t border-white/[0.03]">
+            {/* Mobile-only Ambient Blurs */}
+            <div className="absolute top-[10%] -left-[30vw] w-[100vw] h-[100vw] bg-[#2ba9e3]/15 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
+            <div className="absolute bottom-[10%] -right-[30vw] w-[100vw] h-[100vw] bg-[#050c26]/10 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
+
+            <div className="relative z-10 bg-gradient-to-br from-white/[0.02] to-transparent border border-white/[0.06] rounded-3xl p-8 md:p-16 flex flex-col lg:flex-row items-center justify-between gap-12">
               <div className="max-w-xl">
                 <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-cyan-400">
                   Technology
@@ -167,8 +281,12 @@ export default function App() {
           </section>
 
           {/* 6. FOOTER SECTION */}
-          <footer id="contact" className="w-full max-w-7xl px-6 pt-20 pb-12 border-t border-white/[0.03] flex flex-col gap-12">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <footer id="contact" className="relative overflow-hidden w-full max-w-7xl px-6 pt-20 pb-12 border-t border-white/[0.03] flex flex-col gap-12">
+            {/* Mobile-only Ambient Blurs */}
+            <div className="absolute top-[10%] -left-[30vw] w-[100vw] h-[100vw] bg-[#2ba9e3]/15 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
+            <div className="absolute bottom-[20%] -right-[30vw] w-[100vw] h-[100vw] bg-[#050c26]/10 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
+
+            <div className="relative z-10 grid grid-cols-1 md:grid-cols-4 gap-8">
               <div className="flex flex-col gap-4">
                 <div className="flex items-center gap-2">
                   <Shield className="w-5 h-5 text-cyan-400" />
@@ -197,7 +315,7 @@ export default function App() {
               ))}
             </div>
 
-            <div className="border-t border-white/[0.04] pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-white/30 text-[11px] tracking-wide">
+            <div className="relative z-10 border-t border-white/[0.04] pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-white/30 text-[11px] tracking-wide">
               <div>&copy; {new Date().getFullYear()} SINC 3D Inc. All rights reserved.</div>
               <div className="flex gap-6">
                 <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
@@ -207,6 +325,64 @@ export default function App() {
             </div>
           </footer>
         </div>
+
+        <style>{`
+          .root-bg {
+            background: radial-gradient(140% 140% at 100% 100%, #AEE8FF 0%, #DFF4FF 25%, #F4FAFF 60%, #FFFFFF 100%) !important;
+            background-attachment: fixed !important;
+            background-size: cover !important;
+          }
+          @media (max-width: 767px) {
+            .root-bg {
+              background: #ffffff !important;
+            }
+          }
+          .transparent-bg {
+            background: transparent !important;
+          }
+          
+          .invert-text {
+            color: #111827 !important;
+          }
+          .invert-text .text-white {
+            color: #111827 !important;
+          }
+          .invert-text .text-white\\/80,
+          .invert-text .text-white\\/70,
+          .invert-text .text-white\\/60,
+          .invert-text .text-white\\/50,
+          .invert-text .text-white\\/40,
+          .invert-text .text-white\\/30 {
+            color: #4b5563 !important;
+          }
+          .invert-text .text-cyan-400 {
+            color: #0284c7 !important;
+          }
+          .invert-text .bg-white\\/\\[0\\.02\\],
+          .invert-text .bg-white\\/\\[0\\.01\\] {
+            background-color: rgba(255, 255, 255, 0.6) !important;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04) !important;
+          }
+          .invert-text .border-white\\/\\[0\\.06\\],
+          .invert-text .border-white\\/12,
+          .invert-text .border-white\\/10,
+          .invert-text .border-white\\/\\[0\\.03\\],
+          .invert-text .border-white\\/\\[0\\.04\\] {
+            border-color: rgba(0, 0, 0, 0.08) !important;
+          }
+          .invert-text .border-t {
+            border-color: rgba(0, 0, 0, 0.05) !important;
+          }
+          .invert-text .bg-gradient-to-br {
+            background: linear-gradient(to bottom right, rgba(255,255,255,0.8), rgba(255,255,255,0.2)) !important;
+          }
+          .invert-text .bg-gradient-to-t {
+            background: linear-gradient(to top, rgba(255,255,255,0.9), transparent) !important;
+          }
+          .invert-text a.text-white\\/40 {
+            color: #6b7280 !important;
+          }
+        `}</style>
       </div>
     </MouseParallaxProvider>
   );
