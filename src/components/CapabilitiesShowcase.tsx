@@ -130,7 +130,7 @@ export const CapabilitiesShowcase: React.FC = () => {
     <div id="sensing-capabilities" className="w-full text-white">
       
       {/* MOBILE LAYOUT (Hidden on md+) */}
-      <div className="w-full md:hidden flex flex-col pt-8 pb-16 px-6">
+      <div className="w-full md:hidden flex flex-col pt-28 pb-16 px-6">
         <div className="w-full flex flex-col items-start text-left mb-8">
           <h2 className="w-fit inline-block font-display font-black text-[36px] sm:text-[40px] leading-[0.95] tracking-tighter bg-gradient-to-r from-[#2ba9e3] to-[#050c26] bg-clip-text text-transparent pb-1 pt-1">
             Sensing
@@ -208,7 +208,7 @@ export const CapabilitiesShowcase: React.FC = () => {
 
       {/* DESKTOP LAYOUT (Hidden on mobile) */}
       <div 
-        className="relative w-full hidden md:flex flex-col items-center pt-8 lg:pt-12 pb-20 lg:pb-32 px-6 lg:px-12 pointer-events-auto"
+        className="relative w-full hidden md:flex flex-col items-center pt-28 lg:pt-40 pb-20 lg:pb-32 px-6 lg:px-12 pointer-events-auto"
         tabIndex={0}
         onKeyDown={handleKeyDown}
         aria-label="Capabilities Showcase"

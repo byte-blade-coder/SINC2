@@ -532,7 +532,7 @@ export const ZoomSection: React.FC = () => {
             --card-spacing-y: calc(var(--card-width) + var(--card-gap));
             --container-width: calc(var(--card-width) * 2 + var(--card-gap));
             --container-height: calc(var(--card-height) * 2 + var(--card-gap));
-            padding-top: 0px;
+            padding-top: 100px;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -552,7 +552,7 @@ export const ZoomSection: React.FC = () => {
               --card-spacing-y: 0px;
               --container-width: calc(var(--card-width) * 4 + var(--card-gap) * 3);
               --container-height: var(--card-height);
-              padding-top: 0px;
+              padding-top: 140px;
               justify-content: center;
             }
             .stack-card-2 { left: calc(var(--card-spacing-x) * 2); top: 0; }
