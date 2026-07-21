@@ -2,7 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, ChevronLeft, ChevronRight, Compass, Cpu, Globe, Activity } from 'lucide-react';
 
-const capabilitiesData = [
+interface CapabilityItem {
+  id: string;
+  title: string;
+  badge: string;
+  description: string;
+  image: string;
+  features: string[];
+  footerDesc?: string;
+  cta: string;
+}
+
+const capabilitiesData: CapabilityItem[] = [
   {
     id: "advanced-sensing",
     title: "Advanced Sensing Technologies",
@@ -61,7 +72,7 @@ const capabilitiesData = [
   }
 ];
 
-const processingData = [
+const processingData: CapabilityItem[] = [
   {
     id: "processing-platforms",
     title: "Processing Platforms",
@@ -122,7 +133,7 @@ const processingData = [
   }
 ];
 
-const communicationData = [
+const communicationData: CapabilityItem[] = [
   {
     id: "software-defined-communication",
     title: "Software Defined Communication",
@@ -185,7 +196,7 @@ const communicationData = [
   }
 ];
 
-const analyticsData = [
+const analyticsData: CapabilityItem[] = [
   {
     id: "traffic-intelligence",
     title: "Maritime Traffic Intelligence",
