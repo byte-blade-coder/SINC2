@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, CheckCircle2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { CheckCircle2, ChevronLeft, ChevronRight, Compass, Cpu, Globe, Activity } from 'lucide-react';
 
-const capabilities = [
+const capabilitiesData = [
   {
     id: "advanced-sensing",
     title: "Advanced Sensing Technologies",
@@ -61,6 +61,184 @@ const capabilities = [
   }
 ];
 
+const processingData = [
+  {
+    id: "processing-platforms",
+    title: "Processing Platforms",
+    badge: "1 / HARDWARE",
+    description: "A range of high-performance hardware platforms is utilized to support real-time data processing, control, and system integration across mission-critical applications. This includes:",
+    image: "/assets/processing_clean.png",
+    features: [
+      "Field Programmable Gate Arrays (FPGAs)",
+      "Graphics Processing Units (GPUs)",
+      "Single Board Computers (SBCs)",
+      "Digital Signal Processors (DSPs)",
+      "Microcontroller-based embedded systems"
+    ],
+    footerDesc: "These platforms provide the required computational capability to handle complex algorithms, process high-speed data streams, and enable efficient system operation, forming the backbone of advanced processing and embedded solutions.",
+    cta: "Explore Processing Platforms"
+  },
+  {
+    id: "signal-processing",
+    title: "Signal Processing",
+    badge: "2 / ALGORITHMS",
+    description: "Specialized signal processing algorithms are developed to extract meaningful information from complex and high-volume data streams. This includes:",
+    image: "/assets/sensor_fusion.png",
+    features: [
+      "Radar signal processing",
+      "RF signal analysis",
+      "Advanced noise reduction and filtering techniques"
+    ],
+    footerDesc: "These algorithms enable accurate detection, target identification, signal enhancement, and real-time analysis, providing reliable inputs for mission-critical sensing and decision-support applications.",
+    cta: "Explore Signal Processing"
+  },
+  {
+    id: "communication-algorithms",
+    title: "Communication Algorithms",
+    badge: "3 / ALGORITHMS",
+    description: "Communication algorithms are designed to enable efficient, secure, and reliable transmission of information across diverse communication platforms. This includes:",
+    image: "/assets/communication_clean.png",
+    features: [
+      "Modulation and demodulation",
+      "Spectrum analysis",
+      "Data encoding and decoding"
+    ],
+    footerDesc: "These algorithms improve communication reliability, maximize spectrum utilization, and ensure accurate data exchange, supporting robust connectivity in mission-critical environments.",
+    cta: "Explore Communication"
+  },
+  {
+    id: "control-systems",
+    title: "Control Systems",
+    badge: "4 / ALGORITHMS",
+    description: "Control systems are developed to enable intelligent, stable, and responsive operation of mission-critical platforms. This includes:",
+    image: "/assets/autonomous_sensing.png",
+    features: [
+      "Embedded control algorithms",
+      "Autonomous system control",
+      "Stability and response optimization"
+    ],
+    footerDesc: "These solutions enhance automation, operational efficiency, and system reliability, allowing platforms to maintain optimal performance while adapting to changing mission and environmental requirements.",
+    cta: "Explore Control Systems"
+  }
+];
+
+const communicationData = [
+  {
+    id: "software-defined-communication",
+    title: "Software Defined Communication",
+    badge: "1 / TECHNOLOGIES",
+    description: "Leverages Software Defined Radio (SDR) technology to provide flexible, programmable, and reconfigurable communication capabilities. By implementing communication functions in software rather than fixed hardware, these systems can support multiple waveforms, frequency bands, and communication protocols on a single platform.",
+    image: "/assets/communication_clean.png",
+    features: [],
+    footerDesc: "This approach enables rapid adaptation to evolving operational requirements, improved interoperability, and efficient spectrum utilization, making it well suited for modern mission-critical and maritime communication systems.",
+    cta: "Explore Software Defined Communication"
+  },
+  {
+    id: "satellite-communications",
+    title: "Satellite Communications",
+    badge: "2 / TECHNOLOGIES",
+    description: "We develop satellite communication (SATCOM) solutions to enable reliable beyond-line-of-sight (BLOS) connectivity for maritime and remote operations. Our capabilities include:",
+    image: "/assets/quantum_security.png",
+    features: [
+      "SATCOM integration",
+      "Long-range maritime communication links"
+    ],
+    footerDesc: "These solutions facilitate the secure transmission of voice, data, and mission-critical information between ships, offshore assets, and command centres, supporting continuous connectivity across extended operational environments.",
+    cta: "Explore Satellite Communications"
+  },
+  {
+    id: "lpwan",
+    title: "Low Power Wide Area Networks (LPWAN)",
+    badge: "3 / TECHNOLOGIES",
+    description: "We develop LoRaWAN-based communication systems to enable reliable, long-range, and low-power connectivity for distributed sensing and monitoring applications. These solutions are designed to support remote assets where conventional communication infrastructure is limited or power efficiency is critical.",
+    image: "/assets/edge_telemetry.png",
+    features: [],
+    footerDesc: "Our LPWAN capabilities facilitate secure transmission of sensor data over extended distances, making them well suited for maritime platforms, environmental monitoring, industrial automation, and IoT-based deployments. They provide scalable and cost-effective connectivity while ensuring continuous monitoring of mission-critical assets.",
+    cta: "Explore LPWAN"
+  },
+  {
+    id: "wireless-networking",
+    title: "Wireless Networking",
+    badge: "4 / TECHNOLOGIES",
+    description: "We design and integrate wireless networking solutions to provide reliable, secure, and high-performance connectivity across mission-critical environments. Our capabilities include:",
+    image: "/assets/sensor_fusion.png",
+    features: [
+      "Zigbee communication networks",
+      "Wi-Fi systems",
+      "Cellular communication networks"
+    ],
+    footerDesc: "These solutions support real-time data exchange, remote monitoring, and interoperable system integration, ensuring dependable connectivity for maritime operations, industrial automation, and critical infrastructure deployments.",
+    cta: "Explore Wireless Networking"
+  },
+  {
+    id: "operational-data-links",
+    title: "Operational Data Links",
+    badge: "5 / TECHNOLOGIES",
+    description: "We develop secure operational data links that enable reliable exchange of mission-critical information between sensors, platforms, and command centers. Our capabilities include:",
+    image: "/assets/data_analytics_clean.png",
+    features: [
+      "Sensor-to-platform communication",
+      "Platform-to-command centre connectivity"
+    ],
+    footerDesc: "These communication solutions provide low-latency, secure, and interoperable connectivity, supporting real-time situational awareness, coordinated operations, and informed decision-making in demanding operational environments.",
+    cta: "Explore Operational Data Links"
+  }
+];
+
+const analyticsData = [
+  {
+    id: "traffic-intelligence",
+    title: "Maritime Traffic Intelligence",
+    badge: "1 / ANALYTICS",
+    description: "Advanced analytics are developed to monitor, classify, and analyze maritime traffic by tracking both commercial shipping and fishing vessel movements. These capabilities provide continuous operational visibility, identify movement patterns, and support informed maritime decision-making.",
+    image: "/assets/data_analytics_clean.png",
+    features: [
+      "Real-time vessel tracking",
+      "Maritime traffic analysis",
+      "Route and movement monitoring",
+      "Fishing vessel detection",
+      "Activity classification",
+      "Operational pattern analysis"
+    ],
+    footerDesc: "Shipping & Fishing Activity Analytics support comprehensive vessel classification and tracking to ensure complete operational visibility.",
+    cta: "Explore Traffic Intelligence"
+  },
+  {
+    id: "threat-intelligence",
+    title: "Maritime Threat Intelligence",
+    badge: "2 / ANALYTICS",
+    description: "Intelligent analytics are used to identify suspicious maritime behaviour by detecting unauthorized operations and vessels attempting to conceal their identity. Behavioural analysis and anomaly detection enable early identification of potential maritime threats.",
+    image: "/assets/quantum_security.png",
+    features: [
+      "Narcotics trafficking detection",
+      "Unauthorized maritime operations",
+      "Suspicious activity analysis",
+      "AIS anomaly detection",
+      "Non-cooperative vessel identification",
+      "Behavioural analytics"
+    ],
+    footerDesc: "Illegal & Dark Shipping Detection helps identify unauthorized operations and non-cooperative vessels trying to bypass surveillance.",
+    cta: "Explore Threat Intelligence"
+  },
+  {
+    id: "safety-environmental-intelligence",
+    title: "Maritime Safety & Environmental Intelligence",
+    badge: "3 / ANALYTICS",
+    description: "Operational analytics support maritime safety and environmental protection by enabling rapid response to distress situations while continuously monitoring environmental incidents and unauthorized fishing activities.",
+    image: "/assets/sensor_fusion.png",
+    features: [
+      "Distress event detection & incident monitoring",
+      "SAR decision support",
+      "Oil spill modeling & spill tracking",
+      "Environmental impact monitoring",
+      "Unauthorized fishing identification",
+      "Geospatial behavior analysis"
+    ],
+    footerDesc: "Search & Rescue & Environmental Analytics enable rapid response to incidents while tracking spills and unauthorized fishing activities.",
+    cta: "Explore Safety & Environmental"
+  }
+];
+
 const textVariants: any = {
   initial: { opacity: 0, y: -20, filter: "blur(2px)" },
   animate: (custom: number) => ({
@@ -77,84 +255,129 @@ const textVariants: any = {
   }
 };
 
-const ctaVariants: any = {
-  initial: { opacity: 0, y: 12, filter: "blur(2px)" },
-  animate: (custom: number) => ({
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { type: "spring", stiffness: 200, damping: 20, delay: custom }
-  }),
-  exit: {
-    opacity: 0,
-    y: 12,
-    filter: "blur(2px)",
-    transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] }
-  }
-};
-
 export const CapabilitiesShowcase: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeDomain, setActiveDomain] = useState<'sensing' | 'processing' | 'communication' | 'analytics'>('sensing');
+  const [activeSubIndex, setActiveSubIndex] = useState(0);
+
+  const domains = [
+    {
+      id: 'sensing' as const,
+      title: 'Sensing',
+      subtitle: 'Radar, RF & Environment',
+      desc: 'Intelligent autonomous sensor systems detecting signals in real-time.',
+      icon: Compass,
+      badge: 'DOM-01',
+      capabilities: capabilitiesData,
+    },
+    {
+      id: 'processing' as const,
+      title: 'Processing',
+      subtitle: 'Edge Compute & DSP',
+      desc: 'High-speed computation at the edge for split-second decisions.',
+      icon: Cpu,
+      badge: 'DOM-02',
+      capabilities: processingData,
+    },
+    {
+      id: 'communication' as const,
+      title: 'Communication',
+      subtitle: 'Resilient Tactical Networks',
+      desc: 'Secure, encrypted, quantum-resistant data transmission networks.',
+      icon: Globe,
+      badge: 'DOM-03',
+      capabilities: communicationData,
+    },
+    {
+      id: 'analytics' as const,
+      title: 'Data Analytics',
+      subtitle: 'Multi-Sensor Fusion & AI',
+      desc: 'Intelligent fusion of multidimensional data for total situational awareness.',
+      icon: Activity,
+      badge: 'DOM-04',
+      capabilities: analyticsData,
+    }
+  ];
 
   // Preload images
   useEffect(() => {
-    capabilities.forEach((cap, index) => {
-      if (index !== 0) { // First image is loaded naturally via priority in Next.js, or just eager in React
+    domains.forEach((dom) => {
+      dom.capabilities.forEach((cap) => {
         const img = new Image();
         img.src = cap.image;
-      }
+      });
     });
   }, []);
 
+  // Listen to select-domain custom window events from ZoomSection
+  useEffect(() => {
+    const handleSelectDomain = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      const domain = customEvent.detail;
+      if (domain === 'sensing' || domain === 'processing' || domain === 'communication' || domain === 'analytics') {
+        setActiveDomain(domain);
+        setActiveSubIndex(0);
+      }
+    };
+    window.addEventListener('select-domain', handleSelectDomain);
+    return () => {
+      window.removeEventListener('select-domain', handleSelectDomain);
+    };
+  }, []);
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    let newIndex = activeIndex;
+    const activeDomainObj = domains.find(d => d.id === activeDomain)!;
+    let newIndex = activeSubIndex;
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-      newIndex = Math.min(activeIndex + 1, capabilities.length - 1);
+      newIndex = Math.min(activeSubIndex + 1, activeDomainObj.capabilities.length - 1);
     } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-      newIndex = Math.max(activeIndex - 1, 0);
+      newIndex = Math.max(activeSubIndex - 1, 0);
     } else if (e.key === 'Home') {
       newIndex = 0;
     } else if (e.key === 'End') {
-      newIndex = capabilities.length - 1;
+      newIndex = activeDomainObj.capabilities.length - 1;
     }
     
-    if (newIndex !== activeIndex) {
+    if (newIndex !== activeSubIndex) {
       e.preventDefault();
-      setActiveIndex(newIndex);
+      setActiveSubIndex(newIndex);
     }
   };
 
-  const activeCap = capabilities[activeIndex];
+  const activeDomainObj = domains.find(d => d.id === activeDomain)!;
+  const activeCap = activeDomainObj.capabilities[activeSubIndex];
 
   return (
     <div id="sensing-capabilities" className="w-full text-white">
       
       {/* MOBILE LAYOUT (Hidden on md+) */}
-      <div className="w-full md:hidden flex flex-col pt-28 pb-16 px-6">
+      <div className="w-full md:hidden flex flex-col pt-28 pb-8 px-6">
         <div className="w-full flex flex-col items-start text-left mb-8">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#23abe6] mb-1">
+            Core Technology Domains
+          </span>
           <h2 className="w-fit inline-block font-display font-black text-[36px] sm:text-[40px] leading-[0.95] tracking-tighter bg-gradient-to-r from-[#2ba9e3] to-[#050c26] bg-clip-text text-transparent pb-1 pt-1">
-            Sensing
+            {activeDomainObj.title}
           </h2>
           <div className="mt-3 text-left text-gray-600 font-normal text-[14px] leading-relaxed max-w-full">
             <p className="invert-text">
-              Intelligent autonomous sensor systems detecting signals in real-time.
+              {activeDomainObj.desc}
             </p>
           </div>
         </div>
         
-        {/* Horizontal Tabs */}
+        {/* Horizontal Sub-tabs */}
         <div 
           className="flex gap-3 overflow-x-auto hide-scrollbar pb-4 snap-x focus:outline-none"
           tabIndex={0}
           onKeyDown={handleKeyDown}
           aria-label="Capabilities Navigation"
         >
-          {capabilities.map((cap, i) => {
-            const isActive = activeIndex === i;
+          {activeDomainObj.capabilities.map((cap, i) => {
+            const isActive = activeSubIndex === i;
             return (
               <button
                 key={cap.id}
-                onClick={() => setActiveIndex(i)}
+                onClick={() => setActiveSubIndex(i)}
                 aria-selected={isActive}
                 role="tab"
                 className={`snap-start shrink-0 relative px-5 py-3 rounded-full text-sm font-semibold transition-colors duration-300 ${
@@ -175,10 +398,10 @@ export const CapabilitiesShowcase: React.FC = () => {
         </div>
 
         {/* Mobile Content (Crossfade) */}
-        <div className="mt-8 relative h-[650px]">
+        <div className="mt-8 relative min-h-[650px]">
           <AnimatePresence mode="wait">
             <motion.div
-              key={activeCap.id}
+              key={`${activeDomain}-${activeCap.id}`}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
@@ -192,14 +415,23 @@ export const CapabilitiesShowcase: React.FC = () => {
                 <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#23abe6]">{activeCap.badge}</div>
                 <h3 className="font-display font-semibold text-2xl tracking-tight text-gray-900 invert-text">{activeCap.title}</h3>
                 <p className="text-gray-600 text-sm leading-relaxed invert-text">{activeCap.description}</p>
-                <ul className="space-y-3 mt-2">
-                  {activeCap.features.map((feat, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-sm text-gray-600 invert-text">
-                      <CheckCircle2 className="w-4 h-4 text-[#23abe6] mt-0.5 shrink-0" />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
+                
+                {activeCap.features && activeCap.features.length > 0 && (
+                  <ul className="space-y-3 mt-2">
+                    {activeCap.features.map((feat, idx) => (
+                      <li key={idx} className="flex items-start gap-3 text-sm text-gray-600 invert-text">
+                        <CheckCircle2 className="w-4 h-4 text-[#23abe6] mt-0.5 shrink-0" />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+
+                {activeCap.footerDesc && (
+                  <p className="text-gray-500 text-xs leading-relaxed mt-2 border-t border-black/5 pt-3 invert-text">
+                    {activeCap.footerDesc}
+                  </p>
+                )}
               </div>
             </motion.div>
           </AnimatePresence>
@@ -208,54 +440,57 @@ export const CapabilitiesShowcase: React.FC = () => {
 
       {/* DESKTOP LAYOUT (Hidden on mobile) */}
       <div 
-        className="relative w-full hidden md:flex flex-col items-center pt-28 lg:pt-40 pb-20 lg:pb-32 px-6 lg:px-12 pointer-events-auto"
+        className="relative w-full hidden md:flex flex-col items-center pt-28 lg:pt-40 pb-8 lg:pb-12 px-6 lg:px-12 pointer-events-auto"
         tabIndex={0}
         onKeyDown={handleKeyDown}
         aria-label="Capabilities Showcase"
       >
-        <div className="w-full max-w-[1720px] mx-auto flex flex-col gap-4 lg:gap-6">
+        <div className="w-full max-w-[1720px] mx-auto flex flex-col gap-8 lg:gap-10">
           
           {/* Section Header */}
           <div className="w-full flex flex-col items-center md:items-start text-center md:text-left z-10 select-none px-4 md:px-8">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#23abe6] mb-1">
+              Core Technology Domains
+            </span>
             <h2 className="w-fit inline-block mx-auto md:mx-0 font-display font-black text-[28px] sm:text-[54px] md:text-[76px] leading-[0.95] tracking-tighter bg-gradient-to-r from-[#2ba9e3] to-[#050c26] bg-clip-text text-transparent pb-2 md:pb-3 pt-1">
-              Sensing
+              {activeDomainObj.title}
             </h2>
-            <div className="mt-2 md:mt-6 text-center md:text-left text-gray-600 font-normal text-[13px] sm:text-[14px] md:text-[20px] leading-relaxed max-w-full md:max-w-[50%] space-y-2 md:space-y-4">
-              <p className="text-[13px] sm:text-[14px] md:text-[20px] invert-text">
-                Intelligent autonomous sensor systems detecting signals in real-time.
+            <div className="mt-2 md:mt-4 text-center md:text-left text-gray-600 font-normal text-[13px] sm:text-[14px] md:text-[20px] leading-relaxed max-w-full md:max-w-[60%]">
+              <p className="invert-text">
+                {activeDomainObj.desc}
               </p>
             </div>
           </div>
           
-          {/* Top Cards with Navigation Arrows */}
-          <div className="flex items-center gap-2 lg:gap-4 w-full">
+          {/* Sub Cards with Navigation Arrows */}
+          <div className="flex items-center gap-2 lg:gap-4 w-full mt-4">
             <button 
-              onClick={() => setActiveIndex(prev => prev > 0 ? prev - 1 : capabilities.length - 1)}
+              onClick={() => setActiveSubIndex(prev => prev > 0 ? prev - 1 : activeDomainObj.capabilities.length - 1)}
               className="p-3 rounded-full border border-black/10 hover:bg-black/5 hover:scale-105 transition-all text-gray-500 hover:text-gray-900 invert-text flex-shrink-0"
               aria-label="Previous capability"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
 
-            <div className="grid grid-cols-4 gap-3 lg:gap-6 flex-1">
-              {capabilities.map((cap, i) => {
-                const isActive = activeIndex === i;
+            <div className="grid gap-3 lg:gap-6 flex-1" style={{ gridTemplateColumns: `repeat(${activeDomainObj.capabilities.length}, minmax(0, 1fr))` }}>
+              {activeDomainObj.capabilities.map((cap, i) => {
+                const isActive = activeSubIndex === i;
                 return (
                   <button
                     key={cap.id}
-                    onClick={() => setActiveIndex(i)}
+                    onClick={() => setActiveSubIndex(i)}
                     aria-selected={isActive}
                     role="tab"
                     className={`relative flex flex-col gap-3 p-4 lg:p-6 rounded-3xl border transition-all duration-300 text-left outline-none ${
                       isActive 
-                        ? 'border-transparent scale-[1.02]' 
+                        ? 'border-[#23abe6]/80 scale-[1.03] translate-y-[-6px] bg-[#23abe6]/5 shadow-[0_15px_30px_rgba(35,171,230,0.22)]' 
                         : 'border-black/5 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,0,0,0.05)] hover:border-black/10 hover:bg-black/[0.02]'
                     }`}
                   >
                     {isActive && (
                       <motion.div
                         layoutId="activeCard"
-                        className="absolute inset-0 bg-[#23abe6]/5 border-2 border-[#23abe6]/80 rounded-3xl shadow-[0_0_20px_rgba(35,171,230,0.15)]"
+                        className="absolute inset-0 bg-[#23abe6]/5 border-2 border-[#23abe6]/80 rounded-3xl shadow-[0_0_20px_rgba(35,171,230,0.15)] pointer-events-none"
                         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                       />
                     )}
@@ -269,7 +504,7 @@ export const CapabilitiesShowcase: React.FC = () => {
             </div>
 
             <button 
-              onClick={() => setActiveIndex(prev => prev < capabilities.length - 1 ? prev + 1 : 0)}
+              onClick={() => setActiveSubIndex(prev => prev < activeDomainObj.capabilities.length - 1 ? prev + 1 : 0)}
               className="p-3 rounded-full border border-black/10 hover:bg-black/5 hover:scale-105 transition-all text-gray-500 hover:text-gray-900 invert-text flex-shrink-0"
               aria-label="Next capability"
             >
@@ -278,13 +513,20 @@ export const CapabilitiesShowcase: React.FC = () => {
           </div>
 
           {/* Bottom Dynamic Content */}
-          <div className="bg-white/40 border border-black/5 rounded-[2rem] py-12 px-8 lg:py-16 lg:px-12 w-full h-[550px] lg:h-[600px] flex items-center shadow-xl relative overflow-hidden backdrop-blur-md">
+          <div className="bg-white/40 border border-black/5 rounded-[2rem] py-12 px-8 lg:py-16 lg:px-12 w-full min-h-[550px] lg:min-h-[600px] flex items-center shadow-xl relative overflow-hidden backdrop-blur-md">
             <div className="grid grid-cols-2 gap-12 lg:gap-20 w-full">
               
               {/* Content Side */}
-              <div className="flex flex-col justify-center relative z-10">
+              <div className="flex flex-col justify-center relative z-10 overflow-hidden">
                 <AnimatePresence mode="wait">
-                  <motion.div key={activeCap.id} className="flex flex-col">
+                  <motion.div
+                    key={`${activeDomain}-${activeCap.id}`}
+                    className="flex flex-col"
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -16 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  >
                     <motion.span 
                       custom={0.06} variants={textVariants} initial="initial" animate="animate" exit="exit"
                       className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#23abe6] mb-4"
@@ -306,30 +548,41 @@ export const CapabilitiesShowcase: React.FC = () => {
                       {activeCap.description}
                     </motion.p>
                     
-                    <motion.ul 
-                      custom={0.30} variants={textVariants} initial="initial" animate="animate" exit="exit"
-                      className="space-y-4 mb-10"
-                    >
-                      {activeCap.features.map((feat, idx) => (
-                        <li key={idx} className="flex items-start gap-3 text-gray-600 invert-text">
-                          <CheckCircle2 className="w-5 h-5 text-[#23abe6] mt-0.5 shrink-0" />
-                          <span>{feat}</span>
-                        </li>
-                      ))}
-                    </motion.ul>
+                    {activeCap.features && activeCap.features.length > 0 && (
+                      <motion.ul 
+                        custom={0.30} variants={textVariants} initial="initial" animate="animate" exit="exit"
+                        className="space-y-4 mb-8"
+                      >
+                        {activeCap.features.map((feat, idx) => (
+                          <li key={idx} className="flex items-start gap-3 text-gray-600 invert-text">
+                            <CheckCircle2 className="w-5 h-5 text-[#23abe6] mt-0.5 shrink-0" />
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </motion.ul>
+                    )}
+
+                    {activeCap.footerDesc && (
+                      <motion.p
+                        custom={0.38} variants={textVariants} initial="initial" animate="animate" exit="exit"
+                        className="text-gray-500 text-sm leading-relaxed border-t border-black/5 pt-4 invert-text"
+                      >
+                        {activeCap.footerDesc}
+                      </motion.p>
+                    )}
                   </motion.div>
                 </AnimatePresence>
               </div>
 
               {/* Image Side */}
               <div className="flex items-center justify-center relative">
-                <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative border border-black/5 shadow-2xl">
+                <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative border border-black/5 shadow-2xl bg-white/5">
                   <AnimatePresence mode="wait">
                     <motion.img
-                      key={activeCap.id}
+                      key={`${activeDomain}-${activeCap.id}`}
                       src={activeCap.image}
                       alt={activeCap.title}
-                      loading={activeIndex === 0 ? "eager" : "lazy"}
+                      loading="lazy"
                       className="absolute inset-0 w-full h-full object-cover"
                       initial={{ opacity: 0, scale: 1.02 }}
                       animate={{ opacity: 1, scale: 1 }}

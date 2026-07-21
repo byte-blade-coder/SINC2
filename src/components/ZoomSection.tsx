@@ -13,9 +13,10 @@ interface StackCardProps {
     image?: string;
   };
   index: number;
+  onCardClick: (domain: string) => void;
 }
 
-const StackCard: React.FC<StackCardProps> = ({ card, index }) => {
+const StackCard: React.FC<StackCardProps> = ({ card, index, onCardClick }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 450, height: 450 });
 
@@ -59,7 +60,7 @@ const StackCard: React.FC<StackCardProps> = ({ card, index }) => {
   return (
     <div
       ref={cardRef}
-      className={`stack-card absolute bg-transparent stack-card-${index} ${card.title === 'Sensing' ? 'cursor-pointer hover:scale-[1.02] transition-transform duration-300' : ''}`}
+      className={`stack-card absolute bg-transparent stack-card-${index} ${(card.title === 'Sensing' || card.title === 'Processing' || card.title === 'Communication' || card.title === 'Data Analytics') ? 'cursor-pointer hover:scale-[1.02] transition-transform duration-300' : ''}`}
       style={{
         width: 'var(--card-width)',
         height: 'var(--card-height)',
@@ -68,16 +69,24 @@ const StackCard: React.FC<StackCardProps> = ({ card, index }) => {
         willChange: 'transform, opacity',
       }}
       onClick={() => {
-        if (card.title === 'Sensing') {
-          const el = document.getElementById('sensing-capabilities');
-          if (el) {
-            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
+        const domainMap: Record<string, string> = {
+          'Sensing': 'sensing',
+          'Processing': 'processing',
+          'Communication': 'communication',
+          'Data Analytics': 'analytics'
+        };
+        const domain = domainMap[card.title];
+        if (domain) {
+          onCardClick(domain);
         }
       }}
     >
       {/* SVG ClipPath Definition for the image (matches card body exactly) */}
-      <svg className="absolute w-0 h-0 pointer-events-none">
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        style={{ overflow: 'visible', position: 'absolute', top: 0, left: 0 }}
+        aria-hidden="true"
+      >
         <defs>
           <clipPath id={`clip-card-${index}`} clipPathUnits="userSpaceOnUse">
             <path d={pathD} />
@@ -165,6 +174,8 @@ export const ZoomSection: React.FC = () => {
   const sincTextRef = useRef<HTMLDivElement>(null);
   const backingRef = useRef<HTMLDivElement>(null);
   const revealContentRef = useRef<HTMLDivElement>(null);
+  // Stores the exact scroll position where the GSAP pin ends
+  const scrollTriggerEndRef = useRef<number>(0);
 
   const [dimensions, setDimensions] = useState({
     scale: 100,
@@ -312,6 +323,10 @@ export const ZoomSection: React.FC = () => {
           pin: true,
           scrub: 1.2,
           invalidateOnRefresh: true,
+          onRefresh(self) {
+            // Capture the exact pixel scroll position where the pin ends
+            scrollTriggerEndRef.current = self.end;
+          },
         },
       });
 
@@ -520,13 +535,11 @@ export const ZoomSection: React.FC = () => {
         }}
       >
         {/* Mobile-only Premium Ambient Radial Blurs (matches heading gradient colors) */}
-        <div className="absolute top-[10%] -left-[30vw] w-[90vw] h-[90vw] bg-[#2ba9e3]/30 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
-        <div className="absolute bottom-[10%] -right-[30vw] w-[90vw] h-[90vw] bg-[#050c26]/20 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
 
         <style>{`
           .zoom-cards-container {
             --card-gap: 12px;
-            --card-width: min(165px, calc(((100vw - 24px) - 12px) / 2));
+            --card-width: min(165px, calc((100% - 12px) / 2));
             --card-height: var(--card-width);
             --card-spacing-x: calc(var(--card-width) + var(--card-gap));
             --card-spacing-y: calc(var(--card-width) + var(--card-gap));
@@ -546,7 +559,7 @@ export const ZoomSection: React.FC = () => {
           @media (min-width: 768px) {
             .zoom-cards-container {
               --card-gap: 16px;
-              --card-width: min(280px, calc(((100vw - 80px) - 48px) / 4));
+              --card-width: min(280px, calc((100% - 48px) / 4));
               --card-height: var(--card-width);
               --card-spacing-x: calc(var(--card-width) + var(--card-gap));
               --card-spacing-y: 0px;
@@ -623,7 +636,28 @@ export const ZoomSection: React.FC = () => {
               }}
             >
               {cardsData.map((card, i) => (
-                <StackCard key={i} card={card} index={i} />
+                <StackCard
+                  key={i}
+                  card={card}
+                  index={i}
+                  onCardClick={(domain) => {
+                    // 1. Update domain state in CapabilitiesShowcase
+                    window.dispatchEvent(new CustomEvent('select-domain', { detail: domain }));
+
+                    // 2. Scroll to EXACTLY where the GSAP pin ends
+                    //    Using scrollIntoView during a scrub pin causes a violent
+                    //    catch-up animation (the "reload" flash + merge glitch).
+                    //    Instead we scroll to the pinned section's end position directly.
+                    const pinEnd = scrollTriggerEndRef.current;
+                    if (pinEnd > 0) {
+                      window.scrollTo({ top: pinEnd + 10, behavior: 'smooth' });
+                    } else {
+                      // Fallback: find the element after GSAP spacer calculation
+                      const el = document.getElementById('sensing-capabilities');
+                      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
+                />
               ))}
             </div>
           </div>

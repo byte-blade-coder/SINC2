@@ -19,6 +19,36 @@ export default function App() {
   return (
     <MouseParallaxProvider>
       <div className="w-full min-h-screen root-bg relative selection:bg-cyan-500/30 selection:text-white flex flex-col items-center">
+        {/* Continuous Flowing Ambient Background Glows */}
+        {/* Section 1 (Hero/Top) - Left */}
+        <div className="absolute -left-[400px] w-[800px] h-[800px] rounded-full pointer-events-none z-0" style={{ top: '5vh', background: 'rgba(35, 171, 230, 0.25)', filter: 'blur(120px)' }} />
+        {/* Section 2 - Right */}
+        <div className="absolute -right-[450px] w-[900px] h-[900px] rounded-full pointer-events-none z-0" style={{ top: '150vh', background: 'rgba(35, 171, 230, 0.20)', filter: 'blur(140px)' }} />
+        {/* Section 3 - Left */}
+        <div className="absolute -left-[375px] w-[750px] h-[750px] rounded-full pointer-events-none z-0" style={{ top: '300vh', background: 'rgba(35, 171, 230, 0.22)', filter: 'blur(130px)' }} />
+        {/* Section 4 - Right */}
+        <div className="absolute -right-[500px] w-[1000px] h-[1000px] rounded-full pointer-events-none z-0" style={{ top: '450vh', background: 'rgba(35, 171, 230, 0.18)', filter: 'blur(150px)' }} />
+        {/* Section 5 - Left */}
+        <div className="absolute -left-[350px] w-[700px] h-[700px] rounded-full pointer-events-none z-0" style={{ top: '600vh', background: 'rgba(35, 171, 230, 0.25)', filter: 'blur(120px)' }} />
+        {/* Section 6 - Right */}
+        <div className="absolute -right-[425px] w-[850px] h-[850px] rounded-full pointer-events-none z-0" style={{ top: '750vh', background: 'rgba(35, 171, 230, 0.20)', filter: 'blur(140px)' }} />
+        {/* Section 7 - Left */}
+        <div className="absolute -left-[375px] w-[750px] h-[750px] rounded-full pointer-events-none z-0" style={{ top: '900vh', background: 'rgba(35, 171, 230, 0.22)', filter: 'blur(130px)' }} />
+        {/* Section 8 - Right */}
+        <div className="absolute -right-[475px] w-[950px] h-[950px] rounded-full pointer-events-none z-0" style={{ top: '1050vh', background: 'rgba(35, 171, 230, 0.18)', filter: 'blur(160px)' }} />
+        {/* Section 9 - Left */}
+        <div className="absolute -left-[450px] w-[900px] h-[900px] rounded-full pointer-events-none z-0" style={{ top: '1200vh', background: 'rgba(35, 171, 230, 0.23)', filter: 'blur(135px)' }} />
+        {/* Section 10 - Right */}
+        <div className="absolute -right-[400px] w-[800px] h-[800px] rounded-full pointer-events-none z-0" style={{ top: '1350vh', background: 'rgba(35, 171, 230, 0.21)', filter: 'blur(125px)' }} />
+        {/* Section 11 - Left */}
+        <div className="absolute -left-[500px] w-[1000px] h-[1000px] rounded-full pointer-events-none z-0" style={{ top: '1500vh', background: 'rgba(35, 171, 230, 0.19)', filter: 'blur(155px)' }} />
+        {/* Section 12 - Right */}
+        <div className="absolute -right-[350px] w-[700px] h-[700px] rounded-full pointer-events-none z-0" style={{ top: '1650vh', background: 'rgba(35, 171, 230, 0.26)', filter: 'blur(115px)' }} />
+        {/* Section 13 - Left */}
+        <div className="absolute -left-[425px] w-[850px] h-[850px] rounded-full pointer-events-none z-0" style={{ top: '1800vh', background: 'rgba(35, 171, 230, 0.20)', filter: 'blur(145px)' }} />
+        {/* Section 14 - Right */}
+        <div className="absolute -right-[475px] w-[950px] h-[950px] rounded-full pointer-events-none z-0" style={{ top: '1950vh', background: 'rgba(35, 171, 230, 0.18)', filter: 'blur(150px)' }} />
+
         <h1 className="sr-only">SINC 3D - Engineering Maritime Domain Awareness & Advanced Sensory Systems</h1>
         <GlassNavbar />
         
@@ -28,7 +58,7 @@ export default function App() {
         </section>
 
         {/* Padded container for the rest of the sections */}
-        <div className="w-full p-3 md:p-4 lg:p-5 flex flex-col items-center transparent-bg invert-text relative z-20 -mt-[5vh] md:-mt-[10vh] lg:-mt-[15vh]">
+        <div className="w-full p-3 md:p-4 lg:p-5 flex flex-col items-center transparent-bg invert-text relative z-10">
           
           {/* NEW CAPABILITIES SHOWCASE */}
           <CapabilitiesShowcase />
@@ -328,14 +358,21 @@ export default function App() {
 
         <style>{`
           .root-bg {
-            background: radial-gradient(140% 140% at 100% 100%, #AEE8FF 0%, #DFF4FF 25%, #F4FAFF 60%, #FFFFFF 100%) !important;
-            background-attachment: fixed !important;
-            background-size: cover !important;
+            background: #ffffff !important;
           }
-          @media (max-width: 767px) {
-            .root-bg {
-              background: #ffffff !important;
-            }
+          @keyframes slow-float {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-3vh) scale(1.04); }
+          }
+          @keyframes slow-float-reverse {
+            0%, 100% { transform: translateY(0) scale(1.04); }
+            50% { transform: translateY(3vh) scale(1); }
+          }
+          .animate-float-slow-1 {
+            animation: slow-float 25s ease-in-out infinite;
+          }
+          .animate-float-slow-2 {
+            animation: slow-float-reverse 30s ease-in-out infinite;
           }
           .transparent-bg {
             background: transparent !important;
