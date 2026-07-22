@@ -327,9 +327,9 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
         </div>
 
         {/* MOBILE: Horizontal Sub-tabs */}
-        <div className="w-full md:hidden flex flex-col px-0">
+        <div className="w-full md:hidden flex flex-col px-0 border-b border-black/5 relative">
           <div
-            className="flex gap-3 overflow-x-auto hide-scrollbar pb-4 snap-x focus:outline-none px-4"
+            className="flex gap-6 overflow-x-auto hide-scrollbar pb-0 snap-x focus:outline-none px-6"
             tabIndex={0}
             onKeyDown={handleKeyDown}
             aria-label={`${title} Capabilities Navigation`}
@@ -342,13 +342,16 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                   onClick={() => setActiveSubIndex(i)}
                   aria-selected={isActive}
                   role="tab"
-                  className={`snap-start shrink-0 relative px-5 py-3 rounded-full text-sm font-semibold transition-colors duration-300 ${isActive ? 'text-[#23abe6]' : 'text-gray-500 hover:text-gray-800 invert-text'
-                    }`}
+                  className={`snap-start shrink-0 relative py-4 text-[13px] font-semibold tracking-wide transition-all duration-300 ${
+                    isActive 
+                      ? 'text-[#2ba9e3]' 
+                      : 'text-gray-500 hover:text-gray-800'
+                  }`}
                 >
                   {isActive && (
                     <motion.div
-                      layoutId={`mobileActiveTab-${id}`}
-                      className="absolute inset-0 bg-[#23abe6]/10 border border-[#23abe6]/30 rounded-full"
+                      layoutId={`mobileActiveTabUnderline-${id}`}
+                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#2ba9e3] shadow-[0_-2px_10px_rgba(43,169,227,0.4)]"
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
@@ -613,7 +616,7 @@ export const CapabilitiesShowcase: React.FC = () => {
   const activeDomainData = domains.find(d => d.id === activeDomain)!;
 
   return (
-    <div ref={sectionRef} className="w-full relative bg-[#F7F7F7] z-10 font-sans pb-32 pt-6 min-h-[800px] overflow-hidden">
+    <div ref={sectionRef} className="w-full relative bg-transparent z-10 font-sans pb-32 pt-6 min-h-[800px] overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           key={activeDomain}
