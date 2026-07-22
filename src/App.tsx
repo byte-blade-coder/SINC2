@@ -18,7 +18,7 @@ export default function App() {
 
   return (
     <MouseParallaxProvider>
-      <div className="w-full min-h-screen root-bg relative selection:bg-cyan-500/30 selection:text-white flex flex-col items-center">
+      <div className="w-full min-h-screen root-bg relative selection:bg-cyan-500/30 selection:text-white flex flex-col items-center overflow-x-clip">
         {/* Continuous Flowing Ambient Background Glows */}
         {/* Section 1 (Hero/Top) - Left */}
         <div className="absolute -left-[400px] w-[800px] h-[800px] rounded-full pointer-events-none z-0" style={{ top: '5vh', background: 'rgba(35, 171, 230, 0.25)', filter: 'blur(120px)' }} />

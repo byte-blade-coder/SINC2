@@ -79,7 +79,7 @@ export const GlassNavbar: React.FC = () => {
         {/* Logo Section */}
         <a 
           href="#home" 
-          className="flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 rounded-lg"
+          className="flex items-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 rounded-lg"
           onClick={() => setActiveLink('Home')}
         >
           {/* Logo Entry Blur-to-Sharp */}
@@ -98,7 +98,7 @@ export const GlassNavbar: React.FC = () => {
         </a>
 
         {/* Center Navigation Links (Hidden on Mobile/Tablet) */}
-        <div className="hidden lg:flex items-center gap-1">
+        <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-1">
           {navLinks.map((link) => (
             <NavLink
               key={link}
@@ -115,33 +115,36 @@ export const GlassNavbar: React.FC = () => {
           ))}
         </div>
 
-        {/* Right CTA Button (Hidden on Mobile) */}
-        <div className="hidden md:flex items-center gap-4">
-          <motion.a
-            href="#get-started"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className="relative overflow-hidden group flex items-center justify-center gap-2 h-10 px-5 rounded-full text-xs font-semibold uppercase tracking-wider text-black bg-[#23abe6] hover:shadow-[0_0_20px_rgba(35,171,230,0.4)] transition-all duration-300"
-          >
-            {/* CTA Shine Sweep Effect */}
-            <span className="absolute inset-0 w-full h-full bg-white/20 -skew-x-12 -left-full group-hover:animate-shine pointer-events-none" />
-            
-            <span>Get Started</span>
-            <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
-          </motion.a>
-        </div>
+        {/* Right Section: CTA & Hamburger */}
+        <div className="flex items-center gap-4 shrink-0">
+          {/* Right CTA Button (Hidden on Mobile) */}
+          <div className="hidden md:flex items-center gap-4">
+            <motion.a
+              href="#get-started"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              className="relative overflow-hidden group flex items-center justify-center gap-2 h-10 px-5 rounded-full text-xs font-semibold uppercase tracking-wider text-black bg-[#23abe6] hover:shadow-[0_0_20px_rgba(35,171,230,0.4)] transition-all duration-300"
+            >
+              {/* CTA Shine Sweep Effect */}
+              <span className="absolute inset-0 w-full h-full bg-white/20 -skew-x-12 -left-full group-hover:animate-shine pointer-events-none" />
+              
+              <span>Get Started</span>
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+            </motion.a>
+          </div>
 
-        {/* Mobile Hamburger Button */}
-        <div className="flex lg:hidden">
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className={`p-2 rounded-full hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 ${
-              scrolled ? 'text-[#050c26] hover:bg-black/5' : 'text-white/80 hover:bg-white/5'
-            }`}
-            aria-label="Toggle Navigation Menu"
-          >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          {/* Mobile Hamburger Button */}
+          <div className="flex lg:hidden">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={`p-2 rounded-full hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 ${
+                scrolled ? 'text-[#050c26] hover:bg-black/5' : 'text-white/80 hover:bg-white/5'
+              }`}
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
       </motion.nav>
 

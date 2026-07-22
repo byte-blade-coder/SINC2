@@ -13,10 +13,11 @@ interface StackCardProps {
     image?: string;
   };
   index: number;
+  isActive: boolean;
   onCardClick: (domain: string) => void;
 }
 
-const StackCard: React.FC<StackCardProps> = ({ card, index, onCardClick }) => {
+const StackCard: React.FC<StackCardProps> = ({ card, index, isActive, onCardClick }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState({ width: 450, height: 450 });
 
@@ -60,13 +61,13 @@ const StackCard: React.FC<StackCardProps> = ({ card, index, onCardClick }) => {
   return (
     <div
       ref={cardRef}
-      className={`stack-card absolute bg-transparent stack-card-${index} ${(card.title === 'Sensing' || card.title === 'Processing' || card.title === 'Communication' || card.title === 'Data Analytics') ? 'cursor-pointer hover:scale-[1.02] transition-transform duration-300' : ''}`}
+      className={`stack-card absolute bg-transparent stack-card-${index} cursor-pointer transition-all duration-300`}
       style={{
         width: 'var(--card-width)',
         height: 'var(--card-height)',
-        zIndex: 10 + index,
+        zIndex: isActive ? 40 : 10 + index,
         transformOrigin: 'bottom center',
-        willChange: 'transform, opacity',
+        willChange: 'transform, opacity, filter',
       }}
       onClick={() => {
         const domainMap: Record<string, string> = {
@@ -81,87 +82,96 @@ const StackCard: React.FC<StackCardProps> = ({ card, index, onCardClick }) => {
         }
       }}
     >
-      {/* SVG ClipPath Definition for the image (matches card body exactly) */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        style={{ overflow: 'visible', position: 'absolute', top: 0, left: 0 }}
-        aria-hidden="true"
+      <div 
+        className="absolute inset-0 transition-all duration-300 ease-out"
+        style={{
+          transform: isActive ? 'translateY(-8px) scale(1.04)' : 'translateY(0px) scale(1)',
+          filter: isActive ? 'drop-shadow(0 20px 40px rgba(35,171,230,0.3))' : 'none'
+        }}
       >
-        <defs>
-          <clipPath id={`clip-card-${index}`} clipPathUnits="userSpaceOnUse">
-            <path d={pathD} />
-          </clipPath>
-        </defs>
-      </svg>
-
-      {/* Full Width Image Background Container (Clipped to Card Shape) */}
-      {card.image && (
-        <div
-          className="absolute inset-0 w-full h-full overflow-hidden"
-          style={{
-            clipPath: `url(#clip-card-${index})`,
-          }}
+        {/* SVG ClipPath Definition for the image (matches card body exactly) */}
+        <svg
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          style={{ overflow: 'visible', position: 'absolute', top: 0, left: 0 }}
+          aria-hidden="true"
         >
-          <img
-            src={card.image}
-            alt={card.title}
-            className="w-full h-full object-cover"
-            loading="lazy"
+          <defs>
+            <clipPath id={`clip-card-${index}`} clipPathUnits="userSpaceOnUse">
+              <path d={pathD} />
+            </clipPath>
+          </defs>
+        </svg>
+
+        {/* Full Width Image Background Container (Clipped to Card Shape) */}
+        {card.image && (
+          <div
+            className="absolute inset-0 w-full h-full overflow-hidden"
+            style={{
+              clipPath: `url(#clip-card-${index})`,
+            }}
+          >
+            <img
+              src={card.image}
+              alt={card.title}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+            {/* Subtle Dark Gradient Overlay at the bottom for text readability on dark images */}
+            <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+          </div>
+        )}
+
+        {/* Background Card Shape SVG with Outline Border and Shadow */}
+        <svg
+          className="absolute inset-0 w-full h-full pointer-events-none transition-all duration-300"
+          style={{ filter: isActive ? 'drop-shadow(0 0 15px rgba(35,171,230,0.4))' : 'drop-shadow(0 12px 25px rgba(0,0,0,0.05))' }}
+        >
+          <path
+            d={pathD}
+            fill={card.image ? "none" : "#f6f6f6"}
+            stroke={isActive ? "#23abe6" : "rgba(0, 0, 0, 0.08)"}
+            strokeWidth={isActive ? "3" : "1"}
           />
-          {/* Subtle Dark Gradient Overlay at the bottom for text readability on dark images */}
-          <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
-        </div>
-      )}
+        </svg>
 
-      {/* Background Card Shape SVG with Outline Border and Shadow */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        style={{ filter: 'drop-shadow(0 12px 25px rgba(0,0,0,0.05))' }}
-      >
-        <path
-          d={pathD}
-          fill={card.image ? "none" : "#f6f6f6"}
-          stroke="rgba(0, 0, 0, 0.08)"
-          strokeWidth="1"
-        />
-      </svg>
-
-      {/* Card Section Number (inside cutout as a blue rounded square with gap spacing) */}
-      <div
-        className="absolute top-0 left-0 flex items-center justify-center pointer-events-none"
-        style={{
-          width: `${nw}px`,
-          height: `${nh}px`,
-        }}
-      >
+        {/* Card Section Number (inside cutout as a blue rounded square with gap spacing) */}
         <div
-          className="bg-[#23abe6] text-white font-black flex items-center justify-center shadow-[0_4px_12px_rgba(35,171,230,0.2)] select-none tracking-tighter"
+          className="absolute top-0 left-0 flex items-center justify-center pointer-events-none"
           style={{
-            width: size.width > 300 ? '64px' : '42px',
-            height: size.width > 300 ? '64px' : '42px',
-            fontSize: size.width > 300 ? '32px' : '18px',
-            borderRadius: size.width > 300 ? '8px' : '6px',
-            transform: size.width > 300 ? 'none' : 'translate(-2px, -2px)', // Shift slightly up-left on mobile for space optimization
+            width: `${nw}px`,
+            height: `${nh}px`,
           }}
         >
-          {card.num.replace(/^0/, '')}
+          <div
+            className={`flex items-center justify-center select-none tracking-tighter transition-all duration-300 ${isActive ? 'bg-[#23abe6] text-white shadow-[0_4px_12px_rgba(35,171,230,0.4)] border border-[#23abe6]' : 'bg-[#23abe6] text-white shadow-[0_4px_12px_rgba(35,171,230,0.2)]'}`}
+            style={{
+              width: size.width > 300 ? '64px' : '42px',
+              height: size.width > 300 ? '64px' : '42px',
+              fontSize: size.width > 300 ? '32px' : '18px',
+              borderRadius: size.width > 300 ? '8px' : '6px',
+              transform: size.width > 300 ? 'none' : 'translate(-2px, -2px)', // Shift slightly up-left on mobile for space optimization
+              fontWeight: 900
+            }}
+          >
+            {card.num.replace(/^0/, '')}
+          </div>
         </div>
-      </div>
 
-      {/* Card Content Overlay (Constrained to never overlap with the top cutout notch) */}
-      <div
-        className="absolute left-3 right-3 bottom-3 md:left-6 md:right-6 md:bottom-6 select-none text-white pointer-events-none z-10 flex flex-col justify-end"
-        style={{
-          top: size.width > 300 ? '95px' : '62px', // Reserves dedicated padding space below the notch
-        }}
-      >
-        <h3 className="font-display font-bold text-white text-[12px] md:text-lg leading-tight uppercase tracking-tight">
-          {card.title}
-        </h3>
-        <div className="h-1 md:h-2" /> {/* Consistent spacing between title and description */}
-        <p className="text-[9.5px] md:text-[11px] text-gray-200 font-semibold leading-[1.3] md:leading-[1.45] uppercase">
-          {card.desc}
-        </p>
+        {/* Card Content Overlay (Constrained to never overlap with the top cutout notch) */}
+        <div
+          className="absolute left-3 right-3 bottom-3 md:left-6 md:right-6 md:bottom-6 select-none text-white pointer-events-none z-10 flex flex-col justify-end transition-transform duration-300"
+          style={{
+            top: size.width > 300 ? '95px' : '62px', // Reserves dedicated padding space below the notch
+          }}
+        >
+          <h3 className="font-display font-bold text-white text-[12px] md:text-lg leading-tight uppercase tracking-tight">
+            {card.title}
+          </h3>
+          <div className="h-1 md:h-2" /> {/* Consistent spacing between title and description */}
+          <p className="text-[9.5px] md:text-[11px] text-gray-200 font-semibold leading-[1.3] md:leading-[1.45] uppercase">
+            {card.desc}
+          </p>
+        </div>
       </div>
     </div>
   );
@@ -186,6 +196,21 @@ export const ZoomSection: React.FC = () => {
     baseScale: 1
   });
   const [isMeasured, setIsMeasured] = useState(false);
+  const [activeDomain, setActiveDomain] = useState<'sensing' | 'processing' | 'communication' | 'analytics'>('sensing');
+
+  useEffect(() => {
+    const handleSelectDomain = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      const domain = customEvent.detail as 'sensing' | 'processing' | 'communication' | 'analytics';
+      if (domain === 'sensing' || domain === 'processing' || domain === 'communication' || domain === 'analytics') {
+        setActiveDomain(domain);
+      }
+    };
+    window.addEventListener('select-domain', handleSelectDomain);
+    return () => {
+      window.removeEventListener('select-domain', handleSelectDomain);
+    };
+  }, []);
 
   const cardsData = [
     {
@@ -538,8 +563,8 @@ export const ZoomSection: React.FC = () => {
 
         <style>{`
           .zoom-cards-container {
-            --card-gap: 12px;
-            --card-width: min(165px, calc((100% - 12px) / 2));
+            --card-gap: 24px;
+            --card-width: min(165px, calc((100% - 24px) / 2));
             --card-height: var(--card-width);
             --card-spacing-x: calc(var(--card-width) + var(--card-gap));
             --card-spacing-y: calc(var(--card-width) + var(--card-gap));
@@ -635,30 +660,29 @@ export const ZoomSection: React.FC = () => {
                 height: 'var(--container-height)',
               }}
             >
-              {cardsData.map((card, i) => (
-                <StackCard
-                  key={i}
-                  card={card}
-                  index={i}
-                  onCardClick={(domain) => {
-                    // 1. Update domain state in CapabilitiesShowcase
-                    window.dispatchEvent(new CustomEvent('select-domain', { detail: domain }));
+              {cardsData.map((card, i) => {
+                const domainMap: Record<string, string> = {
+                  'Sensing': 'sensing',
+                  'Processing': 'processing',
+                  'Communication': 'communication',
+                  'Data Analytics': 'analytics'
+                };
+                const domain = domainMap[card.title];
+                const isActive = activeDomain === domain;
 
-                    // 2. Scroll to EXACTLY where the GSAP pin ends
-                    //    Using scrollIntoView during a scrub pin causes a violent
-                    //    catch-up animation (the "reload" flash + merge glitch).
-                    //    Instead we scroll to the pinned section's end position directly.
-                    const pinEnd = scrollTriggerEndRef.current;
-                    if (pinEnd > 0) {
-                      window.scrollTo({ top: pinEnd + 10, behavior: 'smooth' });
-                    } else {
-                      // Fallback: find the element after GSAP spacer calculation
-                      const el = document.getElementById('sensing-capabilities');
-                      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                  }}
-                />
-              ))}
+                return (
+                  <StackCard
+                    key={i}
+                    card={card}
+                    index={i}
+                    isActive={isActive}
+                    onCardClick={(clickedDomain) => {
+                      // 1. Dispatch custom event. ZoomSection and CapabilitiesShowcase will both listen.
+                      window.dispatchEvent(new CustomEvent('select-domain', { detail: clickedDomain }));
+                    }}
+                  />
+                );
+              })}
             </div>
           </div>
 
