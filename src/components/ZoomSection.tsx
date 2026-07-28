@@ -85,8 +85,10 @@ const StackCard: React.FC<StackCardProps> = ({ card, index, isActive, onCardClic
       <div 
         className="absolute inset-0 transition-all duration-300 ease-out"
         style={{
-          transform: isActive ? 'translateY(-8px) scale(1.04)' : 'translateY(0px) scale(1)',
-          filter: isActive ? 'drop-shadow(0 20px 40px rgba(35,171,230,0.3))' : 'none'
+          transform: isActive ? 'translateY(-22px) scale(1.04)' : 'translateY(0px) scale(1)',
+          filter: isActive 
+            ? 'drop-shadow(0 20px 40px rgba(35,171,230,0.25)) drop-shadow(0 0 10px rgba(35,171,230,0.15))' 
+            : 'none'
         }}
       >
         {/* SVG ClipPath Definition for the image (matches card body exactly) */}
@@ -113,26 +115,39 @@ const StackCard: React.FC<StackCardProps> = ({ card, index, isActive, onCardClic
             <img
               src={card.image}
               alt={card.title}
-              className="w-full h-full object-cover"
+              className={`w-full h-full object-cover transition-transform duration-500 ${isActive ? 'scale-105' : 'scale-100'}`}
               loading="lazy"
             />
             {/* Subtle Dark Gradient Overlay at the bottom for text readability on dark images */}
-            <div className="absolute inset-x-0 bottom-0 h-[40%] bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+            <div className={`absolute inset-x-0 bottom-0 h-[45%] transition-opacity duration-300 ${isActive ? 'bg-gradient-to-t from-black/80 via-black/40 to-transparent' : 'bg-gradient-to-t from-black/60 to-transparent'} pointer-events-none`} />
           </div>
         )}
 
         {/* Background Card Shape SVG with Outline Border and Shadow */}
         <svg
           className="absolute inset-0 w-full h-full pointer-events-none transition-all duration-300"
-          style={{ filter: isActive ? 'drop-shadow(0 0 15px rgba(35,171,230,0.4))' : 'drop-shadow(0 12px 25px rgba(0,0,0,0.05))' }}
+          style={{ filter: isActive ? 'drop-shadow(0 0 10px rgba(35,171,230,0.2))' : 'drop-shadow(0 12px 25px rgba(0,0,0,0.05))' }}
         >
           <path
             d={pathD}
             fill={card.image ? "none" : "#f6f6f6"}
             stroke={isActive ? "#23abe6" : "rgba(0, 0, 0, 0.08)"}
-            strokeWidth={isActive ? "3" : "1"}
+            strokeWidth={isActive ? "2" : "1"}
           />
         </svg>
+
+        {/* Active Pill Badge at Top Right */}
+        {isActive && (
+          <div 
+            className="absolute top-2.5 right-2.5 md:top-3.5 md:right-3.5 px-2 md:px-2.5 py-0.5 rounded-full bg-[#23abe6] text-white text-[8px] md:text-[10px] font-extrabold tracking-wider uppercase shadow-[0_2px_6px_rgba(35,171,230,0.3)] border border-white/20 flex items-center gap-1 z-20 transition-all duration-300"
+          >
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-60"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white"></span>
+            </span>
+            Active
+          </div>
+        )}
 
         {/* Card Section Number (inside cutout as a blue rounded square with gap spacing) */}
         <div
@@ -143,7 +158,7 @@ const StackCard: React.FC<StackCardProps> = ({ card, index, isActive, onCardClic
           }}
         >
           <div
-            className={`flex items-center justify-center select-none tracking-tighter transition-all duration-300 ${isActive ? 'bg-[#23abe6] text-white shadow-[0_4px_12px_rgba(35,171,230,0.4)] border border-[#23abe6]' : 'bg-[#23abe6] text-white shadow-[0_4px_12px_rgba(35,171,230,0.2)]'}`}
+            className={`flex items-center justify-center select-none tracking-tighter transition-all duration-300 ${isActive ? 'bg-[#23abe6] text-white shadow-[0_4px_12px_rgba(35,171,230,0.3)] border border-white/30 scale-[1.02]' : 'bg-[#23abe6] text-white shadow-[0_4px_12px_rgba(35,171,230,0.2)]'}`}
             style={{
               width: size.width > 300 ? '64px' : '42px',
               height: size.width > 300 ? '64px' : '42px',
@@ -164,7 +179,7 @@ const StackCard: React.FC<StackCardProps> = ({ card, index, isActive, onCardClic
             top: size.width > 300 ? '95px' : '62px', // Reserves dedicated padding space below the notch
           }}
         >
-          <h3 className="font-display font-bold text-white text-[12px] md:text-lg leading-tight uppercase tracking-tight">
+          <h3 className={`font-display font-bold text-[12px] md:text-lg leading-tight uppercase tracking-tight transition-colors duration-300 ${isActive ? 'text-[#7dd3fc]' : 'text-white'}`}>
             {card.title}
           </h3>
           <div className="h-1 md:h-2" /> {/* Consistent spacing between title and description */}
@@ -564,12 +579,13 @@ export const ZoomSection: React.FC = () => {
         <style>{`
           .zoom-cards-container {
             --card-gap: 24px;
-            --card-width: min(165px, calc((100% - 24px) / 2));
+            --card-gap-y: 44px;
+            --card-width: min(165px, calc((100% - var(--card-gap)) / 2));
             --card-height: var(--card-width);
             --card-spacing-x: calc(var(--card-width) + var(--card-gap));
-            --card-spacing-y: calc(var(--card-width) + var(--card-gap));
+            --card-spacing-y: calc(var(--card-width) + var(--card-gap-y));
             --container-width: calc(var(--card-width) * 2 + var(--card-gap));
-            --container-height: calc(var(--card-height) * 2 + var(--card-gap));
+            --container-height: calc(var(--card-height) * 2 + var(--card-gap-y));
             padding-top: 100px;
             height: 100%;
             display: flex;
@@ -637,7 +653,7 @@ export const ZoomSection: React.FC = () => {
         <div className="zoom-cards-container w-full max-w-[1720px] relative px-4 md:px-8">
 
           {/* Title Header Section above the cards, aligned left */}
-          <div className="w-full flex flex-col items-center md:items-start text-center md:text-left z-10 pointer-events-none select-none mb-4 md:mb-12">
+          <div className="w-full flex flex-col items-center md:items-start text-center md:text-left z-10 pointer-events-none select-none mb-10 md:mb-12">
             <h2 className="w-fit inline-block mx-auto md:mx-0 font-display font-black text-[28px] sm:text-[54px] md:text-[76px] leading-[0.95] tracking-tighter bg-gradient-to-r from-[#2ba9e3] to-[#050c26] bg-clip-text text-transparent pb-2 md:pb-3 pt-1">
               Core <br /> Technology Pillars
             </h2>

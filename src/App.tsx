@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { MouseParallaxProvider } from './components/MouseParallaxProvider';
 import { ZoomSection } from './components/ZoomSection';
 import { GlassNavbar } from './components/GlassNavbar';
@@ -6,6 +7,16 @@ import { CapabilitiesShowcase } from './components/CapabilitiesShowcase';
 import { Shield, Cpu, Compass, Globe, CheckCircle, ArrowUpRight } from 'lucide-react';
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time (e.g., waiting for assets or minimum display time)
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2800); // 2.8 seconds loading screen
+    return () => clearTimeout(timer);
+  }, []);
+
   // Entrance variants for subsequent sections
   const fadeUpVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -18,6 +29,53 @@ export default function App() {
 
   return (
     <MouseParallaxProvider>
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            key="loader"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, filter: "blur(10px)" }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#000000]"
+          >
+            <div className="relative w-72 h-auto flex flex-col items-center">
+              <motion.img
+                src="/assets/logo.png"
+                alt="Loading..."
+                className="w-full h-auto"
+                animate={{
+                  opacity: [0.6, 1, 0.6],
+                  scale: [0.98, 1.02, 0.98],
+                  filter: [
+                    "drop-shadow(0 0 10px rgba(35,171,230,0.2))", 
+                    "drop-shadow(0 0 40px rgba(35,171,230,0.6))", 
+                    "drop-shadow(0 0 10px rgba(35,171,230,0.2))"
+                  ]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              <motion.div 
+                className="mt-12 h-[2px] w-56 bg-white/10 rounded-full overflow-hidden"
+              >
+                <motion.div
+                  className="h-full bg-cyan-400 shadow-[0_0_10px_rgba(35,171,230,0.8)]"
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: 2.5, ease: "easeInOut" }}
+                />
+              </motion.div>
+              <div className="mt-4 text-cyan-400/70 font-display text-[10px] uppercase tracking-[0.3em] font-semibold animate-pulse">
+                Initializing Systems
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="w-full min-h-screen root-bg relative selection:bg-cyan-500/30 selection:text-white flex flex-col items-center overflow-x-clip">
         {/* Continuous Flowing Ambient Background Glows */}
         {/* Section 1 (Hero/Top) - Left */}
@@ -102,13 +160,13 @@ export default function App() {
                 <p className="text-white/60 text-sm leading-relaxed mb-4">
                   SINC Lab is actively engaged in the development and application of Radar and RF sensing technologies for maritime surveillance and navigation. The lab has established strong capabilities in:
                 </p>
-                <ul className="list-disc list-inside text-white/50 text-sm space-y-2 mb-6 flex-grow">
+                <ul className="list-disc list-inside text-white/60 text-sm space-y-2 mb-6 flex-grow leading-relaxed">
                   <li>Radar systems</li>
                   <li>RF and Microwave sensing technologies</li>
                   <li>Signal acquisition and modelling</li>
                   <li>Enabling radio demonstration, testing, and analysis of electromagnetic signals</li>
                 </ul>
-                <p className="text-white/50 text-xs leading-relaxed border-t border-white/[0.06] pt-4 mt-auto">
+                <p className="text-white/60 text-sm leading-relaxed border-t border-white/[0.06] pt-4 mt-auto">
                   These technologies form a critical component of SINC Lab's sensing domain, providing high-fidelity data inputs for detection, perception, communication, and maritime awareness systems.
                 </p>
               </motion.div>
@@ -126,7 +184,7 @@ export default function App() {
                 <p className="text-white/60 text-sm leading-relaxed mb-4">
                   We develop and deploy environmental sensing systems to measure and monitor key physical variables such as:
                 </p>
-                <ul className="list-disc list-inside text-white/50 text-sm space-y-2 mb-4">
+                <ul className="list-disc list-inside text-white/60 text-sm space-y-2 mb-4 leading-relaxed">
                   <li>Temperature</li>
                   <li>Pressure</li>
                   <li>Gas Presence</li>
@@ -135,7 +193,7 @@ export default function App() {
                 <p className="text-white/60 text-sm leading-relaxed mb-6 flex-grow">
                   and more. These systems continuously capture data from the surrounding environment to support the performance, reliability, and health of operational systems.
                 </p>
-                <p className="text-white/50 text-xs leading-relaxed border-t border-white/[0.06] pt-4 mt-auto">
+                <p className="text-white/60 text-sm leading-relaxed border-t border-white/[0.06] pt-4 mt-auto">
                   We also extend our capabilities to the environmental monitoring of electrical networks, and other critical operational parameters, delivering valuable data inputs for further processing and analysis.
                 </p>
               </motion.div>
@@ -153,12 +211,12 @@ export default function App() {
                 <p className="text-white/60 text-sm leading-relaxed mb-4">
                   Control and interface sensing systems are designed to bridge physical sensors with embedded and digital platforms, enabling accurate data acquisition and system interaction. These include:
                 </p>
-                <ul className="list-disc list-inside text-white/50 text-sm space-y-2 mb-6 flex-grow">
+                <ul className="list-disc list-inside text-white/60 text-sm space-y-2 mb-6 flex-grow leading-relaxed">
                   <li>Electrical Control Units (ECUs)</li>
                   <li>Embedded sensing modules</li>
                   <li>Sensor interface and signal conditioning systems</li>
                 </ul>
-                <p className="text-white/50 text-xs leading-relaxed border-t border-white/[0.06] pt-4 mt-auto">
+                <p className="text-white/60 text-sm leading-relaxed border-t border-white/[0.06] pt-4 mt-auto">
                   These solutions ensure that sensor outputs are properly captured, conditioned, and converted into digital signals, allowing reliable communication between hardware components and higher-level processing systems.
                 </p>
               </motion.div>

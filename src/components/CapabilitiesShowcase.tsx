@@ -383,7 +383,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                   {activeCap.features && activeCap.features.length > 0 && (
                     <ul className="space-y-3 mt-2">
                       {activeCap.features.map((feat, idx) => (
-                        <li key={idx} className="flex items-start gap-3 text-sm text-gray-600 invert-text">
+                        <li key={idx} className="flex items-start gap-3 text-sm text-gray-600 leading-relaxed invert-text">
                           <CheckCircle2 className="w-4 h-4 text-[#23abe6] mt-0.5 shrink-0" />
                           <span>{feat}</span>
                         </li>
@@ -392,7 +392,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                   )}
 
                   {activeCap.footerDesc && (
-                    <p className="text-gray-500 text-xs leading-relaxed mt-2 border-t border-black/5 pt-3 invert-text">
+                    <p className="text-gray-600 text-sm leading-relaxed mt-2 border-t border-black/5 pt-4 invert-text">
                       {activeCap.footerDesc}
                     </p>
                   )}
@@ -496,8 +496,8 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                         className="space-y-4 mb-8"
                       >
                         {activeCap.features.map((feat, idx) => (
-                          <li key={idx} className="flex items-start gap-3 text-gray-600 invert-text">
-                            <CheckCircle2 className="w-5 h-5 text-[#23abe6] mt-0.5 shrink-0" />
+                          <li key={idx} className="flex items-start gap-3 text-gray-700 text-base lg:text-lg leading-relaxed invert-text">
+                            <CheckCircle2 className="w-5 h-5 text-[#23abe6] mt-1 shrink-0" />
                             <span>{feat}</span>
                           </li>
                         ))}
@@ -507,7 +507,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                     {activeCap.footerDesc && (
                       <motion.p
                         custom={0.38} variants={textVariants} initial="initial" animate="animate" exit="exit"
-                        className="text-gray-500 text-sm leading-relaxed border-t border-black/5 pt-4 invert-text"
+                        className="text-gray-700 text-base lg:text-lg leading-relaxed border-t border-black/5 pt-5 invert-text"
                       >
                         {activeCap.footerDesc}
                       </motion.p>

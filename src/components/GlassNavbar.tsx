@@ -123,7 +123,7 @@ export const GlassNavbar: React.FC = () => {
               href="#get-started"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="relative overflow-hidden group flex items-center justify-center gap-2 h-10 px-5 rounded-full text-xs font-semibold uppercase tracking-wider text-black bg-[#23abe6] hover:shadow-[0_0_20px_rgba(35,171,230,0.4)] transition-all duration-300"
+              className="relative overflow-hidden group flex items-center justify-center gap-2 h-10 px-5 rounded-full text-xs font-semibold uppercase tracking-wider text-white bg-[#23abe6] hover:shadow-[0_0_20px_rgba(35,171,230,0.4)] transition-all duration-300"
             >
               {/* CTA Shine Sweep Effect */}
               <span className="absolute inset-0 w-full h-full bg-white/20 -skew-x-12 -left-full group-hover:animate-shine pointer-events-none" />
@@ -182,7 +182,7 @@ export const GlassNavbar: React.FC = () => {
             <a
               href="#get-started"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-center gap-2 w-full py-4 rounded-xl text-sm font-semibold uppercase tracking-wider text-black bg-[#23abe6]"
+              className="flex items-center justify-center gap-2 w-full py-4 rounded-xl text-sm font-semibold uppercase tracking-wider text-white bg-[#23abe6]"
             >
               <span>Get Started</span>
               <ArrowRight className="w-4 h-4" />

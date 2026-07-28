@@ -145,7 +145,7 @@ const HeroSectionOne: React.FC<HeroSectionOneProps> = ({ currentPage = 'hero2', 
 
           {/* Far Right CTA Button */}
           <div className="hidden lg:flex items-center">
-            <button className="group relative overflow-hidden h-10 px-6 rounded-full bg-[#23abe6] text-black font-semibold text-sm flex items-center justify-center transition-transform active:scale-95 shadow-[0_4px_20px_rgba(35,171,230,0.3)]">
+            <button className="group relative overflow-hidden h-10 px-6 rounded-full bg-[#23abe6] text-white font-semibold text-sm flex items-center justify-center transition-transform active:scale-95 shadow-[0_4px_20px_rgba(35,171,230,0.3)]">
               <span className="relative z-10 flex items-center gap-1.5">
                 Get Started
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -194,7 +194,7 @@ const HeroSectionOne: React.FC<HeroSectionOneProps> = ({ currentPage = 'hero2', 
                 })}
                 <button
                   onClick={() => setMenuOpen(false)}
-                  className="w-full mt-2 h-12 rounded-full bg-[#23abe6] text-black font-semibold text-base flex items-center justify-center shadow-lg"
+                  className="w-full mt-2 h-12 rounded-full bg-[#23abe6] text-white font-semibold text-base flex items-center justify-center shadow-lg"
                 >
                   Get Started
                 </button>
