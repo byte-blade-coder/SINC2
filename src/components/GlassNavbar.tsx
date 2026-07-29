@@ -18,8 +18,8 @@ const NavLink: React.FC<NavLinkProps> = ({ href, active, onClick, scrolled, chil
       className={`
         relative px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider
         transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500
-        ${scrolled 
-          ? (active ? 'text-[#050c26]' : 'text-[#050c26]/60 hover:text-[#050c26]') 
+        ${scrolled
+          ? (active ? 'text-[#050c26]' : 'text-[#050c26]/60 hover:text-[#050c26]')
           : (active ? 'text-white' : 'text-white/60 hover:text-white')
         }
       `}
@@ -53,7 +53,7 @@ export const GlassNavbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = ['Home', 'About', 'Services', 'Research', 'Projects', 'Contact'];
+  const navLinks = ['Home', 'Services', 'Research', 'Projects', 'Contact'];
 
   return (
     <header className="fixed top-3 md:top-6 left-0 right-0 z-50 flex justify-center px-4 md:px-8 pointer-events-none">
@@ -70,15 +70,15 @@ export const GlassNavbar: React.FC = () => {
           w-full max-w-[1728px]
           md:w-[90%]
           lg:px-8
-          ${scrolled 
-            ? 'bg-white/15 backdrop-blur-xl shadow-md border-black/[0.08] px-6 py-2' 
+          ${scrolled
+            ? 'bg-white/15 backdrop-blur-xl shadow-md border-black/[0.08] px-6 py-2'
             : 'bg-black/35 backdrop-blur-md shadow-nav border-white/[0.06] px-6 py-2'
           }
         `}
       >
         {/* Logo Section */}
-        <a 
-          href="#home" 
+        <a
+          href="#home"
           className="flex items-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 rounded-lg"
           onClick={() => setActiveLink('Home')}
         >
@@ -89,9 +89,9 @@ export const GlassNavbar: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="flex items-center"
           >
-            <img 
-              src={scrolled ? "/assets/dark-logo.png" : "/assets/logo.png"} 
-              alt="SINC Logo" 
+            <img
+              src={scrolled ? "/assets/dark-logo.png" : "/assets/logo.png"}
+              alt="SINC Logo"
               className="h-[45px] md:h-[60px] w-auto object-contain transition-all duration-300"
             />
           </motion.div>
@@ -127,7 +127,7 @@ export const GlassNavbar: React.FC = () => {
             >
               {/* CTA Shine Sweep Effect */}
               <span className="absolute inset-0 w-full h-full bg-white/20 -skew-x-12 -left-full group-hover:animate-shine pointer-events-none" />
-              
+
               <span>Get Started</span>
               <ArrowRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" />
             </motion.a>
@@ -137,9 +137,8 @@ export const GlassNavbar: React.FC = () => {
           <div className="flex lg:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`p-2 rounded-full hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 ${
-                scrolled ? 'text-[#050c26] hover:bg-black/5' : 'text-white/80 hover:bg-white/5'
-              }`}
+              className={`p-2 rounded-full hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 ${scrolled ? 'text-[#050c26] hover:bg-black/5' : 'text-white/80 hover:bg-white/5'
+                }`}
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -167,17 +166,16 @@ export const GlassNavbar: React.FC = () => {
                     setActiveLink(link);
                     setMobileMenuOpen(false);
                   }}
-                  className={`px-4 py-3 rounded-xl text-base font-medium transition-colors ${
-                    activeLink === link 
-                      ? 'bg-white/10 text-white' 
+                  className={`px-4 py-3 rounded-xl text-base font-medium transition-colors ${activeLink === link
+                      ? 'bg-white/10 text-white'
                       : 'text-white/60 hover:text-white hover:bg-white/5'
-                  }`}
+                    }`}
                 >
                   {link}
                 </a>
               ))}
             </div>
-            
+
             {/* CTA inside Mobile Drawer */}
             <a
               href="#get-started"

@@ -1,122 +1,229 @@
-import React, { useRef } from 'react';
-import { motion } from 'framer-motion';
-import AnimationWrapper from './AnimationWrapper';
+import React, { useRef, useEffect, useState } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 
-const Projects = () => {
-  const gridRef = useRef<HTMLDivElement>(null);
+export interface ProjectSection {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+}
 
-  const scrollLeft = () => {
-    if (gridRef.current) {
-      const card = gridRef.current.querySelector('.project-card') as HTMLElement;
-      const cardWidth = (card ? card.offsetWidth : 300) + 20; // 20px gap
-      gridRef.current.scrollBy({ left: -cardWidth, behavior: 'smooth' });
-    }
-  };
+export interface Project {
+  id: number;
+  number: string;
+  badge: string;
+  title: string;
+  description: string;
+  image: string;
+  tech: string[];
+  sections: ProjectSection[];
+}
 
-  const scrollRight = () => {
-    if (gridRef.current) {
-      const card = gridRef.current.querySelector('.project-card') as HTMLElement;
-      const cardWidth = (card ? card.offsetWidth : 300) + 20; // 20px gap
-      gridRef.current.scrollBy({ left: cardWidth, behavior: 'smooth' });
-    }
-  };
+export const projectsData: Project[] = [
+  {
+    id: 1,
+    number: '01',
+    badge: 'Autonomous Sensing',
+    title: 'Littoral Surveillance Array (LSA-12)',
+    description: 'Deploying high-frequency hydrophone clusters to monitor near-shore acoustic signatures and detect low-profile littoral intrusions.',
+    image: '/assets/sensing_clean.png',
+    tech: ['Acoustic Array', 'Sub-meter Tracking', 'Edge Intelligence'],
+    sections: [
+      { id: 'challenge', title: 'The Challenge', description: 'Monitoring vast littoral zones requires persistent, low-power sensing capabilities that can operate autonomously in hostile environments without regular maintenance or data retrieval vessels.', image: '/assets/sensing_clean.png' },
+      { id: 'approach', title: 'Our Approach', description: 'We engineered a highly distributed, mesh-networked array of hydrophone clusters featuring edge-processing nodes to filter out biological noise and isolate mechanical signatures locally.', image: '/assets/sensor_fusion.png' },
+      { id: 'outcome', title: 'The Outcome', description: 'The LSA-12 achieved a 94% reduction in false positives and increased operational longevity by 300%, providing a continuous, real-time acoustic map of the monitored theater.', image: '/assets/processing_clean.png' },
+      { id: 'whatWeDid', title: 'What We Did', description: 'Hardware Engineering, Acoustic Modeling, Embedded AI Filtering, Mesh Telemetry Setup, and Deep-Sea Deployment Logistics.', image: '/assets/data_analytics_clean.png' }
+    ]
+  },
+  {
+    id: 2,
+    number: '02',
+    badge: 'Signal Processing',
+    title: 'Adaptive Noise Cancellation Core (ANC-X)',
+    description: 'Real-time extraction of weak sonar returns from background shipping noise using edge-deployed deep learning filters.',
+    image: '/assets/processing_clean.png',
+    tech: ['TensorRT', 'Dynamic Filtering', 'FPGA Processing'],
+    sections: [
+      { id: 'challenge', title: 'The Challenge', description: 'Modern stealth vessels emit acoustic signatures that are frequently masked by heavy commercial shipping traffic, rendering traditional threshold-based sonar filtering ineffective.', image: '/assets/processing_clean.png' },
+      { id: 'approach', title: 'Our Approach', description: 'We developed an FPGA-accelerated neural network capable of isolating and subtracting dynamic ambient noise profiles in real-time, allowing ultra-weak anomalies to surface in the spectrogram.', image: '/assets/sensing_clean.png' },
+      { id: 'outcome', title: 'The Outcome', description: 'ANC-X extended the effective detection range by 40 nautical miles in highly congested shipping lanes, providing crucial early warning capabilities.', image: '/assets/communication_clean.png' },
+      { id: 'whatWeDid', title: 'What We Did', description: 'Deep Learning Architecture, FPGA Synthesis, Real-Time Signal Processing, and Live-Sea Calibration.', image: '/assets/sensor_fusion.png' }
+    ]
+  },
+  {
+    id: 3,
+    number: '03',
+    badge: 'Secure Telemetry',
+    title: 'Mesh Acoustic Transceiver (MAT-04)',
+    description: 'Quantum-resistant underwater communication link utilizing multi-carrier frequency-hopping spreads for secure data transit.',
+    image: '/assets/communication_clean.png',
+    tech: ['Quantum-Safe', 'Multi-Band FHSS', 'Acoustic Mesh'],
+    sections: [
+      { id: 'challenge', title: 'The Challenge', description: 'Transmitting high-fidelity sensor data securely through the water column is notoriously difficult due to multipath fading, low bandwidth, and the ever-present threat of signal interception.', image: '/assets/communication_clean.png' },
+      { id: 'approach', title: 'Our Approach', description: 'MAT-04 utilizes a proprietary multi-band frequency-hopping spread spectrum (FHSS) protocol layered with quantum-resistant encryption algorithms to ensure absolute data integrity.', image: '/assets/sensor_fusion.png' },
+      { id: 'outcome', title: 'The Outcome', description: 'Achieved a sustained, intercept-proof underwater data link capable of transmitting compressed telemetry over 15 kilometers without repeaters.', image: '/assets/data_analytics_clean.png' },
+      { id: 'whatWeDid', title: 'What We Did', description: 'Acoustic Protocol Design, Cryptographic Integration, Transducer Engineering, and Network Topology Mapping.', image: '/assets/sensing_clean.png' }
+    ]
+  },
+  {
+    id: 4,
+    number: '04',
+    badge: 'Tactical Analytics',
+    title: 'Dynamic Threat Assessor (DTA-3)',
+    description: 'Volumetric path prediction engine fusing lidar, radar, and sonar vectors to map defensive response paths in real-time.',
+    image: '/assets/data_analytics_clean.png',
+    tech: ['Sensor Fusion', '3D Volumetric Path', 'Predictive AI'],
+    sections: [
+      { id: 'challenge', title: 'The Challenge', description: 'Command centers are overwhelmed with disjointed data streams from disparate domains (air, surface, sub-surface), making split-second tactical decisions incredibly difficult.', image: '/assets/data_analytics_clean.png' },
+      { id: 'approach', title: 'Our Approach', description: 'DTA-3 ingests raw vectors from every available sensor node, employing a predictive physics engine to construct a unified 3D holographic threat topology.', image: '/assets/communication_clean.png' },
+      { id: 'outcome', title: 'The Outcome', description: 'Reduced command response latency from minutes to milliseconds, automating defensive posture recommendations across entire fleet groups.', image: '/assets/sensor_fusion.png' },
+      { id: 'whatWeDid', title: 'What We Did', description: 'Sensor Fusion Algorithms, 3D Volumetric Rendering, Predictive Physics Engine, and C2 System Integration.', image: '/assets/processing_clean.png' }
+    ]
+  },
+];
 
-  const projects = [
-    {
-      name: 'Cloud Migration System',
-      img: 'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      badge: 'Solution'
-    },
-    {
-      name: 'Digital Growth Strategy',
-      img: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      badge: 'Solution'
-    },
-    {
-      name: 'Mobile App Development',
-      img: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      badge: 'Solution'
-    },
-    {
-      name: 'Business Transformation',
-      img: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      badge: 'Solution'
-    },
-  ];
+interface ProjectsProps {
+  onProjectClick: (project: Project) => void;
+}
+
+export default function Projects({ onProjectClick }: ProjectsProps) {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [scrollAmount, setScrollAmount] = useState(0);
+
+  // Measure the total track width to calculate how far it needs to scroll horizontally
+  useEffect(() => {
+    const updateScrollAmount = () => {
+      if (trackRef.current) {
+        const trackWidth = trackRef.current.scrollWidth;
+        const windowWidth = window.innerWidth;
+        const margin = windowWidth >= 768 ? 64 : 20;
+        setScrollAmount(-(trackWidth - windowWidth + margin));
+      }
+    };
+
+    updateScrollAmount();
+
+    // Force a re-measurement after a short delay to account for image/font loading
+    const timer = setTimeout(updateScrollAmount, 500);
+    window.addEventListener('resize', updateScrollAmount);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', updateScrollAmount);
+    };
+  }, []);
+
+  // Map vertical scroll progress (0 to 1) to horizontal translation (0 to scrollAmount)
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"]
+  });
+
+  // Apply a slight spring smoothing so it feels premium and scrubs nicely like GSAP
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 400,
+    damping: 90,
+    mass: 0.1,
+  });
+
+  const x = useTransform(smoothProgress, [0, 1], [0, scrollAmount]);
 
   return (
-    <AnimationWrapper>
-      <section className="projects-section">
-        <div className="projects-container">
-          <motion.div 
-            className="projects-header"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="projects-header-left">
-              <span className="projects-subtitle">[ RECENT PROJECTS ]</span>
-              <h2 className="projects-title">
-                Breaking Boundaries,<br />
-                Creating New Horizons.
-              </h2>
-            </div>
-            <div className="projects-header-right">
-              <p className="projects-desc">
-                SINC has a long-standing history of pioneering complex solutions for naval systems and enterprise infrastructure.
-              </p>
-              <div className="carousel-controls">
-                <button onClick={scrollLeft} className="control-btn prev-btn" aria-label="Previous Slide">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="19" y1="12" x2="5" y2="12" />
-                    <polyline points="12 19 5 12 12 5" />
-                  </svg>
-                </button>
-                <button onClick={scrollRight} className="control-btn next-btn" aria-label="Next Slide">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12" />
-                    <polyline points="12 5 19 12 12 19" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </motion.div>
+    <section
+      id="projects"
+      ref={sectionRef}
+      className="relative z-10 w-full bg-white text-[#111827] border-t border-black/[0.05]"
+      style={{ height: '300vh' }} // Provide scroll distance natively
+    >
+      <style>{`
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
 
-          <div ref={gridRef} className="projects-grid">
-            {projects.map((project, index) => (
-              <motion.div 
-                key={index} 
-                className="project-card"
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ y: -10 }}
-              >
-                <div className="card-image-wrap">
-                  <img src={project.img} alt={project.name} className="project-img" />
-                  <div className="card-overlay" />
-                  <span className="project-badge">{project.badge}</span>
-                  <a href="#" className="project-detail-link">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="7" y1="17" x2="17" y2="7" />
-                      <polyline points="7 7 17 7 17 17" />
-                    </svg>
-                  </a>
-                </div>
-                <div className="card-info">
-                  <h3 className="project-name">
-                    <a href="#">{project.name}</a>
-                  </h3>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+      {/* Sticky Container inside the 300vh section */}
+      <div className="sticky top-0 left-0 w-full h-screen flex flex-col pt-[12vh] md:pt-[18vh] overflow-hidden">
+
+        {/* Header Container */}
+        <div className="max-w-[1728px] mx-auto w-full px-3 md:px-4 lg:px-5 mb-12 select-none">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#0284c7]">
+            Strategic Deployment
+          </span>
+          <h2 className="font-display font-semibold text-3xl md:text-5xl lg:text-6xl text-[#111827] tracking-tight mt-4 leading-[1.1]">
+            Flagship Solutions
+          </h2>
+          <p className="text-gray-500 font-sans text-base md:text-lg leading-relaxed mt-4 max-w-2xl">
+            Explore our latest systems built for intelligence, navigation, and defense readiness in maritime domains.
+          </p>
         </div>
-      </section>
-    </AnimationWrapper>
-  );
-};
 
-export default Projects;
+        {/* Cinematic Horizontal Scroll-Driven Viewport */}
+        <div className="w-full relative overflow-visible">
+          <motion.div
+            ref={trackRef}
+            className="flex flex-nowrap gap-6 md:gap-8 pl-[max(0.75rem,calc((100vw-1728px)/2+0.75rem))] md:pl-[max(1rem,calc((100vw-1728px)/2+1rem))] lg:pl-[max(1.25rem,calc((100vw-1728px)/2+1.25rem))] pr-6 no-scrollbar"
+            style={{ width: 'max-content', x }}
+          >
+            {projectsData.map((project) => (
+              <button
+                key={project.id}
+                onClick={() => onProjectClick(project)}
+                className="flex-shrink-0 relative rounded-3xl border border-black/5 overflow-hidden bg-gray-50 aspect-[16/10] group shadow-sm hover:shadow-md transition-all duration-500 text-left focus:outline-none focus:ring-4 focus:ring-[#0284c7]/30"
+                style={{
+                  width: 'min(720px, 85vw)',
+                }}
+                aria-label={`View project details for ${project.title}`}
+              >
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent pointer-events-none" />
+
+                {/* Information Panel */}
+                <div className="absolute bottom-0 inset-x-0 p-5 sm:p-8 flex flex-col justify-end bg-black/40 backdrop-blur-md border-t border-white/10 rounded-b-3xl select-none">
+                  <div className="flex items-center gap-3">
+                    <span className="font-display font-black text-lg text-cyan-400">
+                      {project.number}
+                    </span>
+                    <span className="text-[9px] font-bold uppercase tracking-widest text-white/50">
+                      / {project.badge}
+                    </span>
+                  </div>
+                  <h3 className="font-display font-semibold text-lg sm:text-xl text-white tracking-tight mt-1.5 flex items-center justify-between">
+                    {project.title}
+                    <ArrowUpRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
+                  </h3>
+                  <p className="text-white/70 text-xs sm:text-sm leading-relaxed mt-2 max-w-xl">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5 mt-3 sm:mt-4">
+                    {project.tech.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2.5 py-0.5 rounded-full text-[9px] font-semibold tracking-wider bg-white/5 border border-white/10 text-white/80"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </button>
+            ))}
+            {/* Spacer card for scrolled right alignment */}
+            <div className="flex-shrink-0 w-1 md:w-8" />
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}

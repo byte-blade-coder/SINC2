@@ -82,12 +82,12 @@ const StackCard: React.FC<StackCardProps> = ({ card, index, isActive, onCardClic
         }
       }}
     >
-      <div 
+      <div
         className="absolute inset-0 transition-all duration-300 ease-out"
         style={{
           transform: isActive ? 'translateY(-22px) scale(1.04)' : 'translateY(0px) scale(1)',
-          filter: isActive 
-            ? 'drop-shadow(0 20px 40px rgba(35,171,230,0.25)) drop-shadow(0 0 10px rgba(35,171,230,0.15))' 
+          filter: isActive
+            ? 'drop-shadow(0 20px 40px rgba(35,171,230,0.25)) drop-shadow(0 0 10px rgba(35,171,230,0.15))'
             : 'none'
         }}
       >
@@ -138,7 +138,7 @@ const StackCard: React.FC<StackCardProps> = ({ card, index, isActive, onCardClic
 
         {/* Active Pill Badge at Top Right */}
         {isActive && (
-          <div 
+          <div
             className="absolute top-2.5 right-2.5 md:top-3.5 md:right-3.5 px-2 md:px-2.5 py-0.5 rounded-full bg-[#23abe6] text-white text-[8px] md:text-[10px] font-extrabold tracking-wider uppercase shadow-[0_2px_6px_rgba(35,171,230,0.3)] border border-white/20 flex items-center gap-1 z-20 transition-all duration-300"
           >
             <span className="relative flex h-1.5 w-1.5">

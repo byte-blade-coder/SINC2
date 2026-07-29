@@ -616,7 +616,7 @@ export const CapabilitiesShowcase: React.FC = () => {
   const activeDomainData = domains.find(d => d.id === activeDomain)!;
 
   return (
-    <div ref={sectionRef} className="w-full relative bg-transparent z-10 font-sans pb-32 pt-6 min-h-[800px] overflow-hidden">
+    <div ref={sectionRef} className="w-full relative bg-transparent z-10 font-sans pb-12 pt-6 overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.div
           key={activeDomain}
