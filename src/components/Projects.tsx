@@ -1,9 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Testimonials from './Testimonials';
-
 export interface ProjectSection {
   id: string;
   title: string;
@@ -113,139 +112,140 @@ export default function Projects() {
     };
   }, []);
 
-  // We increase the section height to 400vh to give room for the slice transition at the end
-  // We increase the section height to 400vh to give room for the slice transition at the end
+  // Map vertical scroll progress (0 to 1) directly for instant, responsive scrubbing
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"]
   });
 
-  // Apply a slight spring smoothing so it feels premium and scrubs nicely like GSAP
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 400,
-    damping: 90,
-    mass: 0.1,
-  });
+  // Phase 1: Horizontal Cards Scroll (0 to 0.60)
+  const x = useTransform(scrollYProgress, [0, 0.60], [0, scrollAmount]);
 
-  // Horizontal scroll finishes at 75% of the total scroll
-  const x = useTransform(smoothProgress, [0, 0.75], [0, scrollAmount]);
+  // Phase 2: 6 Shutter Blinds retract UPWARDS sequentially (0.60 to 0.95)
+  // Masking the actual Flagship content so it folds up into blinds.
+  const scaleY0 = useTransform(scrollYProgress, [0.60, 0.75], [1, 0]);
+  const scaleY1 = useTransform(scrollYProgress, [0.64, 0.79], [1, 0]);
+  const scaleY2 = useTransform(scrollYProgress, [0.68, 0.83], [1, 0]);
+  const scaleY3 = useTransform(scrollYProgress, [0.72, 0.87], [1, 0]);
+  const scaleY4 = useTransform(scrollYProgress, [0.76, 0.91], [1, 0]);
+  const scaleY5 = useTransform(scrollYProgress, [0.80, 0.95], [1, 0]);
 
-  // Fade in the giant IMPACT overlay between 70% and 75% of scroll
-  const overlayOpacity = useTransform(smoothProgress, [0.7, 0.75], [0, 1]);
-
-  // Pre-calculate 6 scaleY transforms to avoid Rules of Hooks violation in .map()
-  const scaleY0 = useTransform(smoothProgress, [0.75, 0.90], [1, 0]);
-  const scaleY1 = useTransform(smoothProgress, [0.77, 0.92], [1, 0]);
-  const scaleY2 = useTransform(smoothProgress, [0.79, 0.94], [1, 0]);
-  const scaleY3 = useTransform(smoothProgress, [0.81, 0.96], [1, 0]);
-  const scaleY4 = useTransform(smoothProgress, [0.83, 0.98], [1, 0]);
-  const scaleY5 = useTransform(smoothProgress, [0.85, 1.00], [1, 0]);
-  const scaleYs = [scaleY0, scaleY1, scaleY2, scaleY3, scaleY4, scaleY5];
+  const maskImage = useMotionTemplate`linear-gradient(to bottom, 
+    black 0%, black calc(16.666% * ${scaleY0}), transparent calc(16.666% * ${scaleY0}), transparent 16.666%,
+    black 16.666%, black calc(16.666% + 16.666% * ${scaleY1}), transparent calc(16.666% + 16.666% * ${scaleY1}), transparent 33.333%,
+    black 33.333%, black calc(33.333% + 16.666% * ${scaleY2}), transparent calc(33.333% + 16.666% * ${scaleY2}), transparent 50%,
+    black 50%, black calc(50% + 16.666% * ${scaleY3}), transparent calc(50% + 16.666% * ${scaleY3}), transparent 66.666%,
+    black 66.666%, black calc(66.666% + 16.666% * ${scaleY4}), transparent calc(66.666% + 16.666% * ${scaleY4}), transparent 83.333%,
+    black 83.333%, black calc(83.333% + 16.666% * ${scaleY5}), transparent calc(83.333% + 16.666% * ${scaleY5}), transparent 100%
+  )`;
 
   return (
-    <section ref={sectionRef} id="projects" className="relative h-[400vh] bg-[#f9fafb] z-20">
-      <div 
-        className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden bg-[#f9fafb]"
-      >
-        {/* Header Container */}
-        <div className="max-w-[1728px] mx-auto w-full px-6 md:px-12 lg:px-24 mb-12 select-none">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#0284c7]">
-            Strategic Deployment
-          </span>
-          <h2 className="font-display font-semibold text-3xl md:text-5xl lg:text-6xl text-[#111827] tracking-tight mt-4 leading-[1.1]">
-            Flagship Solutions
-          </h2>
-          <p className="text-gray-500 font-sans text-base md:text-lg leading-relaxed mt-4 max-w-2xl">
-            Explore our latest systems built for intelligence, navigation, and defense readiness in maritime domains.
-          </p>
+    <section
+      id="projects"
+      ref={sectionRef}
+      className="relative z-10 w-full bg-[#050505] text-[#111827]"
+      style={{ height: '400vh' }} 
+    >
+      <style>{`
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
+
+      {/* Sticky Container inside the 400vh section */}
+      <div className="sticky top-0 left-0 w-full h-screen overflow-hidden">
+        
+        {/* BACKGROUND LAYER: The dark Testimonials section revealed when the Flagship blinds fold up */}
+        <div className="absolute inset-0 z-0 flex flex-col justify-center">
+          <Testimonials />
         </div>
 
-        {/* Cinematic Horizontal Scroll-Driven Viewport */}
-        <div className="w-full relative overflow-visible">
-          <motion.div
-            ref={trackRef}
-            className="flex flex-nowrap gap-6 md:gap-8 pl-[max(0.75rem,calc((100vw-1728px)/2+0.75rem))] md:pl-[max(1rem,calc((100vw-1728px)/2+1rem))] lg:pl-[max(1.25rem,calc((100vw-1728px)/2+1.25rem))] pr-6 no-scrollbar"
-            style={{ width: 'max-content', x }}
-          >
-            {projectsData.map((project) => (
-              <Link
-                key={project.id}
-                to={`/project/${project.id}`}
-                className="flex-shrink-0 relative rounded-3xl border border-black/5 overflow-hidden bg-gray-50 aspect-[16/10] group shadow-sm hover:shadow-md transition-all duration-500 text-left focus:outline-none focus:ring-4 focus:ring-[#0284c7]/30"
-                style={{
-                  width: 'min(720px, 85vw)',
-                }}
-                aria-label={`View project details for ${project.title}`}
-              >
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent pointer-events-none" />
-
-                {/* Information Panel */}
-                <div className="absolute bottom-0 inset-x-0 p-5 sm:p-8 flex flex-col justify-end bg-black/40 backdrop-blur-md border-t border-white/10 rounded-b-3xl select-none">
-                  <div className="flex items-center gap-3">
-                    <span className="font-display font-black text-lg text-cyan-400">
-                      {project.number}
-                    </span>
-                    <span className="text-[9px] font-bold uppercase tracking-widest text-white/50">
-                      / {project.badge}
-                    </span>
-                  </div>
-                  <h3 className="font-display font-semibold text-lg sm:text-xl text-white tracking-tight mt-1.5 flex items-center justify-between">
-                    {project.title}
-                    <ArrowUpRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
-                  </h3>
-                  <p className="text-white/70 text-xs sm:text-sm leading-relaxed mt-2 max-w-xl">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-1.5 mt-3 sm:mt-4">
-                    {project.tech.map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-2.5 py-0.5 rounded-full text-[9px] font-semibold tracking-wider bg-white/5 border border-white/10 text-white/80"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </Link>
-            ))}
-            {/* Spacer card for scrolled right alignment */}
-            <div className="flex-shrink-0 w-1 md:w-8" />
-          </motion.div>
-        </div>
-
-        {/* SHUTTER STRIPS OVERLAY */}
-        {/* We use 6 horizontal strips that scaleY down to 0 at the end of the scroll */}
+        {/* FOREGROUND LAYER: The white Flagship content that is masked into blinds */}
         <motion.div 
-          style={{ opacity: overlayOpacity }}
-          className="absolute inset-0 z-50 flex flex-col h-full overflow-hidden bg-[#050505]"
+          className="absolute inset-0 z-10 flex flex-col pt-[12vh] md:pt-[18vh] bg-[#f9fafb] border-t border-black/[0.05]"
+          style={{
+            WebkitMaskImage: maskImage,
+            maskImage: maskImage,
+          }}
         >
-          {/* BACKGROUND LAYER: Revealed when the blinds shrink */}
-          <div className="absolute inset-0 z-0 flex flex-col justify-center">
-            <Testimonials />
+          {/* Header Container */}
+          <div className="max-w-[1728px] mx-auto w-full px-3 md:px-4 lg:px-5 mb-12 select-none">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#0284c7]">
+              Strategic Deployment
+            </span>
+            <h2 className="font-display font-semibold text-3xl md:text-5xl lg:text-6xl text-[#111827] tracking-tight mt-4 leading-[1.1]">
+              Flagship Solutions
+            </h2>
+            <p className="text-gray-500 font-sans text-base md:text-lg leading-relaxed mt-4 max-w-2xl">
+              Explore our latest systems built for intelligence, navigation, and defense readiness in maritime domains.
+            </p>
           </div>
 
-          {/* FOREGROUND LAYER: The Blinds */}
-          <div className="absolute inset-0 z-10 flex flex-col pointer-events-none">
-            {scaleYs.map((scaleY, i) => {
-              return (
-                <motion.div
-                  key={i}
-                  className="relative w-full overflow-hidden flex-shrink-0 bg-[#f9fafb]"
-                  style={{ height: `${100 / 6}vh`, scaleY, originY: 0 }}
-                />
-              );
-            })}
+          {/* Cinematic Horizontal Scroll-Driven Viewport */}
+          <div className="w-full relative overflow-visible">
+            <motion.div
+              ref={trackRef}
+              className="flex flex-nowrap gap-6 md:gap-8 pl-[max(0.75rem,calc((100vw-1728px)/2+0.75rem))] md:pl-[max(1rem,calc((100vw-1728px)/2+1rem))] lg:pl-[max(1.25rem,calc((100vw-1728px)/2+1.25rem))] pr-6 no-scrollbar"
+              style={{ width: 'max-content', x }}
+            >
+              {projectsData.map((project) => (
+                <Link
+                  key={project.id}
+                  to={`/project/${project.id}`}
+                  className="flex-shrink-0 relative rounded-3xl border border-black/5 overflow-hidden bg-gray-50 aspect-[16/10] group shadow-sm hover:shadow-md transition-all duration-500 text-left focus:outline-none focus:ring-4 focus:ring-[#0284c7]/30"
+                  style={{
+                    width: 'min(720px, 85vw)',
+                  }}
+                  aria-label={`View project details for ${project.title}`}
+                >
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent pointer-events-none" />
+
+                  {/* Information Panel */}
+                  <div className="absolute bottom-0 inset-x-0 p-5 sm:p-8 flex flex-col justify-end bg-black/40 backdrop-blur-md border-t border-white/10 rounded-b-3xl select-none">
+                    <div className="flex items-center gap-3">
+                      <span className="font-display font-black text-lg text-cyan-400">
+                        {project.number}
+                      </span>
+                      <span className="text-[9px] font-bold uppercase tracking-widest text-white/50">
+                        / {project.badge}
+                      </span>
+                    </div>
+                    <h3 className="font-display font-semibold text-lg sm:text-xl text-white tracking-tight mt-1.5 flex items-center justify-between">
+                      {project.title}
+                      <ArrowUpRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-300" />
+                    </h3>
+                    <p className="text-white/70 text-xs sm:text-sm leading-relaxed mt-2 max-w-xl">
+                      {project.description}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5 mt-3 sm:mt-4">
+                      {project.tech.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2.5 py-0.5 rounded-full text-[9px] font-semibold tracking-wider bg-white/5 border border-white/10 text-white/80"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+              {/* Spacer card for scrolled right alignment */}
+              <div className="flex-shrink-0 w-1 md:w-8" />
+            </motion.div>
           </div>
         </motion.div>
-
       </div>
     </section>
   );

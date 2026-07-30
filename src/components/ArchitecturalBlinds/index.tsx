@@ -8,7 +8,7 @@ import { RevealSection } from './RevealSection';
  * Features staggered upward retraction of horizontal strips linked to Lenis scroll.
  */
 export default function ArchitecturalBlinds() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
 
   return (
     <section

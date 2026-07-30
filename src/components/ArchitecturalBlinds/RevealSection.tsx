@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { gsap } from 'gsap';
 
-export const RevealSection: React.FC<{ triggerRef: React.RefObject<HTMLElement> }> = ({ triggerRef }) => {
+export const RevealSection: React.FC<{ triggerRef: React.RefObject<HTMLElement | null> }> = ({ triggerRef }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const headingsRef = useRef<HTMLHeadingElement>(null);
   const textRef = useRef<HTMLParagraphElement>(null);
@@ -45,7 +45,7 @@ export const RevealSection: React.FC<{ triggerRef: React.RefObject<HTMLElement> 
   }, [triggerRef]);
 
   return (
-    <div 
+    <div
       ref={containerRef}
       className="w-full h-screen bg-[#050505] text-white flex flex-col items-center justify-center relative overflow-hidden"
     >
@@ -54,13 +54,13 @@ export const RevealSection: React.FC<{ triggerRef: React.RefObject<HTMLElement> 
       <div className="absolute bottom-[20%] right-[20%] rounded-full pointer-events-none w-[30vw] h-[30vw] bg-[rgba(255,255,255,0.015)] blur-[80px]" />
 
       <div className="max-w-[1728px] w-full px-6 md:px-12 lg:px-24 flex flex-col items-center text-center relative z-10">
-        
+
         <div className="absolute top-24 left-12 text-left text-white/50 text-[10px] md:text-xs tracking-widest uppercase font-semibold leading-relaxed">
-          FOCUSED VISION. <br/>
+          FOCUSED VISION. <br />
           MEASURED EXECUTION.
         </div>
 
-        <h2 
+        <h2
           ref={headingsRef}
           className="font-display font-black text-5xl md:text-7xl lg:text-[8rem] leading-[0.9] tracking-tighter mb-10 mt-32"
         >
@@ -71,7 +71,7 @@ export const RevealSection: React.FC<{ triggerRef: React.RefObject<HTMLElement> 
           </span>
         </h2>
 
-        <p 
+        <p
           ref={textRef}
           className="max-w-2xl text-white/60 text-lg md:text-xl font-sans mb-12"
         >
@@ -79,7 +79,7 @@ export const RevealSection: React.FC<{ triggerRef: React.RefObject<HTMLElement> 
           navigation, and defense readiness.
         </p>
 
-        <button 
+        <button
           ref={btnRef}
           className="group flex items-center justify-center gap-4 bg-white text-black px-8 py-5 rounded-full font-bold uppercase tracking-widest text-sm hover:scale-105 transition-transform duration-500 focus:outline-none"
         >

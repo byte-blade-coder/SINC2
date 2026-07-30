@@ -37,9 +37,6 @@ export const Testimonials = () => {
       <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[50vw] h-[50vw] bg-[#0284c7]/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] bg-[#23abe6]/5 rounded-full blur-[100px] pointer-events-none" />
 
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 bg-[url('/assets/grid-dark.svg')] bg-center opacity-10 pointer-events-none" />
-
       <div className="max-w-[1728px] w-full px-6 md:px-12 lg:px-24 relative z-10">
         
         {/* Section Header */}

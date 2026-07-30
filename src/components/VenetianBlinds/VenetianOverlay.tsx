@@ -7,11 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const NUM_SLATS = 6; // Chunky slats like Trionn
 
-export function VenetianOverlay({
-  triggerRef,
-}: {
-  triggerRef: React.RefObject<HTMLElement>;
-}) {
+export const VenetianOverlay: React.FC<{ triggerRef: React.RefObject<HTMLElement | null> }> = ({ triggerRef }) => {
   const slatsRef = useRef<HTMLDivElement[]>([]);
   const { pathname } = useLocation();
 
@@ -25,14 +21,14 @@ export function VenetianOverlay({
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: triggerRef.current,
-        start  : 'top top',
-        end    : 'bottom bottom',
-        scrub  : true,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: true,
       },
     });
 
-    const STAGGER_SPREAD = 0.5; 
-    const SLAT_DURATION  = 0.5; 
+    const STAGGER_SPREAD = 0.5;
+    const SLAT_DURATION = 0.5;
 
     // Stagger from top to bottom
     slatsRef.current.forEach((slat, i) => {
@@ -73,13 +69,13 @@ export function VenetianOverlay({
               <div className="flex animate-marquee">
                 {/* Marquee Text */}
                 <h1 className="text-[15vw] font-display font-black text-[#050505] uppercase tracking-tighter px-8">
-                  IMPACT + INSPIRE + INNOVATE + 
+                  IMPACT + INSPIRE + INNOVATE +
                 </h1>
                 <h1 className="text-[15vw] font-display font-black text-[#050505] uppercase tracking-tighter px-8">
-                  IMPACT + INSPIRE + INNOVATE + 
+                  IMPACT + INSPIRE + INNOVATE +
                 </h1>
                 <h1 className="text-[15vw] font-display font-black text-[#050505] uppercase tracking-tighter px-8">
-                  IMPACT + INSPIRE + INNOVATE + 
+                  IMPACT + INSPIRE + INNOVATE +
                 </h1>
               </div>
             </div>

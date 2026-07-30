@@ -21,7 +21,7 @@ export default function Home() {
         if ((window as any).ScrollTrigger) {
           (window as any).ScrollTrigger.refresh();
         }
-        
+
         requestAnimationFrame(() => {
           const el = document.getElementById('projects');
           if (el) {
@@ -31,14 +31,14 @@ export default function Home() {
               el.scrollIntoView();
             }
           }
-          
+
           // Add a tiny delay after scrolling before lifting the loader
           setTimeout(() => {
             setIsTransitioning(false);
           }, 150);
         });
       }, 600);
-      
+
       return () => clearTimeout(timer);
     }
   }, [hash]);
@@ -53,7 +53,7 @@ export default function Home() {
             transition={{ duration: 0.6, ease: "easeInOut" }}
             className="fixed inset-0 z-[9999] bg-[#0b0b0b] flex flex-col items-center justify-center"
           >
-            <motion.div 
+            <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
               className="w-12 h-12 border-2 border-white/10 border-t-cyan-400 rounded-full"
@@ -105,6 +105,11 @@ export default function Home() {
 
         {/* PROJECTS SHOWCASE (Before Footer) */}
         <Projects />
+
+        {/* ARCHITECTURAL BLINDS TRANSITION */}
+        <div className="w-full">
+          <ArchitecturalBlinds />
+        </div>
 
         {/* Padded container for the Footer (Dark Theme Continued) */}
         <div className="w-full p-3 md:p-4 lg:p-5 flex flex-col items-center bg-[#050505] relative z-10">

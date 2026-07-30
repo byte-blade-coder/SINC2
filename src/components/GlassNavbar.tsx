@@ -48,21 +48,13 @@ export const GlassNavbar: React.FC = () => {
       setScrolled(y > 20);
 
       // Detect if we're in the dark shutter/footer zone.
-      const projectsEl = document.getElementById('projects');
-      if (projectsEl) {
-        const rect = projectsEl.getBoundingClientRect();
-        
-        // Progress of the Projects section
-        const progress = -rect.top / (rect.height - window.innerHeight);
-        
-        // If we've reached the 75% mark (when the black theme reveals) or scrolled past it
-        if (progress >= 0.75) {
-          setIsDark(true);
-        } else {
-          setIsDark(false);
-        }
-      } else {
-        setIsDark(false);
+      // The shutter section starts after all white sections.
+      // We detect it by checking if any dark section element is near the top.
+      const shutterEl = document.querySelector('[data-dark-section]');
+      if (shutterEl) {
+        const rect = shutterEl.getBoundingClientRect();
+        // Consider dark when the dark section top edge is within viewport
+        setIsDark(rect.top <= window.innerHeight * 0.5);
       }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -185,8 +177,8 @@ export const GlassNavbar: React.FC = () => {
                     setMobileMenuOpen(false);
                   }}
                   className={`px-4 py-3 rounded-xl text-base font-medium transition-colors ${activeLink === link
-                      ? 'bg-white/10 text-white'
-                      : 'text-white/60 hover:text-white hover:bg-white/5'
+                    ? 'bg-white/10 text-white'
+                    : 'text-white/60 hover:text-white hover:bg-white/5'
                     }`}
                 >
                   {link}

@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom';
 gsap.registerPlugin(ScrollTrigger);
 
 export function useShutterAnimation(
-  triggerRef: React.RefObject<HTMLElement>
+  triggerRef: React.RefObject<HTMLElement | null>
 ) {
   const [numStrips, setNumStrips] = useState(10);
   const stripsRef = useRef<HTMLDivElement[]>([]);
@@ -18,7 +18,7 @@ export function useShutterAnimation(
       else if (window.innerWidth < 1024) setNumStrips(8);
       else setNumStrips(10);
     };
-    
+
     updateStrips();
     window.addEventListener('resize', updateStrips);
     return () => window.removeEventListener('resize', updateStrips);

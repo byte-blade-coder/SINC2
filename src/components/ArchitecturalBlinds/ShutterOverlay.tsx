@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { ShutterStrip } from './ShutterStrip';
 import { useShutterAnimation } from './useShutterAnimation';
 
-export const ShutterOverlay: React.FC<{ triggerRef: React.RefObject<HTMLElement> }> = ({ triggerRef }) => {
+export const ShutterOverlay: React.FC<{ triggerRef: React.RefObject<HTMLElement | null> }> = ({ triggerRef }) => {
   const { pathname } = useLocation();
   const { stripsRef, numStrips } = useShutterAnimation(triggerRef);
 

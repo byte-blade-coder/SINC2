@@ -26,7 +26,7 @@ import { BlindSection } from './BlindSection';
  * - 100%: All slats compressed into a thin strip at top edge
  */
 export default function VenetianBlinds() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
 
   return (
     <section
