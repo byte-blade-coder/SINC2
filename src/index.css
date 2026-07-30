@@ -40,6 +40,13 @@
     0% { left: -100%; }
     50%, 100% { left: 100%; }
   }
+
+  --animate-marquee: marquee 20s linear infinite;
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-33.333333%); }
+  }
 }
 
 /* Custom Base Layer & Layout Setup */

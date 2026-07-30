@@ -38,18 +38,34 @@ const NavLink: React.FC<NavLinkProps> = ({ href, active, onClick, scrolled, chil
 
 export const GlassNavbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [isDark, setIsDark] = useState(false);
   const [activeLink, setActiveLink] = useState('Home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
+      const y = window.scrollY;
+      setScrolled(y > 20);
+
+      // Detect if we're in the dark shutter/footer zone.
+      const projectsEl = document.getElementById('projects');
+      if (projectsEl) {
+        const rect = projectsEl.getBoundingClientRect();
+        
+        // Progress of the Projects section
+        const progress = -rect.top / (rect.height - window.innerHeight);
+        
+        // If we've reached the 75% mark (when the black theme reveals) or scrolled past it
+        if (progress >= 0.75) {
+          setIsDark(true);
+        } else {
+          setIsDark(false);
+        }
       } else {
-        setScrolled(false);
+        setIsDark(false);
       }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -70,9 +86,11 @@ export const GlassNavbar: React.FC = () => {
           w-full max-w-[1728px]
           md:w-[90%]
           lg:px-8
-          ${scrolled
-            ? 'bg-white/15 backdrop-blur-xl shadow-md border-black/[0.08] px-6 py-2'
-            : 'bg-black/35 backdrop-blur-md shadow-nav border-white/[0.06] px-6 py-2'
+          ${isDark
+            ? 'bg-white/[0.06] backdrop-blur-xl shadow-lg border-white/[0.08] px-6 py-2'
+            : scrolled
+              ? 'bg-white/15 backdrop-blur-xl shadow-md border-black/[0.08] px-6 py-2'
+              : 'bg-black/35 backdrop-blur-md shadow-nav border-white/[0.06] px-6 py-2'
           }
         `}
       >
@@ -90,7 +108,7 @@ export const GlassNavbar: React.FC = () => {
             className="flex items-center"
           >
             <img
-              src={scrolled ? "/assets/dark-logo.png" : "/assets/logo.png"}
+              src={(scrolled && !isDark) ? "/assets/dark-logo.png" : "/assets/logo.png"}
               alt="SINC Logo"
               className="h-[45px] md:h-[60px] w-auto object-contain transition-all duration-300"
             />
@@ -104,7 +122,7 @@ export const GlassNavbar: React.FC = () => {
               key={link}
               href={`#${link.toLowerCase()}`}
               active={activeLink === link}
-              scrolled={scrolled}
+              scrolled={scrolled && !isDark}
               onClick={() => {
                 setActiveLink(link);
                 setMobileMenuOpen(false);
@@ -137,7 +155,7 @@ export const GlassNavbar: React.FC = () => {
           <div className="flex lg:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`p-2 rounded-full hover:bg-white/5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 ${scrolled ? 'text-[#050c26] hover:bg-black/5' : 'text-white/80 hover:bg-white/5'
+              className={`p-2 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 ${(scrolled && !isDark) ? 'text-[#050c26] hover:bg-black/5' : 'text-white/80 hover:bg-white/5'
                 }`}
               aria-label="Toggle Navigation Menu"
             >

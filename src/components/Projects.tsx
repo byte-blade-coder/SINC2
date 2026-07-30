@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import Testimonials from './Testimonials';
 
 export interface ProjectSection {
   id: string;
@@ -83,11 +85,7 @@ export const projectsData: Project[] = [
   },
 ];
 
-interface ProjectsProps {
-  onProjectClick: (project: Project) => void;
-}
-
-export default function Projects({ onProjectClick }: ProjectsProps) {
+export default function Projects() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [scrollAmount, setScrollAmount] = useState(0);
@@ -115,7 +113,8 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
     };
   }, []);
 
-  // Map vertical scroll progress (0 to 1) to horizontal translation (0 to scrollAmount)
+  // We increase the section height to 400vh to give room for the slice transition at the end
+  // We increase the section height to 400vh to give room for the slice transition at the end
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"]
@@ -128,30 +127,28 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
     mass: 0.1,
   });
 
-  const x = useTransform(smoothProgress, [0, 1], [0, scrollAmount]);
+  // Horizontal scroll finishes at 75% of the total scroll
+  const x = useTransform(smoothProgress, [0, 0.75], [0, scrollAmount]);
+
+  // Fade in the giant IMPACT overlay between 70% and 75% of scroll
+  const overlayOpacity = useTransform(smoothProgress, [0.7, 0.75], [0, 1]);
+
+  // Pre-calculate 6 scaleY transforms to avoid Rules of Hooks violation in .map()
+  const scaleY0 = useTransform(smoothProgress, [0.75, 0.90], [1, 0]);
+  const scaleY1 = useTransform(smoothProgress, [0.77, 0.92], [1, 0]);
+  const scaleY2 = useTransform(smoothProgress, [0.79, 0.94], [1, 0]);
+  const scaleY3 = useTransform(smoothProgress, [0.81, 0.96], [1, 0]);
+  const scaleY4 = useTransform(smoothProgress, [0.83, 0.98], [1, 0]);
+  const scaleY5 = useTransform(smoothProgress, [0.85, 1.00], [1, 0]);
+  const scaleYs = [scaleY0, scaleY1, scaleY2, scaleY3, scaleY4, scaleY5];
 
   return (
-    <section
-      id="projects"
-      ref={sectionRef}
-      className="relative z-10 w-full bg-white text-[#111827] border-t border-black/[0.05]"
-      style={{ height: '300vh' }} // Provide scroll distance natively
-    >
-      <style>{`
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
-
-      {/* Sticky Container inside the 300vh section */}
-      <div className="sticky top-0 left-0 w-full h-screen flex flex-col pt-[12vh] md:pt-[18vh] overflow-hidden">
-
+    <section ref={sectionRef} id="projects" className="relative h-[400vh] bg-[#f9fafb] z-20">
+      <div 
+        className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden bg-[#f9fafb]"
+      >
         {/* Header Container */}
-        <div className="max-w-[1728px] mx-auto w-full px-3 md:px-4 lg:px-5 mb-12 select-none">
+        <div className="max-w-[1728px] mx-auto w-full px-6 md:px-12 lg:px-24 mb-12 select-none">
           <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#0284c7]">
             Strategic Deployment
           </span>
@@ -171,9 +168,9 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
             style={{ width: 'max-content', x }}
           >
             {projectsData.map((project) => (
-              <button
+              <Link
                 key={project.id}
-                onClick={() => onProjectClick(project)}
+                to={`/project/${project.id}`}
                 className="flex-shrink-0 relative rounded-3xl border border-black/5 overflow-hidden bg-gray-50 aspect-[16/10] group shadow-sm hover:shadow-md transition-all duration-500 text-left focus:outline-none focus:ring-4 focus:ring-[#0284c7]/30"
                 style={{
                   width: 'min(720px, 85vw)',
@@ -217,12 +214,38 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
                     ))}
                   </div>
                 </div>
-              </button>
+              </Link>
             ))}
             {/* Spacer card for scrolled right alignment */}
             <div className="flex-shrink-0 w-1 md:w-8" />
           </motion.div>
         </div>
+
+        {/* SHUTTER STRIPS OVERLAY */}
+        {/* We use 6 horizontal strips that scaleY down to 0 at the end of the scroll */}
+        <motion.div 
+          style={{ opacity: overlayOpacity }}
+          className="absolute inset-0 z-50 flex flex-col h-full overflow-hidden bg-[#050505]"
+        >
+          {/* BACKGROUND LAYER: Revealed when the blinds shrink */}
+          <div className="absolute inset-0 z-0 flex flex-col justify-center">
+            <Testimonials />
+          </div>
+
+          {/* FOREGROUND LAYER: The Blinds */}
+          <div className="absolute inset-0 z-10 flex flex-col pointer-events-none">
+            {scaleYs.map((scaleY, i) => {
+              return (
+                <motion.div
+                  key={i}
+                  className="relative w-full overflow-hidden flex-shrink-0 bg-[#f9fafb]"
+                  style={{ height: `${100 / 6}vh`, scaleY, originY: 0 }}
+                />
+              );
+            })}
+          </div>
+        </motion.div>
+
       </div>
     </section>
   );

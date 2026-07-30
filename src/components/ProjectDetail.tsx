@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
-import type { Project, ProjectSection } from './Projects';
-
-interface ProjectDetailProps {
-  project: Project;
-  onBack: () => void;
-}
+import { useParams, useNavigate } from 'react-router-dom';
+import { projectsData } from './Projects';
+import type { ProjectSection } from './Projects';
 
 // Sub-component for the scrollable images to track intersection
 const SectionImage = ({ 
@@ -55,13 +52,42 @@ const SectionImage = ({
   );
 };
 
-export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
-  const [activeSectionId, setActiveSectionId] = useState<string>(project.sections[0]?.id || '');
+export default function ProjectDetail() {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   
+  const project = projectsData.find(p => p.id === Number(id));
+
+  const [activeSectionId, setActiveSectionId] = useState<string>('');
+  
+  useEffect(() => {
+    if (project && project.sections.length > 0 && !activeSectionId) {
+      setActiveSectionId(project.sections[0].id);
+    }
+  }, [project, activeSectionId]);
+
   // Force scroll to top when mounting
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  if (!project) {
+    return (
+      <div className="w-full min-h-screen bg-[#0b0b0b] text-white flex flex-col items-center justify-center">
+        <h1 className="text-2xl font-bold mb-4">Project not found</h1>
+        <button 
+          onClick={() => navigate('/')}
+          className="px-6 py-2 bg-[#23abe6] text-white rounded-full text-sm uppercase tracking-wider font-semibold hover:opacity-90 transition-opacity"
+        >
+          Return to Showcase
+        </button>
+      </div>
+    );
+  }
+
+  const handleBack = () => {
+    navigate('/#projects');
+  };
 
   const activeSection = project.sections.find(s => s.id === activeSectionId) || project.sections[0];
 
@@ -78,7 +104,7 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
       {/* Mobile Top Bar (Only visible when stacked) */}
       <div className="md:hidden w-full p-6 flex justify-between items-center border-b border-white/10 sticky top-0 bg-[#0b0b0b]/80 backdrop-blur-md z-50">
         <button 
-          onClick={onBack}
+          onClick={handleBack}
           className="flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm font-medium tracking-wide uppercase"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -92,7 +118,7 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
         
         {/* Desktop Back Button */}
         <button 
-          onClick={onBack}
+          onClick={handleBack}
           className="hidden md:flex absolute top-12 left-12 lg:left-16 items-center gap-2 text-white/50 hover:text-white transition-colors text-xs font-bold tracking-[0.2em] uppercase group"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
@@ -195,7 +221,7 @@ export default function ProjectDetail({ project, onBack }: ProjectDetailProps) {
         {/* Footer spacing inside scroll area */}
         <div className="h-[20vh] w-full flex items-center justify-center border-t border-white/10 mt-[80px]">
           <button 
-            onClick={onBack}
+            onClick={handleBack}
             className="text-white/40 hover:text-white transition-colors text-sm font-bold tracking-widest uppercase flex items-center gap-2"
           >
             Return to Showcase
