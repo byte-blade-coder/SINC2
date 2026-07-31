@@ -28,7 +28,7 @@ export function useShutterAnimation(
     if (pathname !== '/' || !triggerRef.current) return;
 
     // Initial state setup
-    gsap.set(stripsRef.current, { scaleY: 1, force3D: true, transformOrigin: 'top' });
+    gsap.set(stripsRef.current, { scaleY: 1, force3D: true, transformOrigin: 'bottom' });
 
     // Master Scrub Timeline: Retracts strips upward in sequence
     const tl = gsap.timeline({
@@ -43,9 +43,10 @@ export function useShutterAnimation(
     const STAGGER_SPREAD = 0.5;
     const STRIP_DURATION = 0.5;
 
-    // Stagger from top to bottom, scaling each strip down vertically
+    // Stagger from bottom to top, scaling each strip down vertically
     stripsRef.current.forEach((strip, i) => {
-      const startAt = (i / (numStrips - 1)) * STAGGER_SPREAD;
+      const reverseIndex = numStrips - 1 - i;
+      const startAt = (reverseIndex / (numStrips - 1)) * STAGGER_SPREAD;
       tl.to(
         strip,
         {

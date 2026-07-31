@@ -13,7 +13,7 @@ export const ShutterStrip: React.FC<ShutterStripProps> = ({ index, totalStrips, 
   return (
     <div
       ref={setRef}
-      className="absolute left-0 right-0 bg-[#f4f4f4] origin-top"
+      className="absolute left-0 right-0 bg-[#f4f4f4] origin-bottom"
       style={{
         top: `${index * stripHeight}vh`,
         height: `calc(${stripHeight}vh - ${GAP_VH}vh)`,

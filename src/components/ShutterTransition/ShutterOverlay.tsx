@@ -16,8 +16,9 @@ function ShutterPanel({
 }) {
   const isEven = index % 2 === 0;
 
-  // Stagger: each panel starts slightly later than the previous
-  const staggerOffset = index * 0.012;
+  // Stagger: each panel starts slightly later than the previous (reversed for bottom-to-top)
+  const staggerIndex = total - 1 - index;
+  const staggerOffset = staggerIndex * 0.012;
   const start = Math.min(staggerOffset, 0.4);
   const end   = Math.min(start + 0.6, 1);
 

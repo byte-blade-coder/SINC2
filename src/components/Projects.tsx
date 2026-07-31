@@ -123,12 +123,12 @@ export default function Projects() {
 
   // Phase 2: 6 Shutter Blinds retract UPWARDS sequentially (0.60 to 0.95)
   // Masking the actual Flagship content so it folds up into blinds.
-  const scaleY0 = useTransform(scrollYProgress, [0.60, 0.75], [1, 0]);
-  const scaleY1 = useTransform(scrollYProgress, [0.64, 0.79], [1, 0]);
-  const scaleY2 = useTransform(scrollYProgress, [0.68, 0.83], [1, 0]);
-  const scaleY3 = useTransform(scrollYProgress, [0.72, 0.87], [1, 0]);
-  const scaleY4 = useTransform(scrollYProgress, [0.76, 0.91], [1, 0]);
-  const scaleY5 = useTransform(scrollYProgress, [0.80, 0.95], [1, 0]);
+  const scaleY0 = useTransform(scrollYProgress, [0.80, 0.95], [1, 0]);
+  const scaleY1 = useTransform(scrollYProgress, [0.76, 0.91], [1, 0]);
+  const scaleY2 = useTransform(scrollYProgress, [0.72, 0.87], [1, 0]);
+  const scaleY3 = useTransform(scrollYProgress, [0.68, 0.83], [1, 0]);
+  const scaleY4 = useTransform(scrollYProgress, [0.64, 0.79], [1, 0]);
+  const scaleY5 = useTransform(scrollYProgress, [0.60, 0.75], [1, 0]);
 
   const maskImage = useMotionTemplate`linear-gradient(to bottom, 
     black 0%, black calc(16.666% * ${scaleY0}), transparent calc(16.666% * ${scaleY0}), transparent 16.666%,
