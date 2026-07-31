@@ -32,18 +32,11 @@
     <meta name="twitter:image" content="https://sinc-2.vercel.app/assets/logo.png" />
 
     <!-- Performance Preloads -->
-    <link rel="preload" as="image" href="/assets/hero-poster.webp" />
   </head>
   <body>
     <div id="root">
       <!-- Static HTML representation for fast FCP/LCP -->
       <div style="background-color: #050505; position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; z-index: 9999;">
-        <!-- Background Poster Image -->
-        <img src="/assets/hero-poster.webp" alt="Ocean surveillance background" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;" />
-        
-        <!-- Black-to-transparent gradient overlay -->
-        <div style="position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, #050505 0%, #050505 40%, transparent 70%, transparent 100%); opacity: 0.4;"></div>
-
         <!-- Centered Logo -->
         <img src="/assets/logo.png" alt="SINC Logo" style="position: relative; max-width: 85%; height: 60px; object-fit: contain; z-index: 2;" />
       </div>

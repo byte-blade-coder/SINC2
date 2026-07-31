@@ -38,15 +38,7 @@ export const VideoBackground: React.FC = () => {
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none select-none">
-      {/* Fallback Poster Image with smooth fade-out */}
-      <motion.img
-        src="/assets/hero-poster.webp"
-        alt="Ocean surveillance background"
-        initial={{ opacity: 1 }}
-        animate={{ opacity: videoLoaded ? 0 : 1 }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute inset-0 w-full h-full object-cover z-0"
-      />
+
 
       {/* Background Video */}
       <video

@@ -50,12 +50,12 @@ export const GlassNavbar: React.FC = () => {
       let dark = false;
 
       // 1. Check if we're deep into the Projects section (where Testimonials are revealed)
-      // The Projects section is now 500vh tall. Testimonials reveal starts around 65% scroll progress.
-      // 65% of 500vh is 325vh. So when top is <= -325vh, we are in dark mode.
+      // The Projects section is now 800vh tall. Testimonials reveal starts around 55% scroll progress.
+      // 55% of 800vh is 440vh. So when top is <= -440vh, we are in dark mode.
       const projectsEl = document.getElementById('projects');
       if (projectsEl) {
         const pRect = projectsEl.getBoundingClientRect();
-        if (pRect.top <= -window.innerHeight * 3.25 && pRect.bottom > 0) {
+        if (pRect.top <= -window.innerHeight * 4.4 && pRect.bottom > 0) {
           dark = true;
         }
       }
