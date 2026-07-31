@@ -64,9 +64,7 @@ function StatCard({ stat, index, active }: { stat: typeof stats[0]; index: numbe
       {/* Value */}
       <div className="font-display font-black text-[28px] sm:text-[32px] md:text-[36px] leading-none tracking-tighter text-white
         group-hover:text-[#2ba9e3] transition-colors duration-300 whitespace-pre-line">
-        {stat.value !== null
-          ? <Counter target={stat.value} suffix={stat.suffix} />
-          : stat.text}
+        <Counter target={stat.value} suffix={stat.suffix} />
       </div>
 
       {/* Label */}
