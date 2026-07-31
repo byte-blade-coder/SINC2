@@ -2,14 +2,14 @@ import React, { useEffect, useRef } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { gsap } from 'gsap';
 
-export const RevealSection: React.FC<{ triggerRef: React.RefObject<HTMLElement | null> }> = ({ triggerRef }) => {
+export const RevealSection: React.FC<{ triggerRef?: React.RefObject<HTMLElement | null> }> = ({ triggerRef }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const headingsRef = useRef<HTMLHeadingElement>(null);
   const textRef = useRef<HTMLParagraphElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    if (!triggerRef.current || !containerRef.current) return;
+    if (!triggerRef || !triggerRef.current || !containerRef.current) return;
 
     // We tie the elements inside RevealSection to the same scroll sequence
     // as the shutter overlay so they reveal perfectly.

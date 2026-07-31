@@ -6,7 +6,6 @@ import { GlassNavbar } from './GlassNavbar';
 import { CapabilitiesShowcase } from './CapabilitiesShowcase';
 import Projects from './Projects';
 import { Shield } from 'lucide-react';
-import ArchitecturalBlinds from './ArchitecturalBlinds';
 
 export default function Home() {
   const { hash } = useLocation();
@@ -106,15 +105,10 @@ export default function Home() {
         {/* PROJECTS SHOWCASE (Before Footer) */}
         <Projects />
 
-        {/* ARCHITECTURAL BLINDS TRANSITION */}
-        <div className="w-full">
-          <ArchitecturalBlinds />
-        </div>
-
         {/* Padded container for the Footer (Dark Theme Continued) */}
         <div className="w-full p-3 md:p-4 lg:p-5 flex flex-col items-center bg-[#050505] relative z-10">
           {/* 6. FOOTER SECTION */}
-          <footer id="contact" className="relative overflow-hidden w-full max-w-7xl px-6 pt-20 pb-12 border-t border-white/[0.03] flex flex-col gap-12 bg-[#050505]">
+          <footer id="contact" className="relative overflow-hidden w-full max-w-7xl px-6 pt-10 pb-6 border-t border-white/[0.03] flex flex-col gap-12 bg-[#050505]">
             {/* Mobile-only Ambient Blurs */}
             <div className="absolute top-[10%] -left-[30vw] w-[100vw] h-[100vw] bg-[#2ba9e3]/15 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
             <div className="absolute bottom-[20%] -right-[30vw] w-[100vw] h-[100vw] bg-[#050c26]/10 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />

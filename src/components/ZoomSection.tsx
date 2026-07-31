@@ -136,18 +136,6 @@ const StackCard: React.FC<StackCardProps> = ({ card, index, isActive, onCardClic
           />
         </svg>
 
-        {/* Active Pill Badge at Top Right */}
-        {isActive && (
-          <div
-            className="absolute top-2.5 right-2.5 md:top-3.5 md:right-3.5 px-2 md:px-2.5 py-0.5 rounded-full bg-[#23abe6] text-white text-[8px] md:text-[10px] font-extrabold tracking-wider uppercase shadow-[0_2px_6px_rgba(35,171,230,0.3)] border border-white/20 flex items-center gap-1 z-20 transition-all duration-300"
-          >
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-60"></span>
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white"></span>
-            </span>
-            Active
-          </div>
-        )}
 
         {/* Card Section Number (inside cutout as a blue rounded square with gap spacing) */}
         <div
@@ -653,7 +641,7 @@ export const ZoomSection: React.FC = () => {
         <div className="zoom-cards-container w-full max-w-[1720px] relative px-4 md:px-8">
 
           {/* Title Header Section above the cards, aligned left */}
-          <div className="w-full flex flex-col items-center md:items-start text-center md:text-left z-10 select-none mb-10 md:mb-12">
+          <div className="w-full flex flex-col items-center md:items-start text-center md:text-left z-10 select-none mb-12 md:mb-20">
             <h2 className="w-fit inline-block mx-auto md:mx-0 font-display font-black text-[28px] sm:text-[54px] md:text-[76px] leading-[0.95] tracking-tighter bg-gradient-to-r from-[#2ba9e3] to-[#050c26] bg-clip-text text-transparent pb-2 md:pb-3 pt-1">
               Core <br /> Technology Pillars
             </h2>

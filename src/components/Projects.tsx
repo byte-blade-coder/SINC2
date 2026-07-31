@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useMotionTemplate } from 'framer-motio
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Testimonials from './Testimonials';
+import { RevealSection } from './ArchitecturalBlinds/RevealSection';
 export interface ProjectSection {
   id: string;
   title: string;
@@ -118,17 +119,20 @@ export default function Projects() {
     offset: ["start start", "end end"]
   });
 
-  // Phase 1: Horizontal Cards Scroll (0 to 0.60)
-  const x = useTransform(scrollYProgress, [0, 0.60], [0, scrollAmount]);
+  // Phase 1: Horizontal Cards Scroll (0 to 0.50)
+  const x = useTransform(scrollYProgress, [0, 0.50], [0, scrollAmount]);
 
-  // Phase 2: 6 Shutter Blinds retract UPWARDS sequentially (0.60 to 0.95)
+  // Phase 2: 6 Shutter Blinds retract UPWARDS sequentially (0.55 to 0.70)
   // Masking the actual Flagship content so it folds up into blinds.
-  const scaleY0 = useTransform(scrollYProgress, [0.80, 0.95], [1, 0]);
-  const scaleY1 = useTransform(scrollYProgress, [0.78, 0.93], [1, 0]);
-  const scaleY2 = useTransform(scrollYProgress, [0.76, 0.91], [1, 0]);
-  const scaleY3 = useTransform(scrollYProgress, [0.74, 0.89], [1, 0]);
-  const scaleY4 = useTransform(scrollYProgress, [0.72, 0.87], [1, 0]);
-  const scaleY5 = useTransform(scrollYProgress, [0.70, 0.85], [1, 0]);
+  const scaleY0 = useTransform(scrollYProgress, [0.65, 0.70], [1, 0]);
+  const scaleY1 = useTransform(scrollYProgress, [0.63, 0.68], [1, 0]);
+  const scaleY2 = useTransform(scrollYProgress, [0.61, 0.66], [1, 0]);
+  const scaleY3 = useTransform(scrollYProgress, [0.59, 0.64], [1, 0]);
+  const scaleY4 = useTransform(scrollYProgress, [0.57, 0.62], [1, 0]);
+  const scaleY5 = useTransform(scrollYProgress, [0.55, 0.60], [1, 0]);
+
+  // Phase 3: Testimonials slide to the right (0.85 to 1.0)
+  const testimonialsX = useTransform(scrollYProgress, [0.85, 1.0], ["0%", "100%"]);
 
   const maskImage = useMotionTemplate`linear-gradient(to bottom, 
     black 0%, black calc(16.666% * ${scaleY0}), transparent calc(16.666% * ${scaleY0}), transparent 16.666%,
@@ -144,7 +148,7 @@ export default function Projects() {
       id="projects"
       ref={sectionRef}
       className="relative z-10 w-full bg-[#050505] text-[#111827]"
-      style={{ height: '400vh' }} 
+      style={{ height: '600vh' }} 
     >
       <style>{`
         .no-scrollbar::-webkit-scrollbar {
@@ -159,14 +163,22 @@ export default function Projects() {
       {/* Sticky Container inside the 400vh section */}
       <div className="sticky top-0 left-0 w-full h-screen overflow-hidden">
         
-        {/* BACKGROUND LAYER: The dark Testimonials section revealed when the Flagship blinds fold up */}
-        <div className="absolute inset-0 z-0 flex flex-col justify-center">
-          <Testimonials />
+        {/* BACKGROUND 1: RevealSection standing statically behind everything */}
+        <div className="absolute inset-0 z-[-1] flex flex-col justify-center bg-[#050505]">
+          <RevealSection />
         </div>
+
+        {/* BACKGROUND 2: The dark Testimonials section revealed when the Flagship blinds fold up */}
+        <motion.div 
+          className="absolute inset-0 z-0 flex flex-col justify-center bg-[#050505]"
+          style={{ x: testimonialsX }}
+        >
+          <Testimonials />
+        </motion.div>
 
         {/* FOREGROUND LAYER: The white Flagship content that is masked into blinds */}
         <motion.div 
-          className="absolute inset-0 z-10 flex flex-col pt-[12vh] md:pt-[18vh] bg-[#f9fafb] border-t border-black/[0.05]"
+          className="absolute inset-0 z-10 flex flex-col pt-[14vh] md:pt-[16vh] bg-[#f9fafb] border-t border-black/[0.05]"
           style={{
             WebkitMaskImage: maskImage,
             maskImage: maskImage,

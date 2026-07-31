@@ -302,7 +302,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
   const activeCap = capabilities[activeSubIndex];
 
   return (
-    <div id={`domain-${id}`} className="w-full text-white pt-24 pb-12 px-6 lg:px-12 border-b border-black/5 last:border-none">
+    <div id={`domain-${id}`} className="w-full text-white pt-12 pb-12 px-6 lg:px-12 border-b border-black/5 last:border-none">
       <div className="w-full max-w-[1720px] mx-auto flex flex-col gap-8 lg:gap-10">
         
         {/* Section Header */}
