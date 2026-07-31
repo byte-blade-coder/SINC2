@@ -4,21 +4,23 @@ import { ExternalLink, ArrowUpRight } from 'lucide-react';
 
 /* ─── Stat card data ─────────────────────────────────────────── */
 const stats = [
-  { index: '01', value: 4,    suffix: '',  label: 'Core Technology\nPillars' },
-  { index: '02', value: 10,   suffix: '+', label: 'Flagship\nSolutions' },
-  { index: '03', value: 10,   suffix: '+', label: 'Years of\nIndigenous R&D' },
-  { index: '04', value: null, suffix: '',  label: 'Research to\nDeployment', text: 'Mission\nReady' },
+  { index: '01', value: 4,    suffix: '',  label: 'Core Technology\nPillars', span: false },
+  { index: '02', value: 10,   suffix: '+', label: 'Flagship\nSolutions', span: false },
+  { index: '03', value: 10,   suffix: '+', label: 'Years of delivering\nindigenous R&D solutions', span: true },
 ];
 
-/* ─── Animated counter ───────────────────────────────────────── */
-function Counter({ target, suffix, active }: { target: number; suffix: string; active: boolean }) {
+function Counter({ target, suffix }: { target: number; suffix: string }) {
   const [count, setCount] = useState(0);
-  const prefersReduced = useReducedMotion();
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "0px 0px -5% 0px" });
 
   useEffect(() => {
-    if (!active || prefersReduced) { setCount(target); return; }
+    if (!inView) return;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) { setCount(target); return; }
+    
     let start = 0;
-    const duration = 900;
+    const duration = 1200;
     const step = 16;
     const increment = target / (duration / step);
     const timer = setInterval(() => {
@@ -27,10 +29,10 @@ function Counter({ target, suffix, active }: { target: number; suffix: string; a
       else setCount(Math.floor(start));
     }, step);
     return () => clearInterval(timer);
-  }, [active, target, prefersReduced]);
+  }, [inView, target]);
 
   return (
-    <span>
+    <span ref={ref}>
       {count}
       <span className="text-[#2ba9e3]">{suffix}</span>
     </span>
@@ -48,9 +50,9 @@ function StatCard({
       initial={{ opacity: 0, y: 20 }}
       animate={active ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: 0.15 + index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative border border-white/[0.06] bg-white/[0.015] p-5 md:p-6
+      className={`group relative border border-white/[0.06] bg-white/[0.015] p-4 md:p-5
         hover:border-[#23abe6]/25 hover:bg-[#23abe6]/[0.03] hover:-translate-y-0.5
-        transition-all duration-300 overflow-hidden cursor-default"
+        transition-all duration-300 overflow-hidden cursor-default ${stat.span ? 'col-span-2' : ''}`}
     >
       {/* Subtle glow on hover */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500
@@ -59,15 +61,15 @@ function StatCard({
       />
 
       {/* Index */}
-      <span className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#2ba9e3]/40 mb-3 block">
+      <span className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#2ba9e3]/40 mb-2.5 block">
         {stat.index}
       </span>
 
       {/* Value */}
-      <div className="font-display font-black text-[36px] sm:text-[42px] leading-none tracking-tighter text-white
+      <div className="font-display font-black text-[28px] sm:text-[32px] md:text-[36px] leading-none tracking-tighter text-white
         group-hover:text-[#2ba9e3] transition-colors duration-300 whitespace-pre-line">
         {stat.value !== null
-          ? <Counter target={stat.value} suffix={stat.suffix} active={active} />
+          ? <Counter target={stat.value} suffix={stat.suffix} />
           : stat.text}
       </div>
 
@@ -90,7 +92,7 @@ export function NextSection() {
   return (
     <div
       ref={ref}
-      className="w-full min-h-screen bg-[#050505] text-white flex flex-col items-center justify-center relative overflow-hidden py-24 md:py-28"
+      className="w-full min-h-screen bg-[#050505] text-white flex flex-col items-center justify-center relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-24"
     >
       {/* ── Ambient glows (same style as Testimonials) ── */}
       <div className="absolute -top-[20%] left-[20%] w-[60vw] h-[60vw] bg-[#23abe6]/[0.04] rounded-full blur-[140px] pointer-events-none" />
@@ -149,16 +151,16 @@ export function NextSection() {
               <p className="font-sans font-light text-white/60 text-[14px] md:text-[15px] leading-[1.9]">
                 SINC Lab is a research and development organization dedicated to
                 enhancing mission-critical readiness through innovative engineering,
-                technology insertion, and functional replacement solutions. Our work
-                bridges cutting-edge research with real-world operational demands
-                across maritime and defense environments.
+                technology insertion, and functional replacement solutions. Our expertise spans
+                sensing, embedded processing, secure communications, and data analytics to
+                address operational challenges across maritime and defense environments.
               </p>
               <p className="font-sans font-light text-white/45 text-[14px] md:text-[15px] leading-[1.9]">
                 Driven by reliability, sustainability, and indigenous innovation, we
                 develop practical technologies that overcome obsolescence, supply chain
-                constraints, and evolving operational requirements — transitioning
-                seamlessly from research into deployment for both defense organizations
-                and commercial industries.
+                constraints, and evolving operational requirements. Our solutions are designed to
+                transition seamlessly from research into deployment, serving both defense
+                organizations and commercial industries.
               </p>
             </motion.div>
 

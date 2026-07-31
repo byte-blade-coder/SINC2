@@ -19,8 +19,8 @@ function ShutterPanel({
   // Stagger: each panel starts slightly later than the previous (reversed for bottom-to-top)
   const staggerIndex = total - 1 - index;
   const staggerOffset = staggerIndex * 0.012;
-  const start = Math.min(staggerOffset, 0.4);
-  const end   = Math.min(start + 0.6, 1);
+  const start = staggerOffset;
+  const end   = start + 0.35; // finishes opening by ~0.58 scroll progress, leaving rest for reading
 
   const x = useTransform(
     smoothProgress,

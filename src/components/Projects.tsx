@@ -125,20 +125,21 @@ export default function Projects() {
     restDelta: 0.001
   });
 
-  // Phase 1: Horizontal Cards Scroll (0 to 0.50)
-  const x = useTransform(smoothProgress, [0, 0.50], [0, scrollAmount]);
+  // Phase 1: Horizontal Cards Scroll (0 to 0.45)
+  const x = useTransform(smoothProgress, [0, 0.45], [0, scrollAmount]);
 
-  // Phase 2: 6 Shutter Blinds retract UPWARDS sequentially (0.55 to 0.70)
+  // Phase 2: 6 Shutter Blinds retract UPWARDS sequentially (0.50 to 0.65)
   // Masking the actual Flagship content so it folds up into blinds.
-  const scaleY0 = useTransform(smoothProgress, [0.65, 0.70], [1, 0]);
-  const scaleY1 = useTransform(smoothProgress, [0.63, 0.68], [1, 0]);
-  const scaleY2 = useTransform(smoothProgress, [0.61, 0.66], [1, 0]);
-  const scaleY3 = useTransform(smoothProgress, [0.59, 0.64], [1, 0]);
-  const scaleY4 = useTransform(smoothProgress, [0.57, 0.62], [1, 0]);
-  const scaleY5 = useTransform(smoothProgress, [0.55, 0.60], [1, 0]);
+  const scaleY0 = useTransform(smoothProgress, [0.60, 0.65], [1, 0]);
+  const scaleY1 = useTransform(smoothProgress, [0.58, 0.63], [1, 0]);
+  const scaleY2 = useTransform(smoothProgress, [0.56, 0.61], [1, 0]);
+  const scaleY3 = useTransform(smoothProgress, [0.54, 0.59], [1, 0]);
+  const scaleY4 = useTransform(smoothProgress, [0.52, 0.57], [1, 0]);
+  const scaleY5 = useTransform(smoothProgress, [0.50, 0.55], [1, 0]);
 
-  // Phase 3: Testimonials slide to the left (0.85 to 1.0)
-  const testimonialsX = useTransform(smoothProgress, [0.85, 1.0], ["0vw", "-100vw"]);
+  // Phase 3: Testimonials slide to the left (0.70 to 0.80)
+  // Leaves 0.80 to 1.00 (20% of 800vh = 160vh) for reading RevealSection while pinned
+  const testimonialsX = useTransform(smoothProgress, [0.70, 0.80], ["0vw", "-100vw"]);
 
   const maskImage = useMotionTemplate`linear-gradient(to bottom, 
     black 0%, black calc(16.666% * ${scaleY0}), transparent calc(16.666% * ${scaleY0}), transparent 16.666%,

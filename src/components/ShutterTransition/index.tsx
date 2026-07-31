@@ -15,7 +15,7 @@ export default function ShutterTransition() {
     <section
       ref={containerRef}
       className="relative w-full"
-      style={{ height: '250vh' }}
+      style={{ height: '350vh' }}
     >
       {/*
         TRIONN-style architecture:
