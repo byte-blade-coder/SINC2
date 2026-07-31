@@ -99,7 +99,7 @@ export default function ProjectDetail() {
   };
 
   return (
-    <div className="w-full min-h-screen bg-[#0b0b0b] text-white flex flex-col md:flex-row font-sans selection:bg-cyan-500/30">
+    <div className="w-full min-h-screen bg-[#0b0b0b] text-white flex flex-col md:flex-row font-sans">
       
       {/* Mobile Top Bar (Only visible when stacked) */}
       <div className="md:hidden w-full p-6 flex justify-between items-center border-b border-white/10 sticky top-0 bg-[#0b0b0b]/80 backdrop-blur-md z-50">

@@ -174,7 +174,7 @@ const StackCard: React.FC<StackCardProps> = ({ card, index, isActive, onCardClic
 
         {/* Card Content Overlay (Constrained to never overlap with the top cutout notch) */}
         <div
-          className="absolute left-3 right-3 bottom-3 md:left-6 md:right-6 md:bottom-6 select-none text-white pointer-events-none z-10 flex flex-col justify-end transition-transform duration-300"
+          className="absolute left-3 right-3 bottom-3 md:left-6 md:right-6 md:bottom-6 select-none text-white z-10 flex flex-col justify-end transition-transform duration-300"
           style={{
             top: size.width > 300 ? '95px' : '62px', // Reserves dedicated padding space below the notch
           }}
@@ -653,7 +653,7 @@ export const ZoomSection: React.FC = () => {
         <div className="zoom-cards-container w-full max-w-[1720px] relative px-4 md:px-8">
 
           {/* Title Header Section above the cards, aligned left */}
-          <div className="w-full flex flex-col items-center md:items-start text-center md:text-left z-10 pointer-events-none select-none mb-10 md:mb-12">
+          <div className="w-full flex flex-col items-center md:items-start text-center md:text-left z-10 select-none mb-10 md:mb-12">
             <h2 className="w-fit inline-block mx-auto md:mx-0 font-display font-black text-[28px] sm:text-[54px] md:text-[76px] leading-[0.95] tracking-tighter bg-gradient-to-r from-[#2ba9e3] to-[#050c26] bg-clip-text text-transparent pb-2 md:pb-3 pt-1">
               Core <br /> Technology Pillars
             </h2>

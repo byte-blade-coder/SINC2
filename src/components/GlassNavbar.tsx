@@ -47,15 +47,29 @@ export const GlassNavbar: React.FC = () => {
       const y = window.scrollY;
       setScrolled(y > 20);
 
-      // Detect if we're in the dark shutter/footer zone.
-      // The shutter section starts after all white sections.
-      // We detect it by checking if any dark section element is near the top.
+      let dark = false;
+
+      // 1. Check if we're deep into the Projects section (where Testimonials are revealed)
+      // The Projects section is 400vh tall. Testimonials reveal starts around 70% scroll progress.
+      // 70% of 400vh is 280vh. So when top is <= -280vh, we are in dark mode.
+      const projectsEl = document.getElementById('projects');
+      if (projectsEl) {
+        const pRect = projectsEl.getBoundingClientRect();
+        if (pRect.top <= -window.innerHeight * 2.8 && pRect.bottom > 0) {
+          dark = true;
+        }
+      }
+
+      // 2. Check if we've reached the generic dark sections (ArchitecturalBlinds, etc.)
       const shutterEl = document.querySelector('[data-dark-section]');
       if (shutterEl) {
         const rect = shutterEl.getBoundingClientRect();
-        // Consider dark when the dark section top edge is within viewport
-        setIsDark(rect.top <= window.innerHeight * 0.5);
+        if (rect.top <= window.innerHeight * 0.5) {
+          dark = true;
+        }
       }
+
+      setIsDark(dark);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);

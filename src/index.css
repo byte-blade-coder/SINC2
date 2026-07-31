@@ -61,6 +61,22 @@
     overflow-x: hidden;
   }
 
+  /* Global Selection Color */
+  ::selection {
+    background-color: #23ABE6;
+    color: #ffffff;
+  }
+  ::-moz-selection {
+    background-color: #23ABE6;
+    color: #ffffff;
+  }
+
+  /* Force all text elements to be selectable, overriding Tailwind select-none */
+  h1, h2, h3, h4, h5, h6, p, span, a, li, div {
+    user-select: auto !important;
+    -webkit-user-select: auto !important;
+  }
+
   body {
     background-color: #050505;
     margin: 0;

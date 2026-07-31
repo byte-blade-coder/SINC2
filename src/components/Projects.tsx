@@ -124,11 +124,11 @@ export default function Projects() {
   // Phase 2: 6 Shutter Blinds retract UPWARDS sequentially (0.60 to 0.95)
   // Masking the actual Flagship content so it folds up into blinds.
   const scaleY0 = useTransform(scrollYProgress, [0.80, 0.95], [1, 0]);
-  const scaleY1 = useTransform(scrollYProgress, [0.76, 0.91], [1, 0]);
-  const scaleY2 = useTransform(scrollYProgress, [0.72, 0.87], [1, 0]);
-  const scaleY3 = useTransform(scrollYProgress, [0.68, 0.83], [1, 0]);
-  const scaleY4 = useTransform(scrollYProgress, [0.64, 0.79], [1, 0]);
-  const scaleY5 = useTransform(scrollYProgress, [0.60, 0.75], [1, 0]);
+  const scaleY1 = useTransform(scrollYProgress, [0.78, 0.93], [1, 0]);
+  const scaleY2 = useTransform(scrollYProgress, [0.76, 0.91], [1, 0]);
+  const scaleY3 = useTransform(scrollYProgress, [0.74, 0.89], [1, 0]);
+  const scaleY4 = useTransform(scrollYProgress, [0.72, 0.87], [1, 0]);
+  const scaleY5 = useTransform(scrollYProgress, [0.70, 0.85], [1, 0]);
 
   const maskImage = useMotionTemplate`linear-gradient(to bottom, 
     black 0%, black calc(16.666% * ${scaleY0}), transparent calc(16.666% * ${scaleY0}), transparent 16.666%,
@@ -177,7 +177,7 @@ export default function Projects() {
             <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#0284c7]">
               Strategic Deployment
             </span>
-            <h2 className="font-display font-semibold text-3xl md:text-5xl lg:text-6xl text-[#111827] tracking-tight mt-4 leading-[1.1]">
+            <h2 className="w-fit font-display font-black text-3xl md:text-5xl lg:text-6xl tracking-tight mt-4 leading-[1.1] bg-gradient-to-r from-[#2ba9e3] to-[#050c26] bg-clip-text text-transparent pb-1">
               Flagship Solutions
             </h2>
             <p className="text-gray-500 font-sans text-base md:text-lg leading-relaxed mt-4 max-w-2xl">

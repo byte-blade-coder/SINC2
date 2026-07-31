@@ -64,7 +64,7 @@ export default function Home() {
           </motion.div>
         )}
       </AnimatePresence>
-      <div className="w-full min-h-screen root-bg relative selection:bg-cyan-500/30 selection:text-white flex flex-col items-center">
+      <div className="w-full min-h-screen root-bg relative flex flex-col items-center">
         {/* Continuous Flowing Ambient Background Glows */}
         <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
           {/* Section 1 (Hero/Top) - Left */}

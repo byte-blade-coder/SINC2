@@ -11,7 +11,7 @@ export const HeroContent: React.FC = () => {
   const textY = useTransform(springY, (y: number) => prefersReducedMotion ? 0 : y * 10);
 
   return (
-    <div className="absolute bottom-10 left-6 md:bottom-16 md:left-12 lg:left-16 z-30 max-w-xl md:max-w-2xl lg:max-w-3xl px-2 text-left select-none pointer-events-none">
+    <div className="absolute bottom-10 left-6 md:bottom-16 md:left-12 lg:left-16 z-30 max-w-xl md:max-w-2xl lg:max-w-3xl px-2 text-left select-none">
       <motion.h1
         style={{ x: textX, y: textY }}
         initial={{ opacity: 0, y: 30, filter: 'blur(4px)' }}
