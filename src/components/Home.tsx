@@ -121,7 +121,7 @@ export default function Home() {
                   <Shield className="w-5 h-5 text-cyan-400" />
                   <span className="font-display font-semibold uppercase tracking-widest text-[14px] text-white">SINC 3D</span>
                 </div>
-                <p className="text-white/40 text-xs leading-relaxed max-w-[200px]">
+                <p className="text-white/50 text-xs leading-relaxed max-w-[200px]">
                   Advancing the frontiers of maritime sensing and strategic domain intelligence.
                 </p>
               </div>
@@ -131,13 +131,13 @@ export default function Home() {
                   <h4 className="text-white text-xs font-semibold uppercase tracking-wider">{col}</h4>
                   <ul className="flex flex-col gap-2">
                     {col === "Solutions" && ["Defense", "Global Trade", "Telemetry"].map(lnk => (
-                      <li key={lnk}><a href="#" className="text-white/40 hover:text-white text-xs transition-colors">{lnk}</a></li>
+                      <li key={lnk}><a href="#" className="text-white/50 hover:text-white text-xs transition-colors">{lnk}</a></li>
                     ))}
                     {col === "Platform" && ["Edge AI", "Sensor Arrays", "Security"].map(lnk => (
-                      <li key={lnk}><a href="#" className="text-white/40 hover:text-white text-xs transition-colors">{lnk}</a></li>
+                      <li key={lnk}><a href="#" className="text-white/50 hover:text-white text-xs transition-colors">{lnk}</a></li>
                     ))}
                     {col === "Company" && ["Research", "Careers", "Contact"].map(lnk => (
-                      <li key={lnk}><a href="#" className="text-white/40 hover:text-white text-xs transition-colors">{lnk}</a></li>
+                      <li key={lnk}><a href="#" className="text-white/50 hover:text-white text-xs transition-colors">{lnk}</a></li>
                     ))}
                   </ul>
                 </div>
