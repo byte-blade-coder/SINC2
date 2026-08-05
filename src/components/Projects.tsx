@@ -193,7 +193,7 @@ export default function Projects() {
         >
           {/* Header Container */}
           <div className="max-w-[1728px] mx-auto w-full px-3 md:px-4 lg:px-5 mb-12 select-none">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-sky-400">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#0284c7]">
               Strategic Deployment
             </span>
             <h2 className="w-fit font-display font-black text-3xl md:text-5xl lg:text-6xl tracking-tight mt-4 leading-[1.1] bg-gradient-to-r from-[#2ba9e3] to-[#050c26] bg-clip-text text-transparent pb-1">
