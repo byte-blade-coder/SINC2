@@ -1,32 +1,38 @@
-# React + TypeScript + Vite
+# SINC 3D - Maritime Domain Awareness & Advanced Sensory Systems
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+SINC Lab is a research and development organization dedicated to enhancing mission-critical readiness through innovative engineering, technology insertion, and functional replacement solutions. 
 
-Currently, two official plugins are available:
+This repository contains the front-end application for SINC 3D, showcasing our core technologies, flagship solutions, and research initiatives with a highly interactive, cinematic, and premium web experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
+- **Framework:** React 19 + TypeScript + Vite
+- **Styling:** Tailwind CSS (v4)
+- **Animations:** GSAP (ScrollTrigger), Framer Motion
+- **Scrolling:** Lenis (Smooth scroll)
+- **Icons:** Lucide React, React Icons
 
-## React Compiler
+## Key Features
+- **Cinematic Scroll Sequences:** Custom-built shutter/blind transitions and zoom sequences using Framer Motion and GSAP.
+- **Performance Optimized:** GPU-accelerated transforms (`will-change: transform`), smart intersection observers, and optimized asset delivery.
+- **Premium Glassmorphism:** Custom frosted glass effects with dynamic ambient background glows.
+- **Responsive Enterprise Layout:** Mobile-first design scaling elegantly to ultra-wide displays.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Getting Started
 
-## Expanding the Oxlint configuration
+1. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+2. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
+3. **Build for production**
+   ```bash
+   npm run build
+   ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Architecture & Layout
+Refer to the `style.md` document for comprehensive details on our design system, typography, color palette, and animation guidelines.
