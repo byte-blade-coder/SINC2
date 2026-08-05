@@ -219,7 +219,6 @@ export default function Projects() {
                   style={{
                     width: 'min(720px, 85vw)',
                   }}
-                  aria-label={`View project details for ${project.title}`}
                 >
                   <img
                     src={project.image}
