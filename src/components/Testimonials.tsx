@@ -202,8 +202,9 @@ export const Testimonials = () => {
               {testimonials.map((_, i) => (
                 <button
                   key={i}
+                  aria-label={`View testimonial ${i + 1}`}
                   onClick={() => setActive(i)}
-                  className={`transition-all duration-300 ${i === active ? 'w-8 h-1 bg-[#23abe6]' : 'w-3 h-1 bg-white/15 hover:bg-white/30'}`}
+                  className={`transition-all duration-300 rounded-full ${i === active ? 'w-8 h-1 bg-[#23abe6]' : 'w-3 h-1 bg-white/15 hover:bg-white/30'}`}
                 />
               ))}
             </div>
