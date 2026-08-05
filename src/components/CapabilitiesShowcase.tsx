@@ -331,6 +331,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
           <div
             className="flex gap-6 overflow-x-auto hide-scrollbar pb-0 snap-x focus:outline-none px-6"
             tabIndex={0}
+            role="tablist"
             onKeyDown={handleKeyDown}
             aria-label={`${title} Capabilities Navigation`}
           >
@@ -339,6 +340,8 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
               return (
                 <button
                   key={cap.id}
+                  id={`tab-${id}-${cap.id}-mobile`}
+                  aria-controls={`tabpanel-${id}-${cap.id}-mobile`}
                   onClick={() => setActiveSubIndex(i)}
                   aria-selected={isActive}
                   role="tab"
@@ -366,6 +369,9 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
             <AnimatePresence mode="wait">
               <motion.div
                 key={`${id}-${activeCap.id}`}
+                id={`tabpanel-${id}-${activeCap.id}-mobile`}
+                role="tabpanel"
+                aria-labelledby={`tab-${id}-${activeCap.id}-mobile`}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
@@ -415,13 +421,17 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
 
             <div className="grid gap-3 lg:gap-6 flex-1" style={{ gridTemplateColumns: `repeat(${capabilities.length}, minmax(0, 1fr))` }}
                  tabIndex={0}
+                 role="tablist"
                  onKeyDown={handleKeyDown}
+                 aria-label={`${title} Capabilities Navigation`}
             >
               {capabilities.map((cap, i) => {
                 const isActive = activeSubIndex === i;
                 return (
                   <button
                     key={cap.id}
+                    id={`tab-${id}-${cap.id}-desktop`}
+                    aria-controls={`tabpanel-${id}-${cap.id}-desktop`}
                     onClick={() => setActiveSubIndex(i)}
                     aria-selected={isActive}
                     role="tab"
@@ -463,6 +473,9 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={`${id}-${activeCap.id}`}
+                    id={`tabpanel-${id}-${activeCap.id}-desktop`}
+                    role="tabpanel"
+                    aria-labelledby={`tab-${id}-${activeCap.id}-desktop`}
                     className="flex flex-col"
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}

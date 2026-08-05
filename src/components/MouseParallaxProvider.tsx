@@ -25,13 +25,10 @@ export const MouseParallaxProvider: React.FC<{ children: React.ReactNode }> = ({
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (prefersReducedMotion) return;
     
-    const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    
-    // Normalized position relative to center of the panel
-    const x = (e.clientX - rect.left) / width - 0.5;
-    const y = (e.clientY - rect.top) / height - 0.5;
+    // Optimized: using window dimensions avoids forced synchronous layout 
+    // caused by getBoundingClientRect, which dramatically improves INP.
+    const x = e.clientX / window.innerWidth - 0.5;
+    const y = e.clientY / window.innerHeight - 0.5;
     
     mouseX.set(x);
     mouseY.set(y);

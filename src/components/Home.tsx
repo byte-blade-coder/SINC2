@@ -85,8 +85,9 @@ export default function Home() {
         <h1 className="sr-only">SINC 3D - Engineering Maritime Domain Awareness & Advanced Sensory Systems</h1>
         <GlassNavbar />
 
-        {/* 1. HERO & LOGO ZOOM SECTION */}
-        <section id="home" className="w-full">
+        <main className="w-full flex flex-col items-center">
+          {/* 1. HERO & LOGO ZOOM SECTION */}
+          <section id="home" className="w-full">
           <ZoomSection />
         </section>
 
@@ -104,6 +105,7 @@ export default function Home() {
 
         {/* PROJECTS SHOWCASE (Before Footer) */}
         <Projects />
+        </main>
 
         {/* Padded container for the Footer (Dark Theme Continued) */}
         <div className="w-full p-3 md:p-4 lg:p-5 flex flex-col items-center bg-[#050505] relative z-10">
