@@ -8,7 +8,6 @@ import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import loaderVideo from './assets/loader video/video.webm';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -97,18 +96,44 @@ export default function App() {
           <motion.div
             key="loader"
             initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            exit={{ opacity: 0, filter: "blur(10px)" }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
-            className="fixed inset-0 z-[9999] flex flex-col items-center justify-end pb-24 bg-[#000000]"
+            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#000000]"
           >
-            <video
-              src={loaderVideo}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-            />
+            <div className="relative w-72 h-auto flex flex-col items-center">
+              <motion.img
+                src="/assets/logo.png"
+                alt=""
+                className="w-full h-auto"
+                animate={{
+                  opacity: [0.6, 1, 0.6],
+                  scale: [0.98, 1.02, 0.98],
+                  filter: [
+                    "drop-shadow(0 0 10px rgba(35,171,230,0.2))", 
+                    "drop-shadow(0 0 40px rgba(35,171,230,0.6))", 
+                    "drop-shadow(0 0 10px rgba(35,171,230,0.2))"
+                  ]
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              <motion.div 
+                className="mt-12 h-[2px] w-56 bg-white/10 rounded-full overflow-hidden"
+              >
+                <motion.div
+                  className="h-full bg-cyan-400 shadow-[0_0_10px_rgba(35,171,230,0.8)]"
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: 2.5, ease: "easeInOut" }}
+                />
+              </motion.div>
+              <div className="mt-4 text-cyan-400/70 font-display text-[10px] uppercase tracking-[0.3em] font-semibold animate-pulse">
+                Initializing Systems
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
