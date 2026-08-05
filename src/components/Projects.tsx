@@ -193,13 +193,13 @@ export default function Projects() {
         >
           {/* Header Container */}
           <div className="max-w-[1728px] mx-auto w-full px-3 md:px-4 lg:px-5 mb-12 select-none">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#0284c7]">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-sky-400">
               Strategic Deployment
             </span>
             <h2 className="w-fit font-display font-black text-3xl md:text-5xl lg:text-6xl tracking-tight mt-4 leading-[1.1] bg-gradient-to-r from-[#2ba9e3] to-[#050c26] bg-clip-text text-transparent pb-1">
               Flagship Solutions
             </h2>
-            <p className="text-gray-500 font-sans text-base md:text-lg leading-relaxed mt-4 max-w-2xl">
+            <p className="text-gray-400 font-sans text-base md:text-lg leading-relaxed mt-4 max-w-2xl">
               Explore our latest systems built for intelligence, navigation, and defense readiness in maritime domains.
             </p>
           </div>

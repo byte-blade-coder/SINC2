@@ -308,10 +308,10 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
         {/* Section Header */}
         <div className="w-full flex flex-col items-center md:items-start text-center md:text-left z-10 select-none px-4 md:px-8">
           <div className="flex items-center gap-3 mb-2">
-            <span className="p-2 bg-[#0284c7]/10 rounded-lg text-[#0284c7]">
+            <span className="p-2 bg-sky-400/10 rounded-lg text-sky-400">
               <Icon className="w-5 h-5" />
             </span>
-            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#0284c7]">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-sky-400">
               {badge} • Core Technology Domain
             </span>
           </div>
@@ -321,7 +321,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
           <div className="mt-2 text-center md:text-left text-gray-600 font-medium text-[16px] sm:text-[18px] md:text-[22px] leading-relaxed max-w-full md:max-w-[70%] invert-text">
             {subtitle}
           </div>
-          <div className="mt-2 text-center md:text-left text-gray-500 font-normal text-[14px] sm:text-[15px] md:text-[18px] leading-relaxed max-w-full md:max-w-[60%] invert-text">
+          <div className="mt-2 text-center md:text-left text-gray-400 font-normal text-[14px] sm:text-[15px] md:text-[18px] leading-relaxed max-w-full md:max-w-[60%] invert-text">
             {desc}
           </div>
         </div>
@@ -347,7 +347,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                   role="tab"
                   className={`snap-start shrink-0 relative py-4 text-[13px] font-semibold tracking-wide transition-all duration-300 ${
                     isActive 
-                      ? 'text-[#0284c7]' 
+                      ? 'text-sky-400' 
                       : 'text-gray-600 hover:text-gray-900'
                   }`}
                 >
@@ -382,7 +382,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                   <img src={activeCap.image} alt={activeCap.title} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex flex-col gap-4">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0284c7]">{activeCap.badge}</div>
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky-400">{activeCap.badge}</div>
                   <h3 className="font-display font-semibold text-2xl tracking-tight text-gray-900 invert-text">{activeCap.title}</h3>
                   <p className="text-gray-600 text-sm leading-relaxed invert-text">{activeCap.description}</p>
 
@@ -390,7 +390,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                     <ul className="space-y-3 mt-2">
                       {activeCap.features.map((feat, idx) => (
                         <li key={idx} className="flex items-start gap-3 text-sm text-gray-600 leading-relaxed invert-text">
-                          <CheckCircle2 className="w-4 h-4 text-[#0284c7] mt-0.5 shrink-0" />
+                          <CheckCircle2 className="w-4 h-4 text-sky-400 mt-0.5 shrink-0" />
                           <span>{feat}</span>
                         </li>
                       ))}
@@ -413,7 +413,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
           <div className="flex items-center gap-2 lg:gap-4 w-full mt-4">
             <button
               onClick={() => setActiveSubIndex(prev => prev > 0 ? prev - 1 : capabilities.length - 1)}
-              className="p-3 rounded-full border border-black/10 hover:bg-black/5 hover:scale-105 transition-all text-gray-500 hover:text-gray-900 invert-text flex-shrink-0"
+              className="p-3 rounded-full border border-black/10 hover:bg-black/5 hover:scale-105 transition-all text-gray-400 hover:text-gray-900 invert-text flex-shrink-0"
               aria-label="Previous capability"
             >
               <ChevronLeft className="w-6 h-6" />
@@ -447,8 +447,8 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                       />
                     )}
-                    <div className="relative z-10 text-[9px] lg:text-xs font-bold tracking-widest text-gray-500">{cap.badge}</div>
-                    <div className={`relative z-10 text-base lg:text-xl font-display font-semibold tracking-tight transition-colors duration-300 ${isActive ? 'text-[#0284c7]' : 'text-gray-900 invert-text'}`}>
+                    <div className="relative z-10 text-[9px] lg:text-xs font-bold tracking-widest text-gray-400">{cap.badge}</div>
+                    <div className={`relative z-10 text-base lg:text-xl font-display font-semibold tracking-tight transition-colors duration-300 ${isActive ? 'text-sky-400' : 'text-gray-900 invert-text'}`}>
                       {cap.title}
                     </div>
                   </button>
@@ -458,7 +458,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
 
             <button
               onClick={() => setActiveSubIndex(prev => prev < capabilities.length - 1 ? prev + 1 : 0)}
-              className="p-3 rounded-full border border-black/10 hover:bg-black/5 hover:scale-105 transition-all text-gray-500 hover:text-gray-900 invert-text flex-shrink-0"
+              className="p-3 rounded-full border border-black/10 hover:bg-black/5 hover:scale-105 transition-all text-gray-400 hover:text-gray-900 invert-text flex-shrink-0"
               aria-label="Next capability"
             >
               <ChevronRight className="w-6 h-6" />
@@ -484,7 +484,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                   >
                     <motion.span
                       custom={0.06} variants={textVariants} initial="initial" animate="animate" exit="exit"
-                      className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0284c7] mb-4"
+                      className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sky-400 mb-4"
                     >
                       {activeCap.badge}
                     </motion.span>
@@ -510,7 +510,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                       >
                         {activeCap.features.map((feat, idx) => (
                           <li key={idx} className="flex items-start gap-3 text-gray-700 text-base lg:text-lg leading-relaxed invert-text">
-                            <CheckCircle2 className="w-5 h-5 text-[#0284c7] mt-1 shrink-0" />
+                            <CheckCircle2 className="w-5 h-5 text-sky-400 mt-1 shrink-0" />
                             <span>{feat}</span>
                           </li>
                         ))}

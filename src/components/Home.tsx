@@ -144,7 +144,7 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="relative z-10 border-t border-white/[0.04] pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-white/30 text-[11px] tracking-wide">
+            <div className="relative z-10 border-t border-white/[0.04] pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-gray-400 text-[11px] tracking-wide">
               <div>&copy; {new Date().getFullYear()} SINC 3D Inc. All rights reserved.</div>
               <div className="flex gap-6">
                 <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
@@ -193,6 +193,12 @@ export default function Home() {
           }
           .invert-text .text-cyan-400 {
             color: #0284c7 !important;
+          }
+          .invert-text .text-sky-400 {
+            color: #0284c7 !important;
+          }
+          .invert-text .text-gray-400 {
+            color: #4b5563 !important;
           }
           .invert-text .bg-white\\/\\[0\\.02\\],
           .invert-text .bg-white\\/\\[0\\.01\\] {
