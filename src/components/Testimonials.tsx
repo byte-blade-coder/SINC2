@@ -1,216 +1,143 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Activity, ShieldCheck, Target, ChevronRight, ArrowUpRight } from 'lucide-react';
-
-const testimonials = [
-  {
-    id: 1,
-    quote: "SINC 3D's sensor arrays have completely redefined our maritime threat detection capabilities. The predictive intelligence is unparalleled — nothing else on the market comes close.",
-    author: "Cmdr. James Vance",
-    role: "Naval Operations, 7th Fleet",
-    icon: ShieldCheck,
-    metric: "99.8%",
-    metricLabel: "Detection Accuracy",
-    tag: "Defense",
-    index: "01",
-  },
-  {
-    id: 2,
-    quote: "The seamless integration of edge AI into our legacy defense systems allowed us to modernize without a complete overhaul. Brilliant engineering that respects real operational constraints.",
-    author: "Dr. Sarah Chen",
-    role: "Director of Defense Tech, Sentinel",
-    icon: Activity,
-    metric: "< 12ms",
-    metricLabel: "Processing Latency",
-    tag: "Edge AI",
-    index: "02",
-  },
-  {
-    id: 3,
-    quote: "Unmatched telemetry precision. The platform's ability to maintain real-time strategic oversight in high-interference zones is a game changer for global trade security operations.",
-    author: "Marcus Thorne",
-    role: "Chief Analyst, Global Trade Security",
-    icon: Target,
-    metric: "Global",
-    metricLabel: "Coverage Reach",
-    tag: "Telemetry",
-    index: "03",
-  }
-];
+import React from 'react';
+import { Trophy, ArrowRight, User } from 'lucide-react';
 
 export const Testimonials = () => {
-  const [active, setActive] = useState(0);
-  const item = testimonials[active];
-  const Icon = item.icon;
-
   return (
-    <section className="relative w-full py-16 md:py-20 bg-[#050505] overflow-hidden flex flex-col items-center z-10">
+    <section className="relative w-full h-full pb-12 md:pb-20 pt-24 md:pt-32 bg-[#050505] overflow-clip flex flex-col items-center justify-center z-10">
 
-      {/* Background ambient glow */}
-      <div className="absolute -top-[20%] left-[20%] w-[60vw] h-[60vw] bg-[#23abe6]/[0.04] rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[30vw] h-[30vw] bg-[#23abe6]/[0.03] rounded-full blur-[100px] pointer-events-none" />
+      {/* Outer Rounded Container */}
+      <div className="w-[calc(100%-2rem)] max-w-[1728px] mx-auto bg-[#111211] rounded-[24px] border border-[#292B29] relative flex flex-col items-center z-10 px-6 pb-12 pt-16 md:px-12 md:pb-20 md:pt-20 lg:px-16 lg:pb-24 lg:pt-24 xl:px-24 xl:pb-32 xl:pt-28 shadow-2xl">
 
-      <div className="w-full max-w-[1720px] mx-auto px-4 md:px-8 relative z-10">
-
-        {/* Section Header */}
-        <div className="w-full flex flex-col items-start z-10 select-none mb-10 md:mb-14">
-          <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#2ba9e3] mb-2"
-          >
-            Strategic Endorsements
-          </motion.span>
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="w-fit font-display font-black text-[28px] sm:text-[44px] md:text-[60px] leading-[0.95] tracking-tighter bg-gradient-to-r from-[#2ba9e3] to-white bg-clip-text text-transparent pb-2 md:pb-3 pt-1"
-          >
-            Trusted by the Vanguard
-          </motion.h2>
+        {/* Abstract Geometric Background (Solid Rings, No Gradients) */}
+        <div className="absolute inset-0 overflow-hidden rounded-[24px] pointer-events-none z-0">
+          <div className="absolute -top-[20%] -right-[10%] w-[80vw] h-[80vw] max-w-[1200px] max-h-[1200px] border-[40px] border-[#151615] rounded-full" />
+          <div className="absolute -bottom-[30%] -left-[10%] w-[60vw] h-[60vw] max-w-[900px] max-h-[900px] border-[2px] border-[#1a1c1a] rounded-full" />
+          <div className="absolute top-[10%] left-[20%] w-[100vw] h-[100vw] max-w-[1500px] max-h-[1500px] border-[1px] border-[#151615] rounded-full" />
         </div>
 
-        {/* Main Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-4 md:gap-6">
+        {/* Two-Column Composition */}
+        <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-10 xl:gap-16 items-stretch">
 
-          {/* LEFT: Featured Quote Panel */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="relative border border-white/[0.06] bg-white/[0.015] overflow-hidden flex flex-col justify-between p-8 md:p-12 min-h-[400px] md:min-h-[460px]"
-          >
-            {/* Top-left corner accent */}
-            <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-[#23abe6]/40" />
-            <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-[#23abe6]/40" />
+          {/* LEFT SIDE: Visuals & Cards */}
+          <div className="relative w-full mt-8 lg:mt-0 h-full">
 
-            {/* Metric bubble */}
-            <div className="flex items-start justify-between mb-10">
-              <div className="flex items-center gap-2 px-3 py-1.5 border border-[#23abe6]/20 bg-[#23abe6]/5">
-                <Icon className="w-3.5 h-3.5 text-[#23abe6]" />
-                <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-white/40">{item.tag}</span>
-              </div>
-              <div className="text-right">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={active + 'metric'}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <p className="font-display font-black text-[32px] md:text-[44px] tracking-tighter text-[#23abe6] leading-none">{item.metric}</p>
-                    <p className="text-[9px] font-mono uppercase tracking-[0.15em] text-white/30 mt-1">{item.metricLabel}</p>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+            {/* Main Image Container */}
+            <div className="relative w-full h-full min-h-[400px] rounded-[20px] overflow-hidden bg-[#050505] shadow-xl z-10">
+              <img
+                src="/assets/sensor_fusion.png"
+                alt="Our Team"
+                className="absolute inset-0 w-full h-full object-cover opacity-70 sepia-[20%] hue-rotate-180 mix-blend-luminosity"
+              />
             </div>
 
-            {/* Quote text */}
-            <AnimatePresence mode="wait">
-              <motion.blockquote
-                key={active + 'quote'}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.4 }}
-                className="flex-1 flex flex-col justify-center"
-              >
-                <p className="text-white/80 font-sans text-[18px] md:text-[22px] leading-[1.65] font-light tracking-wide">
-                  <span className="text-[#23abe6]/40 font-display text-[60px] leading-[0] relative top-[20px] mr-2 font-black">"</span>
-                  {item.quote}
-                  <span className="text-[#23abe6]/40 font-display text-[60px] leading-[0] relative top-[20px] ml-1 font-black">"</span>
-                </p>
-              </motion.blockquote>
-            </AnimatePresence>
+            {/* Floating Elements Container */}
+            <div className="absolute -bottom-10 left-4 right-4 md:-bottom-12 md:-left-8 flex flex-col sm:flex-row items-end sm:items-center gap-4 z-20">
 
-            {/* Author */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={active + 'author'}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="flex items-center gap-4 mt-10 pt-6 border-t border-white/[0.05]"
-              >
-                {/* Avatar placeholder */}
-                <div className="w-10 h-10 rounded-full bg-[#23abe6]/10 border border-[#23abe6]/20 flex items-center justify-center shrink-0">
-                  <Icon className="w-4 h-4 text-[#23abe6]/60" />
-                </div>
-                <div>
-                  <p className="text-white font-display font-semibold text-[13px] tracking-wider">{item.author}</p>
-                  <p className="text-white/40 text-[10px] font-mono uppercase tracking-widest mt-0.5">{item.role}</p>
-                </div>
-                <div className="ml-auto text-[9px] font-mono text-white/20 tracking-widest">{item.index} / 0{testimonials.length}</div>
-              </motion.div>
-            </AnimatePresence>
-          </motion.div>
+              {/* 1. Overlapping Experience Card */}
+              <div className="relative bg-[#23abe6] rounded-[12px] p-6 sm:p-8 shadow-2xl overflow-hidden w-fit shrink-0">
+                {/* Diagonal black corner treatment */}
+                <div className="absolute -top-10 -right-10 w-20 h-20 bg-[#050505] rotate-45" />
+                <span className="absolute top-2 right-1.5 text-[#050505] text-[7px] font-black tracking-widest rotate-45 select-none">EXP</span>
 
-          {/* RIGHT: Selector Stack */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15 }}
-            className="flex flex-col gap-3"
-          >
-            {testimonials.map((t, i) => {
-              const TIcon = t.icon;
-              const isActive = i === active;
-              return (
-                <button
-                  key={t.id}
-                  onClick={() => setActive(i)}
-                  className={`group relative w-full text-left p-5 border transition-all duration-400 overflow-hidden flex flex-col gap-3 ${
-                    isActive
-                      ? 'border-[#23abe6]/40 bg-[#23abe6]/[0.06]'
-                      : 'border-white/[0.05] bg-white/[0.015] hover:border-white/10 hover:bg-white/[0.03]'
-                  }`}
-                >
-                  {/* Active left bar */}
-                  <div className={`absolute top-0 left-0 w-[3px] h-full transition-all duration-500 ${isActive ? 'bg-[#23abe6]' : 'bg-transparent group-hover:bg-white/10'}`} />
-
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-2">
-                      <TIcon className={`w-4 h-4 transition-colors ${isActive ? 'text-[#23abe6]' : 'text-white/30 group-hover:text-white/50'}`} />
-                      <span className={`text-[9px] font-mono uppercase tracking-widest transition-colors ${isActive ? 'text-[#23abe6]' : 'text-white/30'}`}>{t.tag}</span>
-                    </div>
-                    <ArrowUpRight className={`w-3.5 h-3.5 transition-all duration-300 ${isActive ? 'text-[#23abe6] opacity-100' : 'text-white/20 opacity-0 group-hover:opacity-60'}`} />
-                  </div>
-
-                  <p className={`font-sans text-[12px] leading-[1.6] transition-colors line-clamp-2 ${isActive ? 'text-white/75' : 'text-white/35 group-hover:text-white/50'}`}>
-                    {t.quote.substring(0, 90)}...
+                <div className="flex flex-col relative z-10 text-[#050505]">
+                  <h3 className="font-display font-black text-5xl md:text-6xl tracking-tighter leading-none mb-1">
+                    20+
+                  </h3>
+                  <span className="font-bold text-xs tracking-widest uppercase mb-3">
+                    Experience
+                  </span>
+                  <p className="font-medium text-xs md:text-sm leading-tight max-w-[140px] opacity-90">
+                    Years of Excellence in IT Solutions Company.
                   </p>
-
-                  <div className={`flex items-center justify-between border-t pt-3 transition-colors ${isActive ? 'border-white/[0.07]' : 'border-white/[0.04]'}`}>
-                    <div>
-                      <p className={`text-[11px] font-display font-semibold transition-colors ${isActive ? 'text-white/90' : 'text-white/40'}`}>{t.author}</p>
-                      <p className={`text-[9px] font-mono uppercase tracking-widest mt-0.5 transition-colors ${isActive ? 'text-white/35' : 'text-white/20'}`}>{t.role.split(',')[0]}</p>
-                    </div>
-                    <span className={`text-[9px] font-mono tracking-widest transition-colors ${isActive ? 'text-[#23abe6]/60' : 'text-white/15'}`}>{t.index}</span>
-                  </div>
-                </button>
-              );
-            })}
-
-            {/* Navigation dots */}
-            <div className="flex items-center gap-2 pt-2 px-1">
-              {testimonials.map((_, i) => (
-                <button
-                  key={i}
-                  aria-label={`View testimonial ${i + 1}`}
-                  onClick={() => setActive(i)}
-                  className={`transition-all duration-300 rounded-full ${i === active ? 'w-8 h-1 bg-[#23abe6]' : 'w-3 h-1 bg-white/15 hover:bg-white/30'}`}
-                />
-              ))}
+                </div>
+              </div>
             </div>
-          </motion.div>
+
+          </div>
+
+          {/* RIGHT SIDE: Main Content Card */}
+          <div className="relative w-full mt-24 sm:mt-16 lg:mt-0 z-10 h-full">
+
+            <div className="bg-[#050505] rounded-[20px] h-full p-8 md:p-12 lg:p-14 border border-[#1a1c1a] relative z-10 shadow-2xl flex flex-col justify-center">
+
+              {/* Badge/Title Area */}
+              <div className="mb-8">
+                <span className="text-[#23abe6] text-xs font-bold uppercase tracking-[0.2em]">
+                  [ ABOUT SINC LAB ]
+                </span>
+                <h2 className="text-white font-display font-black text-3xl md:text-4xl lg:text-[44px] leading-[1.1] tracking-tight mt-4 max-w-xl">
+                  Pioneering Solutions That<br className="hidden md:block" />
+                  Redefine Sensor Fusion &<br className="hidden md:block" />
+                  3D Technologies.
+                </h2>
+              </div>
+
+              {/* Paragraph */}
+              <p className="text-[#a0a0a0] font-sans text-base leading-relaxed mb-10 max-w-lg">
+                We are a team of visionary engineers and tech innovators pushing the boundaries of spatial computing, sensor fusion, and 3D visualization. Transforming complex data into actionable intelligence.
+              </p>
+
+              {/* Statistics */}
+              <div className="flex items-center gap-8 md:gap-12 mb-10 pt-8 border-t border-[#1a1c1a]">
+                <div className="flex flex-col">
+                  <span className="text-[#23abe6] font-display font-black text-4xl md:text-5xl leading-none tracking-tighter mb-2">3K+</span>
+                  <span className="text-[#a0a0a0] text-sm font-medium">Successful Projects.</span>
+                </div>
+                <div className="w-[1px] h-12 bg-[#1a1c1a]" />
+                <div className="flex flex-col">
+                  <span className="text-[#23abe6] font-display font-black text-4xl md:text-5xl leading-none tracking-tighter mb-2">98+</span>
+                  <span className="text-[#a0a0a0] text-sm font-medium">IT Professionals.</span>
+                </div>
+              </div>
+
+              {/* CTA Button */}
+              <button className="group flex items-center bg-[#111211] hover:bg-[#1a1c1a] border border-[#292B29] rounded-full p-1.5 pr-6 transition-all duration-300 w-fit">
+                <div className="w-10 h-10 bg-[#23abe6] rounded-full flex items-center justify-center mr-4 group-hover:scale-105 transition-transform duration-300 shadow-[0_0_15px_rgba(35,171,230,0.4)]">
+                  <ArrowRight className="w-4 h-4 text-[#050505] -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
+                </div>
+                <span className="text-white font-semibold text-sm">Learn More</span>
+              </button>
+
+            </div>
+
+            {/* Circular Award Badge (Overlapping Bottom Right) */}
+            <div className="absolute -right-6 -bottom-6 md:-right-12 md:-bottom-12 lg:-right-16 lg:-bottom-16 w-32 h-32 md:w-44 md:h-44 z-30 pointer-events-none">
+              {/* Outer Rings */}
+              <div className="absolute inset-0 bg-[#050505] rounded-full border border-[#292B29] flex items-center justify-center shadow-2xl">
+                <div className="absolute inset-2 border border-[#1a1c1a] rounded-full" />
+
+                {/* SVG Circular Text */}
+                <svg viewBox="0 0 100 100" className="absolute inset-2 w-[calc(100%-16px)] h-[calc(100%-16px)] animate-spin-slow">
+                  <path id="badge-text-path" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent" />
+                  <text className="text-[9.5px] font-bold uppercase tracking-[0.25em] fill-[#a0a0a0]">
+                    <textPath href="#badge-text-path" startOffset="0%">
+                      AWARD WINNING AGENCY • SINCE 2019 •
+                    </textPath>
+                  </text>
+                </svg>
+
+                {/* Center Disk */}
+                <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 md:w-16 md:h-16 bg-[#23abe6] rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(35,171,230,0.3)] z-10">
+                  <Trophy className="w-5 h-5 md:w-7 md:h-7 text-[#050505] fill-[#050505]" />
+                </div>
+              </div>
+            </div>
+
+          </div>
+
         </div>
       </div>
+
+      {/* Global Style for Spin Animation */}
+      <style>{`
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+          animation: spin-slow 20s linear infinite;
+        }
+      `}</style>
     </section>
   );
 };

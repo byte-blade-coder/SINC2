@@ -50,12 +50,19 @@ export const GlassNavbar: React.FC = () => {
       let dark = false;
 
       // 1. Check if we're deep into the Projects section (where Testimonials are revealed)
-      // The Projects section is now 800vh tall. Testimonials reveal starts around 55% scroll progress.
-      // 55% of 800vh is 440vh. So when top is <= -440vh, we are in dark mode.
+      // The Projects section is now 850vh tall. Testimonials reveal starts around 50% scroll progress.
+      // Top blind (under the navbar) retracts between 62% and 65%.
+      // 65% of 750vh (scrollable distance) is 487.5vh. We trigger dark mode slightly earlier at 4.7 (470vh)
+      // so the logo transitions smoothly just as the dark background reaches the top.
       const projectsEl = document.getElementById('projects');
       if (projectsEl) {
         const pRect = projectsEl.getBoundingClientRect();
-        if (pRect.top <= -window.innerHeight * 4.4 && pRect.bottom > 0) {
+        const scrollProgress = -pRect.top / (pRect.height - window.innerHeight);
+
+        // The top blind (scaleY0) under the navbar retracts between 0.85 and 0.95 in Projects.tsx.
+        // The top blind (scaleY0) shrinks upwards. Its bottom edge passes the navbar around 0.89 - 0.91.
+        // We trigger dark mode at 0.92 so the white logo appears exactly when the background behind it is dark.
+        if (scrollProgress >= 0.95 && pRect.bottom > 0) {
           dark = true;
         }
       }
@@ -113,11 +120,20 @@ export const GlassNavbar: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="flex items-center"
           >
-            <img
-              src={(scrolled && !isDark) ? "/assets/dark-logo.png" : "/assets/logo.png"}
-              alt="SINC Logo"
-              className="h-[45px] md:h-[60px] w-auto object-contain transition-all duration-300"
-            />
+            <div className="relative h-[45px] md:h-[60px] w-[120px] md:w-[160px]">
+              {/* Light Theme Logo (Dark Colored) */}
+              <img
+                src="/assets/dark-logo.png"
+                alt="SINC Logo"
+                className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-500 ${(scrolled && !isDark) ? 'opacity-100' : 'opacity-0'}`}
+              />
+              {/* Dark Theme Logo (White Colored) */}
+              <img
+                src="/assets/logo.png"
+                alt="SINC Logo"
+                className={`absolute inset-0 h-full w-full object-contain transition-opacity duration-500 ${(scrolled && !isDark) ? 'opacity-0' : 'opacity-100'}`}
+              />
+            </div>
           </motion.div>
         </a>
 

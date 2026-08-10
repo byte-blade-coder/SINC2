@@ -119,7 +119,7 @@ export const RevealSection: React.FC<{ triggerRef?: React.RefObject<HTMLElement 
   return (
     <div
       ref={containerRef}
-      className="w-full h-screen bg-[#050505] text-white flex flex-col items-center justify-center relative overflow-hidden pt-20 md:pt-28"
+      className="w-full min-h-screen bg-[#050505] text-white flex flex-col items-center justify-center relative overflow-y-auto no-scrollbar pt-[160px] md:pt-[200px] pb-12"
     >
       {/* ── Ambient glows — identical to Testimonials section ── */}
       <div className="absolute -top-[20%] left-[20%] w-[60vw] h-[60vw] bg-[#23abe6]/[0.04] rounded-full blur-[140px] pointer-events-none" />

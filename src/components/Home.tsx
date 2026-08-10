@@ -5,7 +5,7 @@ import { ZoomSection } from './ZoomSection';
 import { GlassNavbar } from './GlassNavbar';
 import { CapabilitiesShowcase } from './CapabilitiesShowcase';
 import Projects from './Projects';
-import { Shield } from 'lucide-react';
+import { PremiumFooter } from './PremiumFooter';
 
 export default function Home() {
   const { hash } = useLocation();
@@ -107,53 +107,11 @@ export default function Home() {
         <Projects />
         </main>
 
-        {/* Padded container for the Footer (Dark Theme Continued) */}
-        <div className="w-full p-3 md:p-4 lg:p-5 flex flex-col items-center bg-[#050505] relative z-10">
-          {/* 6. FOOTER SECTION */}
-          <footer id="contact" className="relative overflow-hidden w-full max-w-7xl px-6 pt-10 pb-6 border-t border-white/[0.03] flex flex-col gap-12 bg-[#050505]">
-            {/* Mobile-only Ambient Blurs */}
-            <div className="absolute top-[10%] -left-[30vw] w-[100vw] h-[100vw] bg-[#2ba9e3]/15 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
-            <div className="absolute bottom-[20%] -right-[30vw] w-[100vw] h-[100vw] bg-[#050c26]/10 rounded-full blur-[100px] md:hidden pointer-events-none z-0" />
+        {/* Spacer below About Us section (Projects) */}
+        <div className="w-full h-24 md:h-40 bg-[#050505]"></div>
 
-            <div className="relative z-10 grid grid-cols-1 md:grid-cols-4 gap-8">
-              <div className="flex flex-col gap-4">
-                <div className="flex items-center gap-2">
-                  <Shield className="w-5 h-5 text-cyan-400" />
-                  <span className="font-display font-semibold uppercase tracking-widest text-[14px] text-white">SINC 3D</span>
-                </div>
-                <p className="text-white/50 text-xs leading-relaxed max-w-[200px]">
-                  Advancing the frontiers of maritime sensing and strategic domain intelligence.
-                </p>
-              </div>
-
-              {["Solutions", "Platform", "Company"].map((col, idx) => (
-                <div key={idx} className="flex flex-col gap-4">
-                  <h4 className="text-white text-xs font-semibold uppercase tracking-wider">{col}</h4>
-                  <ul className="flex flex-col gap-2">
-                    {col === "Solutions" && ["Defense", "Global Trade", "Telemetry"].map(lnk => (
-                      <li key={lnk}><a href="#" className="text-white/50 hover:text-white text-xs transition-colors">{lnk}</a></li>
-                    ))}
-                    {col === "Platform" && ["Edge AI", "Sensor Arrays", "Security"].map(lnk => (
-                      <li key={lnk}><a href="#" className="text-white/50 hover:text-white text-xs transition-colors">{lnk}</a></li>
-                    ))}
-                    {col === "Company" && ["Research", "Careers", "Contact"].map(lnk => (
-                      <li key={lnk}><a href="#" className="text-white/50 hover:text-white text-xs transition-colors">{lnk}</a></li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-
-            <div className="relative z-10 border-t border-white/[0.04] pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-gray-400 text-[11px] tracking-wide">
-              <div>&copy; {new Date().getFullYear()} SINC 3D Inc. All rights reserved.</div>
-              <div className="flex gap-6">
-                <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-                <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-                <a href="#" className="hover:text-white transition-colors">Tactical Usage Agreement</a>
-              </div>
-            </div>
-          </footer>
-        </div>
+        {/* Footer (Dark Theme Continued) */}
+        <PremiumFooter />
 
         <style>{`
           .root-bg {
