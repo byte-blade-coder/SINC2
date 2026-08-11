@@ -56,6 +56,36 @@ export const projectsData: Project[] = [
   {
     id: 3,
     number: '03',
+    badge: 'Mine Warfare Operations',
+    title: 'Mine Warfare Data Centre (MWDC)',
+    description: 'Development of a dedicated shore-based Mine Warfare Data Centre (MWDC) providing centralized planning, execution, monitoring, and integration of Mine Countermeasure (MCM) operations.',
+    image: '/assets/data_analytics_clean.png',
+    tech: ['Mission Systems', 'Data Fusion', 'Decision Support', 'GIS', 'Naval Command & Control'],
+    sections: [
+      { id: 'challenge', title: 'The Challenge', description: 'Mine Countermeasure operations require precise coordination, centralized data fusion, and real-time decision support to safely execute missions in complex naval environments.', image: '/assets/data_analytics_clean.png' },
+      { id: 'approach', title: 'Our Approach', description: 'The solution incorporates the Naval Mine Warfare Operations Support System (NAMOSS), enabling mission planning, operational monitoring, and intelligent decision support through centralized data fusion.', image: '/assets/sensor_fusion.png' },
+      { id: 'outcome', title: 'The Outcome', description: 'Established a dedicated shore-based infrastructure for centralized planning, execution, and monitoring of mine warfare operations.', image: '/assets/communication_clean.png' },
+      { id: 'whatWeDid', title: 'Core Functionalities', description: 'Mission Creation & Task Assignment, Mission Performance Analysis, Navigation & Environmental Data Integration, Survey Data Collection, and Clearance Status Monitoring.', image: '/assets/processing_clean.png' }
+    ]
+  },
+  {
+    id: 4,
+    number: '04',
+    badge: 'Weapon Systems Integration',
+    title: 'Development of ICDs for 76 mm Gun',
+    description: 'Development of ICDs and hardware solution to interface LR66, OFC on 76mm Gun with SR47BG onboard PNS ASLT, enabling seamless interoperability with the SOT FCS and the Gun.',
+    image: '/assets/sensor_fusion.png',
+    tech: ['Systems Integration & Verification', 'Weapon Systems', 'ICD Verification', 'Fire Control', 'ICD Development', 'Data Validation', 'System Interfacing'],
+    sections: [
+      { id: 'challenge', title: 'The Challenge', description: 'Achieving seamless interoperability between modern fire control systems and legacy gun platforms requires complex interface hardware and rigorous system verification.', image: '/assets/sensor_fusion.png' },
+      { id: 'approach', title: 'Our Approach', description: 'We developed custom Interface Control Documents (ICDs) and hardware solutions to interface LR66, OFC on 76mm Gun with SR47BG.', image: '/assets/processing_clean.png' },
+      { id: 'outcome', title: 'The Outcome', description: 'Enabled complete interoperability between the SOT FCS and the 76mm Gun onboard PNS ASLT.', image: '/assets/communication_clean.png' },
+      { id: 'whatWeDid', title: 'Engineering Scope', description: 'Development of ICDs between 76mm Gun & SR47BG, System Verification & Validation, Weapon System Integration, and Interface Hardware Development.', image: '/assets/data_analytics_clean.png' }
+    ]
+  },
+  {
+    id: 5,
+    number: '05',
     badge: 'Autonomous Sensing',
     title: 'Littoral Surveillance Array (LSA-12)',
     description: 'Deploying high-frequency hydrophone clusters to monitor near-shore acoustic signatures and detect low-profile littoral intrusions.',
@@ -69,8 +99,8 @@ export const projectsData: Project[] = [
     ]
   },
   {
-    id: 4,
-    number: '04',
+    id: 6,
+    number: '06',
     badge: 'Signal Processing',
     title: 'Adaptive Noise Cancellation Core (ANC-X)',
     description: 'Real-time extraction of weak sonar returns from background shipping noise using edge-deployed deep learning filters.',
@@ -84,8 +114,8 @@ export const projectsData: Project[] = [
     ]
   },
   {
-    id: 5,
-    number: '05',
+    id: 7,
+    number: '07',
     badge: 'Secure Telemetry',
     title: 'Mesh Acoustic Transceiver (MAT-04)',
     description: 'Quantum-resistant underwater communication link utilizing multi-carrier frequency-hopping spreads for secure data transit.',
@@ -99,8 +129,8 @@ export const projectsData: Project[] = [
     ]
   },
   {
-    id: 6,
-    number: '06',
+    id: 8,
+    number: '08',
     badge: 'Tactical Analytics',
     title: 'Dynamic Threat Assessor (DTA-3)',
     description: 'Volumetric path prediction engine fusing lidar, radar, and sonar vectors to map defensive response paths in real-time.',
