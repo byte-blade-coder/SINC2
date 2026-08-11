@@ -29,7 +29,7 @@ export const projectsData: Project[] = [
     badge: 'Weapon Systems Integration',
     title: 'Development of ICDs for 6×30 mm Gun',
     description: 'Development of ICDs and hardware solution to interface SOT-2SE with 6×30mm Gun onboard PNS AZMT and DHST, enabling seamless interoperability with the SOT FCS and the Gun.',
-    image: '/assets/sensor_fusion.png',
+    image: '/assets/processing_clean.png',
     tech: ['Systems Integration', 'Fire Control', 'ICD Development', 'Signal Conversion'],
     sections: [
       { id: 'challenge', title: 'The Challenge', description: 'Integrating modern fire control systems with existing weapon platforms requires seamless, low-latency interfacing capable of bridging digital commands with analog or synchro-based inputs.', image: '/assets/sensor_fusion.png' },
@@ -44,7 +44,7 @@ export const projectsData: Project[] = [
     badge: 'Weapon Systems Integration',
     title: 'Development of ICDs for 7×30 mm Gun',
     description: 'Development of ICDs and hardware solution to interface SOT-2SE with 6×30mm Gun onboard PNS AZMT and DHST, enabling seamless interoperability with the SOT FCS and the Gun.',
-    image: '/assets/sensor_fusion.png',
+    image: '/assets/communication_clean.png',
     tech: ['Systems Integration', 'Weapon Systems', 'Synchro Control', 'Fire Control', 'ICD Development', 'Embedded Electronics', 'Signal Conversion'],
     sections: [
       { id: 'challenge', title: 'The Challenge', description: 'Integrating modern fire control systems with existing weapon platforms requires seamless, low-latency interfacing capable of bridging digital commands with analog or synchro-based inputs.', image: '/assets/sensor_fusion.png' },
@@ -74,7 +74,7 @@ export const projectsData: Project[] = [
     badge: 'Weapon Systems Integration',
     title: 'Development of ICDs for 76 mm Gun',
     description: 'Development of ICDs and hardware solution to interface LR66, OFC on 76mm Gun with SR47BG onboard PNS ASLT, enabling seamless interoperability with the SOT FCS and the Gun.',
-    image: '/assets/sensor_fusion.png',
+    image: '/assets/data_analytics_clean.png',
     tech: ['Systems Integration & Verification', 'Weapon Systems', 'ICD Verification', 'Fire Control', 'ICD Development', 'Data Validation', 'System Interfacing'],
     sections: [
       { id: 'challenge', title: 'The Challenge', description: 'Achieving seamless interoperability between modern fire control systems and legacy gun platforms requires complex interface hardware and rigorous system verification.', image: '/assets/sensor_fusion.png' },
@@ -131,61 +131,46 @@ export const projectsData: Project[] = [
   {
     id: 8,
     number: '08',
-    badge: 'Autonomous Sensing',
-    title: 'Littoral Surveillance Array (LSA-12)',
-    description: 'Deploying high-frequency hydrophone clusters to monitor near-shore acoustic signatures and detect low-profile littoral intrusions.',
+    badge: 'Combat System Integration',
+    title: 'Development of CDS – Video Extractor',
+    description: 'Designed and onboarded a Combat Data System (CDS) Video Extractor on PNS ALAMGIR to capture, process, and distribute mission-critical video streams from onboard combat systems. The solution enables reliable extraction of operational video data for monitoring, recording, analysis, and integration with naval mission systems.',
     image: '/assets/sensing_clean.png',
-    tech: ['Acoustic Array', 'Sub-meter Tracking', 'Edge Intelligence'],
+    tech: ['Combat System Integration', 'Video Signal Processing', 'Embedded Hardware Design', 'Real-Time Data Distribution', 'Naval Platform Integration', 'System Verification & Validation'],
     sections: [
-      { id: 'challenge', title: 'The Challenge', description: 'Monitoring vast littoral zones requires persistent, low-power sensing capabilities that can operate autonomously in hostile environments without regular maintenance or data retrieval vessels.', image: '/assets/sensing_clean.png' },
-      { id: 'approach', title: 'Our Approach', description: 'We engineered a highly distributed, mesh-networked array of hydrophone clusters featuring edge-processing nodes to filter out biological noise and isolate mechanical signatures locally.', image: '/assets/sensor_fusion.png' },
-      { id: 'outcome', title: 'The Outcome', description: 'The LSA-12 achieved a 94% reduction in false positives and increased operational longevity by 300%, providing a continuous, real-time acoustic map of the monitored theater.', image: '/assets/processing_clean.png' },
-      { id: 'whatWeDid', title: 'What We Did', description: 'Hardware Engineering, Acoustic Modeling, Embedded AI Filtering, Mesh Telemetry Setup, and Deep-Sea Deployment Logistics.', image: '/assets/data_analytics_clean.png' }
+      { id: 'challenge', title: 'The Challenge', description: 'Extracting mission-critical video streams from disparate onboard combat systems requires high-throughput data capture and processing without introducing latency or signal degradation.', image: '/assets/sensor_fusion.png' },
+      { id: 'approach', title: 'Our Approach', description: 'We designed a CDS Video Extractor that reliably acquires operational video data, processes it in real-time, and routes it for monitoring, recording, and analysis.', image: '/assets/processing_clean.png' },
+      { id: 'outcome', title: 'The Outcome', description: 'Successfully onboarded the CDS Video Extractor on PNS ALAMGIR, enhancing situational awareness and providing crucial video telemetry for post-mission analysis.', image: '/assets/communication_clean.png' },
+      { id: 'whatWeDid', title: 'Engineering Scope', description: 'CDS Interface & Display Development, Real-time Data Processing, Video Acquisition & Extraction, Shipboard System Validation, Embedded Hardware Integration, and Operational Performance Testing.', image: '/assets/data_analytics_clean.png' }
     ]
   },
   {
     id: 9,
     number: '09',
-    badge: 'Signal Processing',
-    title: 'Adaptive Noise Cancellation Core (ANC-X)',
-    description: 'Real-time extraction of weak sonar returns from background shipping noise using edge-deployed deep learning filters.',
-    image: '/assets/processing_clean.png',
-    tech: ['TensorRT', 'Dynamic Filtering', 'FPGA Processing'],
+    badge: 'Tactical Data Links (TDL)',
+    title: 'Integration of LINK-Y CCS3 Charlie',
+    description: 'Development and integration of the LINK-Y CCS3 Charlie interface onboard the F-22P Frigate to enable secure, real-time exchange of tactical information between the Combat Management System (CMS) and Tactical Data Link (TDL).',
+    image: '/assets/communication_clean.png',
+    tech: ['Tactical Data Links (TDL)', 'Combat Management Systems (CMS)', 'Mission System Integration', 'Interface Engineering', 'Naval Communication Systems', 'Real-Time Data Exchange', 'System Verification & Validation'],
     sections: [
-      { id: 'challenge', title: 'The Challenge', description: 'Modern stealth vessels emit acoustic signatures that are frequently masked by heavy commercial shipping traffic, rendering traditional threshold-based sonar filtering ineffective.', image: '/assets/processing_clean.png' },
-      { id: 'approach', title: 'Our Approach', description: 'We developed an FPGA-accelerated neural network capable of isolating and subtracting dynamic ambient noise profiles in real-time, allowing ultra-weak anomalies to surface in the spectrogram.', image: '/assets/sensing_clean.png' },
-      { id: 'outcome', title: 'The Outcome', description: 'ANC-X extended the effective detection range by 40 nautical miles in highly congested shipping lanes, providing crucial early warning capabilities.', image: '/assets/communication_clean.png' },
-      { id: 'whatWeDid', title: 'What We Did', description: 'Deep Learning Architecture, FPGA Synthesis, Real-Time Signal Processing, and Live-Sea Calibration.', image: '/assets/sensor_fusion.png' }
+      { id: 'challenge', title: 'The Challenge', description: 'Enabling secure, low-latency exchange of tactical information between complex Combat Management Systems and high-speed Tactical Data Links is essential for modern naval operations.', image: '/assets/communication_clean.png' },
+      { id: 'approach', title: 'Our Approach', description: 'We developed and integrated the LINK-Y CCS3 Charlie interface, implementing robust protocols to ensure seamless data exchange between the CMS and TDL.', image: '/assets/sensor_fusion.png' },
+      { id: 'outcome', title: 'The Outcome', description: 'Successfully onboarded the interface on the F-22P Frigate, significantly enhancing interoperability, situational awareness, and coordinated naval operations.', image: '/assets/data_analytics_clean.png' },
+      { id: 'whatWeDid', title: 'Engineering Scope', description: 'LINK-Y CCS3 Charlie Integration, Interface Protocol Implementation, CMS Interface Development, System Integration & Validation, Tactical Data Exchange, and Onboard Commissioning.', image: '/assets/processing_clean.png' }
     ]
   },
   {
     id: 10,
     number: '10',
-    badge: 'Secure Telemetry',
-    title: 'Mesh Acoustic Transceiver (MAT-04)',
-    description: 'Quantum-resistant underwater communication link utilizing multi-carrier frequency-hopping spreads for secure data transit.',
-    image: '/assets/communication_clean.png',
-    tech: ['Quantum-Safe', 'Multi-Band FHSS', 'Acoustic Mesh'],
+    badge: 'Mission System Integration',
+    title: 'Integration of LINK-Y NEZA6 With CMS',
+    description: 'Development and integration of a real-time interface between the LINK-Y Tactical Data Link and the Combat Management System (CMS) onboarded on 054A Frigate to enable reliable exchange of tactical information across onboard mission systems.',
+    image: '/assets/processing_clean.png',
+    tech: ['Tactical Data Links (TDL)', 'Combat Management Systems (CMS)', 'Data Distribution Systems', 'Mission System Integration', 'Real-Time Communication', 'Interface Engineering', 'Protocol Integration', 'System Verification & Validation'],
     sections: [
-      { id: 'challenge', title: 'The Challenge', description: 'Transmitting high-fidelity sensor data securely through the water column is notoriously difficult due to multipath fading, low bandwidth, and the ever-present threat of signal interception.', image: '/assets/communication_clean.png' },
-      { id: 'approach', title: 'Our Approach', description: 'MAT-04 utilizes a proprietary multi-band frequency-hopping spread spectrum (FHSS) protocol layered with quantum-resistant encryption algorithms to ensure absolute data integrity.', image: '/assets/sensor_fusion.png' },
-      { id: 'outcome', title: 'The Outcome', description: 'Achieved a sustained, intercept-proof underwater data link capable of transmitting compressed telemetry over 15 kilometers without repeaters.', image: '/assets/data_analytics_clean.png' },
-      { id: 'whatWeDid', title: 'What We Did', description: 'Acoustic Protocol Design, Cryptographic Integration, Transducer Engineering, and Network Topology Mapping.', image: '/assets/sensing_clean.png' }
-    ]
-  },
-  {
-    id: 11,
-    number: '11',
-    badge: 'Tactical Analytics',
-    title: 'Dynamic Threat Assessor (DTA-3)',
-    description: 'Volumetric path prediction engine fusing lidar, radar, and sonar vectors to map defensive response paths in real-time.',
-    image: '/assets/data_analytics_clean.png',
-    tech: ['Sensor Fusion', '3D Volumetric Path', 'Predictive AI'],
-    sections: [
-      { id: 'challenge', title: 'The Challenge', description: 'Command centers are overwhelmed with disjointed data streams from disparate domains (air, surface, sub-surface), making split-second tactical decisions incredibly difficult.', image: '/assets/data_analytics_clean.png' },
-      { id: 'approach', title: 'Our Approach', description: 'DTA-3 ingests raw vectors from every available sensor node, employing a predictive physics engine to construct a unified 3D holographic threat topology.', image: '/assets/communication_clean.png' },
-      { id: 'outcome', title: 'The Outcome', description: 'Reduced command response latency from minutes to milliseconds, automating defensive posture recommendations across entire fleet groups.', image: '/assets/sensor_fusion.png' },
-      { id: 'whatWeDid', title: 'What We Did', description: 'Sensor Fusion Algorithms, 3D Volumetric Rendering, Predictive Physics Engine, and C2 System Integration.', image: '/assets/processing_clean.png' }
+      { id: 'challenge', title: 'The Challenge', description: 'Establishing a reliable interface between advanced Tactical Data Links and Combat Management Systems requires complex message handling, stringent timing validation, and error-free communication.', image: '/assets/processing_clean.png' },
+      { id: 'approach', title: 'Our Approach', description: 'We developed a comprehensive CMS–LINK-Y interface architecture, facilitating standardized communication through a dedicated Data Interface Unit (DIU).', image: '/assets/sensor_fusion.png' },
+      { id: 'outcome', title: 'The Outcome', description: 'Successfully integrated the interface on the 054A Frigate, ensuring synchronized operational data flow and enhanced situational awareness across mission systems.', image: '/assets/communication_clean.png' },
+      { id: 'whatWeDid', title: 'Engineering Scope', description: 'System Integration Testing & Operational Validation, Real-time Tactical Data Exchange, Development of CMS–LINK-Y Interface Architecture, Message Acknowledgement & Timing Validation, DIU Communication, and Communication Performance Verification.', image: '/assets/data_analytics_clean.png' }
     ]
   }
 ];
