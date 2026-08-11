@@ -642,7 +642,7 @@ export const ZoomSection: React.FC = () => {
 
           {/* Title Header Section above the cards, aligned left */}
           <div className="w-full flex flex-col items-center md:items-start text-center md:text-left z-10 select-none mb-12 md:mb-20">
-            <h2 className="w-fit inline-block mx-auto md:mx-0 font-display font-black text-[28px] sm:text-[54px] md:text-[76px] leading-[0.95] tracking-tighter bg-gradient-to-r from-[#23abe6] to-[#050c26] bg-clip-text text-transparent pb-2 md:pb-3 pt-1">
+            <h2 id="core-pillars" className="scroll-mt-32 w-fit inline-block mx-auto md:mx-0 font-display font-black text-[28px] sm:text-[54px] md:text-[76px] leading-[0.95] tracking-tighter bg-gradient-to-r from-[#23abe6] to-[#050c26] bg-clip-text text-transparent pb-2 md:pb-3 pt-1">
               Core <br /> Technology Pillars
             </h2>
             <div className="mt-2 md:mt-6 text-center md:text-left text-gray-600 font-normal text-[13px] sm:text-[14px] md:text-[18px] leading-relaxed max-w-full md:max-w-[60%] space-y-2 md:space-y-4">

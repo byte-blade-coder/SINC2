@@ -110,7 +110,7 @@ export default function ProjectDetail() {
           <ArrowLeft className="w-4 h-4" />
           Back
         </button>
-        <span className="font-display font-semibold text-cyan-400">{project.number}</span>
+        <span className="font-display font-semibold text-[#23abe6]">{project.number}</span>
       </div>
 
       {/* LEFT COLUMN: Sticky Panel */}
@@ -126,7 +126,7 @@ export default function ProjectDetail() {
         </button>
 
         <div className="flex flex-col max-w-lg w-full mx-auto md:mx-0">
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-cyan-400 mb-4">
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#23abe6] mb-4">
             {project.badge}
           </span>
           <h1 className="font-display font-semibold text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-[1.1] mb-8">
@@ -186,13 +186,13 @@ export default function ProjectDetail() {
                   </span>
                   <div className="relative flex-1 h-[1px] bg-white/20 overflow-hidden">
                     <motion.div 
-                      className="absolute inset-y-0 left-0 bg-cyan-400"
+                      className="absolute inset-y-0 left-0 bg-[#23abe6]"
                       initial={{ width: '0%' }}
                       animate={{ width: isActive ? '100%' : '0%' }}
                       transition={{ duration: 0.6, ease: "circOut" }}
                     />
                   </div>
-                  <span className={`text-xs font-bold tracking-widest uppercase transition-colors duration-300 ${isActive ? 'text-cyan-400' : 'text-white'}`}>
+                  <span className={`text-xs font-bold tracking-widest uppercase transition-colors duration-300 ${isActive ? 'text-[#23abe6]' : 'text-white'}`}>
                     {sec.title}
                   </span>
                 </button>
@@ -201,9 +201,9 @@ export default function ProjectDetail() {
           </div>
 
           {/* Live Link Button */}
-          <button className="mt-16 md:mt-24 group flex items-center justify-between w-full py-4 border-b border-white/10 text-white hover:border-cyan-400 transition-colors">
+          <button className="mt-16 md:mt-24 group flex items-center justify-between w-full py-4 border-b border-white/10 text-white hover:border-[#23abe6] transition-colors">
             <span className="text-sm font-bold tracking-widest uppercase">View Case Details</span>
-            <ArrowUpRight className="w-5 h-5 text-white/40 group-hover:text-cyan-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+            <ArrowUpRight className="w-5 h-5 text-white/40 group-hover:text-[#23abe6] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
           </button>
         </div>
       </div>

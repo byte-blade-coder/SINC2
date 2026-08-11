@@ -25,7 +25,7 @@ export const PremiumFooter = () => {
       <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-[#23abe6]/[0.06] rounded-full blur-[120px] pointer-events-none" />
 
       {/* Floating Banner */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[1728px] bg-[#23abe6] border border-cyan-500/20 rounded-[32px] p-10 md:p-14 flex flex-col md:flex-row items-center justify-between shadow-[0_0_40px_rgba(35,171,230,0.2)] z-20">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[1728px] bg-[#23abe6] border border-[#23abe6]/20 rounded-[32px] p-10 md:p-14 flex flex-col md:flex-row items-center justify-between shadow-[0_0_40px_rgba(35,171,230,0.2)] z-20">
         <div className="mb-8 md:mb-0">
           <h2 className="text-white font-display text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight">
             Don't Miss Out<br />the Future!
@@ -72,37 +72,25 @@ export const PremiumFooter = () => {
             <div className="flex items-center gap-3">
               <img src="/assets/logo.png" alt="SINC 3D Logo" className="h-[45px] md:h-[60px] w-auto object-contain" />
             </div>
-            <p className="text-white/60 text-sm leading-relaxed max-w-[280px]">
-              Every great solution start understand the time into learn about.
+            <p className="text-white/60 text-sm leading-relaxed max-w-[320px]">
+              SINC is a research and development lab dedicated to enhancing mission-critical readiness through innovative engineering, technology insertion, and functional replacement solutions.
             </p>
-
-            {/* App Store Buttons */}
-            <div className="flex flex-col gap-3 mt-2">
-              <a href="#" className="flex items-center gap-3 bg-[#0a0a0a] hover:bg-[#151515] rounded-lg px-4 py-2.5 w-[160px] transition-colors border border-white/5">
-                <FaGooglePlay className="text-white" size={24} />
-                <div className="flex flex-col">
-                  <span className="text-[10px] text-white/60 leading-none">GET IT ON</span>
-                  <span className="text-sm font-semibold text-white leading-tight">Google Play</span>
-                </div>
-              </a>
-              <a href="#" className="flex items-center gap-3 bg-[#0a0a0a] hover:bg-[#151515] rounded-lg px-4 py-2.5 w-[160px] transition-colors border border-white/5">
-                <FaApple className="text-white" size={24} />
-                <div className="flex flex-col">
-                  <span className="text-[10px] text-white/60 leading-none">Download on the</span>
-                  <span className="text-sm font-semibold text-white leading-tight">App Store</span>
-                </div>
-              </a>
-            </div>
           </div>
 
-          {/* Services Column */}
+          {/* Quick Links Column */}
           <div className="md:col-span-3 flex flex-col gap-6">
-            <h4 className="text-white text-[17px] font-semibold">Services</h4>
+            <h4 className="text-white text-[17px] font-semibold">Quick Links</h4>
             <ul className="flex flex-col gap-4">
-              {["Manage IT Service", "Cloud Computing", "Cyber Security", "Software Develop", "Change Manage", "IT Consulting"].map(lnk => (
-                <li key={lnk}>
-                  <a href="#" className="text-white/50 hover:text-[#23abe6] text-[15px] transition-colors duration-200">
-                    {lnk}
+              {[
+                { label: "Home", href: "#home" },
+                { label: "Core Pillars", href: "#core-pillars" },
+                { label: "Research", href: "#research" },
+                { label: "Projects", href: "#projects" },
+                { label: "Contact", href: "#contact" }
+              ].map(lnk => (
+                <li key={lnk.label}>
+                  <a href={lnk.href} className="text-white/50 hover:text-[#23abe6] text-[15px] transition-colors duration-200">
+                    {lnk.label}
                   </a>
                 </li>
               ))}

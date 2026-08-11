@@ -34,7 +34,7 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
   return (
     <span ref={ref}>
       {count}
-      <span className="text-[#2ba9e3]">{suffix}</span>
+      <span className="text-[#23abe6]">{suffix}</span>
     </span>
   );
 }
@@ -61,13 +61,13 @@ function StatCard({
       />
 
       {/* Index */}
-      <span className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#2ba9e3]/40 mb-2.5 block">
+      <span className="text-[9px] font-semibold uppercase tracking-[0.3em] text-[#23abe6]/40 mb-2.5 block">
         {stat.index}
       </span>
 
       {/* Value */}
       <div className="font-display font-black text-[28px] sm:text-[32px] md:text-[36px] leading-none tracking-tighter text-white
-        group-hover:text-[#2ba9e3] transition-colors duration-300 whitespace-pre-line">
+        group-hover:text-[#23abe6] transition-colors duration-300 whitespace-pre-line">
         <Counter target={stat.value} suffix={stat.suffix} />
       </div>
 
@@ -110,12 +110,12 @@ export function NextSection() {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5 }}
             >
-              <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#2ba9e3] mb-2 block">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#23abe6] mb-2 block">
                 About
               </span>
               <h2 className="w-fit font-display font-black text-[28px] sm:text-[44px] md:text-[52px] lg:text-[56px]
                 leading-[0.95] tracking-tighter
-                bg-gradient-to-r from-[#2ba9e3] to-white bg-clip-text text-transparent
+                bg-gradient-to-r from-[#23abe6] to-white bg-clip-text text-transparent
                 pb-2 md:pb-3 pt-1">
                 SINC Lab
               </h2>
@@ -136,7 +136,7 @@ export function NextSection() {
               initial={{ scaleX: 0, originX: 0 }}
               animate={isInView ? { scaleX: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.18 }}
-              className="h-px w-12 bg-[#2ba9e3]/40 mb-8"
+              className="h-px w-12 bg-[#23abe6]/40 mb-8"
             />
 
             {/* Body paragraphs */}
@@ -174,7 +174,7 @@ export function NextSection() {
                 href="https://sincresearch.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/30 hover:text-[#2ba9e3] transition-colors duration-300"
+                className="group flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/30 hover:text-[#23abe6] transition-colors duration-300"
               >
                 <ExternalLink className="w-3 h-3 opacity-50 group-hover:opacity-100 transition-opacity" />
                 sincresearch.com

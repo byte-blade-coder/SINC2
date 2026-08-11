@@ -20,7 +20,7 @@ export function BlindSection() {
         style={{
           width: '30vw',
           height: '30vw',
-          background: 'rgba(50, 200, 255, 0.05)',
+          background: 'rgba(35,171,230, 0.05)',
           filter: 'blur(80px)',
         }}
       />

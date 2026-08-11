@@ -57,7 +57,7 @@ export default function Home() {
               transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
               className="w-12 h-12 border-2 border-white/10 border-t-cyan-400 rounded-full"
             />
-            <div className="mt-6 text-cyan-400/70 font-display text-[10px] uppercase tracking-[0.3em] font-semibold animate-pulse">
+            <div className="mt-6 text-[#23abe6]/70 font-display text-[10px] uppercase tracking-[0.3em] font-semibold animate-pulse">
               Restoring Viewport
             </div>
           </motion.div>
@@ -149,11 +149,11 @@ export default function Home() {
           .invert-text .text-white\\/30 {
             color: #4b5563 !important;
           }
-          .invert-text .text-cyan-400 {
-            color: #0284c7 !important;
+          .invert-text .text-[#23abe6] {
+            color: #23abe6 !important;
           }
-          .invert-text .text-sky-400 {
-            color: #0284c7 !important;
+          .invert-text .text-[#23abe6] {
+            color: #23abe6 !important;
           }
           .invert-text .text-gray-400 {
             color: #4b5563 !important;

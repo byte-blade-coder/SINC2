@@ -308,14 +308,14 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
         {/* Section Header */}
         <div className="w-full flex flex-col items-center md:items-start text-center md:text-left z-10 select-none px-4 md:px-8">
           <div className="flex items-center gap-3 mb-2">
-            <span className="p-2 bg-[#0369a1]/10 dark:bg-sky-400/10 rounded-lg text-[#0369a1] dark:text-sky-400">
+            <span className="p-2 bg-[#23abe6]/10 dark:bg-[#23abe6]/10 rounded-lg text-[#23abe6] dark:text-[#23abe6]">
               <Icon className="w-5 h-5" />
             </span>
-            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#0369a1] dark:text-sky-400">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#23abe6] dark:text-[#23abe6]">
               {badge} • Core Technology Domain
             </span>
           </div>
-          <h2 className="w-fit inline-block mx-auto md:mx-0 font-display font-black text-[28px] sm:text-[44px] md:text-[60px] leading-[0.95] tracking-tighter bg-gradient-to-r from-[#2ba9e3] to-[#050c26] bg-clip-text text-transparent pb-2 md:pb-3 pt-1">
+          <h2 className="w-fit inline-block mx-auto md:mx-0 font-display font-black text-[28px] sm:text-[44px] md:text-[60px] leading-[0.95] tracking-tighter bg-gradient-to-r from-[#23abe6] to-[#050c26] bg-clip-text text-transparent pb-2 md:pb-3 pt-1">
             {title}
           </h2>
           <div className="mt-2 text-center md:text-left text-gray-600 font-medium text-[16px] sm:text-[18px] md:text-[22px] leading-relaxed max-w-full md:max-w-[70%] invert-text">
@@ -347,14 +347,14 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                   role="tab"
                   className={`snap-start shrink-0 relative py-4 text-[13px] font-semibold tracking-wide transition-all duration-300 ${
                     isActive 
-                      ? 'text-[#0369a1] dark:text-sky-400' 
+                      ? 'text-[#23abe6] dark:text-[#23abe6]' 
                       : 'text-gray-600 hover:text-gray-900'
                   }`}
                 >
                   {isActive && (
                     <motion.div
                       layoutId={`mobileActiveTabUnderline-${id}`}
-                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#2ba9e3] shadow-[0_-2px_10px_rgba(43,169,227,0.4)]"
+                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#23abe6] shadow-[0_-2px_10px_rgba(35,171,230,0.4)]"
                       transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                     />
                   )}
@@ -382,7 +382,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                   <img src={activeCap.image} alt={activeCap.title} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex flex-col gap-4">
-                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0369a1] dark:text-sky-400">{activeCap.badge}</div>
+                  <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#23abe6] dark:text-[#23abe6]">{activeCap.badge}</div>
                   <h3 className="font-display font-semibold text-2xl tracking-tight text-gray-900 invert-text">{activeCap.title}</h3>
                   <p className="text-gray-600 text-sm leading-relaxed invert-text">{activeCap.description}</p>
 
@@ -390,7 +390,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                     <ul className="space-y-3 mt-2">
                       {activeCap.features.map((feat, idx) => (
                         <li key={idx} className="flex items-start gap-3 text-sm text-gray-600 leading-relaxed invert-text">
-                          <CheckCircle2 className="w-4 h-4 text-[#0369a1] dark:text-sky-400 mt-0.5 shrink-0" />
+                          <CheckCircle2 className="w-4 h-4 text-[#23abe6] dark:text-[#23abe6] mt-0.5 shrink-0" />
                           <span>{feat}</span>
                         </li>
                       ))}
@@ -448,7 +448,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                       />
                     )}
                     <div className="relative z-10 text-[9px] lg:text-xs font-bold tracking-widest text-gray-400">{cap.badge}</div>
-                    <div className={`relative z-10 text-base lg:text-xl font-display font-semibold tracking-tight transition-colors duration-300 ${isActive ? 'text-[#0369a1] dark:text-sky-400' : 'text-gray-900 invert-text'}`}>
+                    <div className={`relative z-10 text-base lg:text-xl font-display font-semibold tracking-tight transition-colors duration-300 ${isActive ? 'text-[#23abe6] dark:text-[#23abe6]' : 'text-gray-900 invert-text'}`}>
                       {cap.title}
                     </div>
                   </button>
@@ -484,7 +484,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                   >
                     <motion.span
                       custom={0.06} variants={textVariants} initial="initial" animate="animate" exit="exit"
-                      className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#0369a1] dark:text-sky-400 mb-4"
+                      className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#23abe6] dark:text-[#23abe6] mb-4"
                     >
                       {activeCap.badge}
                     </motion.span>
@@ -510,7 +510,7 @@ const DomainShowcaseSection: React.FC<DomainShowcaseSectionProps> = ({
                       >
                         {activeCap.features.map((feat, idx) => (
                           <li key={idx} className="flex items-start gap-3 text-gray-700 text-base lg:text-lg leading-relaxed invert-text">
-                            <CheckCircle2 className="w-5 h-5 text-[#0369a1] dark:text-sky-400 mt-1 shrink-0" />
+                            <CheckCircle2 className="w-5 h-5 text-[#23abe6] dark:text-[#23abe6] mt-1 shrink-0" />
                             <span>{feat}</span>
                           </li>
                         ))}

@@ -44,7 +44,7 @@ export const ScrollIndicator: React.FC = () => {
                 repeat: Infinity,
                 ease: 'easeInOut',
               }}
-              className="w-1.5 h-1.5 rounded-full bg-cyan-400"
+              className="w-1.5 h-1.5 rounded-full bg-[#23abe6]"
             />
           </div>
         </motion.div>

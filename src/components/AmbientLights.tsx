@@ -30,7 +30,7 @@ export const AmbientLights: React.FC = () => {
           repeat: Infinity,
           ease: 'easeInOut',
         }}
-        className="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] rounded-full bg-radial from-blue-500/20 via-blue-600/5 to-transparent blur-[120px]"
+        className="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] rounded-full bg-radial from-[#23abe6]/20 via-[#23abe6]/5 to-transparent blur-[120px]"
       />
 
       {/* Bottom-Left Soft Cyan Glow */}
@@ -49,7 +49,7 @@ export const AmbientLights: React.FC = () => {
           ease: 'easeInOut',
           delay: 1,
         }}
-        className="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-radial from-cyan-500/15 via-cyan-600/5 to-transparent blur-[120px]"
+        className="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-radial from-[#23abe6]/15 via-[#23abe6]/5 to-transparent blur-[120px]"
       />
     </div>
   );

@@ -41,21 +41,6 @@ export const projectsData: Project[] = [
   {
     id: 2,
     number: '02',
-    badge: 'Weapon Systems Integration',
-    title: 'Development of ICDs for 7×30 mm Gun',
-    description: 'Development of ICDs and hardware solution to interface SOT-2SE with 6×30mm Gun onboard PNS AZMT and DHST, enabling seamless interoperability with the SOT FCS and the Gun.',
-    image: '/assets/communication_clean.png',
-    tech: ['Systems Integration', 'Weapon Systems', 'Synchro Control', 'Fire Control', 'ICD Development', 'Embedded Electronics', 'Signal Conversion'],
-    sections: [
-      { id: 'challenge', title: 'The Challenge', description: 'Integrating modern fire control systems with existing weapon platforms requires seamless, low-latency interfacing capable of bridging digital commands with analog or synchro-based inputs.', image: '/assets/sensor_fusion.png' },
-      { id: 'approach', title: 'Our Approach', description: 'We developed custom Interface Control Documents (ICDs) and bespoke hardware to convert Synchro to Digital and Digital to Synchro signals in real-time.', image: '/assets/processing_clean.png' },
-      { id: 'outcome', title: 'The Outcome', description: 'Achieved complete interoperability between the SOT FCS and the 6×30mm Gun onboard PNS AZMT and DHST, validating the system through rigorous verification protocols.', image: '/assets/data_analytics_clean.png' },
-      { id: 'whatWeDid', title: 'Engineering Scope', description: 'Development of ICDs between 7, System Verification & Validation, Weapon System Integration, Digital-to-Analog and Analog-to-Digital Interface Development, and Interface Hardware Development.', image: '/assets/communication_clean.png' }
-    ]
-  },
-  {
-    id: 3,
-    number: '03',
     badge: 'Mine Warfare Operations',
     title: 'Mine Warfare Data Centre (MWDC)',
     description: 'Development of a dedicated shore-based Mine Warfare Data Centre (MWDC) providing centralized planning, execution, monitoring, and integration of Mine Countermeasure (MCM) operations.',
@@ -69,23 +54,8 @@ export const projectsData: Project[] = [
     ]
   },
   {
-    id: 4,
-    number: '04',
-    badge: 'Weapon Systems Integration',
-    title: 'Development of ICDs for 76 mm Gun',
-    description: 'Development of ICDs and hardware solution to interface LR66, OFC on 76mm Gun with SR47BG onboard PNS ASLT, enabling seamless interoperability with the SOT FCS and the Gun.',
-    image: '/assets/data_analytics_clean.png',
-    tech: ['Systems Integration & Verification', 'Weapon Systems', 'ICD Verification', 'Fire Control', 'ICD Development', 'Data Validation', 'System Interfacing'],
-    sections: [
-      { id: 'challenge', title: 'The Challenge', description: 'Achieving seamless interoperability between modern fire control systems and legacy gun platforms requires complex interface hardware and rigorous system verification.', image: '/assets/sensor_fusion.png' },
-      { id: 'approach', title: 'Our Approach', description: 'We developed custom Interface Control Documents (ICDs) and hardware solutions to interface LR66, OFC on 76mm Gun with SR47BG.', image: '/assets/processing_clean.png' },
-      { id: 'outcome', title: 'The Outcome', description: 'Enabled complete interoperability between the SOT FCS and the 76mm Gun onboard PNS ASLT.', image: '/assets/communication_clean.png' },
-      { id: 'whatWeDid', title: 'Engineering Scope', description: 'Development of ICDs between 76mm Gun & SR47BG, System Verification & Validation, Weapon System Integration, and Interface Hardware Development.', image: '/assets/data_analytics_clean.png' }
-    ]
-  },
-  {
-    id: 5,
-    number: '05',
+    id: 3,
+    number: '03',
     badge: 'Meteorological Systems',
     title: 'Development of Solid State Meteorograph',
     description: 'Development of an indigenous Solid State Meteorograph for acquisition, processing, and distribution of real-time meteorological information from onboard sensors, computes true wind speed and direction and relays real time information to NRTUs and different sub-displays to support shipboard navigation and operational awareness.',
@@ -99,8 +69,8 @@ export const projectsData: Project[] = [
     ]
   },
   {
-    id: 6,
-    number: '06',
+    id: 4,
+    number: '04',
     badge: 'Avionics Integration',
     title: 'Development of VOR Navigation Converter',
     description: 'Design and development of an indigenous VHF Omnidirectional Range (VOR) Navigation Converter to display ILS parameters (localizer) and VOR bearing on aircraft\'s EHSI display.',
@@ -114,8 +84,8 @@ export const projectsData: Project[] = [
     ]
   },
   {
-    id: 7,
-    number: '07',
+    id: 5,
+    number: '05',
     badge: 'Navigation Systems',
     title: 'Development of Navigation Interface Unit (NIU)',
     description: 'Design and development of an indigenous Navigation Interface Unit (NIU) that serves as the central data acquisition and distribution hub for a ship\'s navigation suite.',
@@ -126,51 +96,6 @@ export const projectsData: Project[] = [
       { id: 'approach', title: 'Our Approach', description: 'We engineered an NIU based on Embedded Linux that interfaces with serial navigation sensors, parses the data, and distributes it over Ethernet (TCP/IP) to the CMS and GUI.', image: '/assets/processing_clean.png' },
       { id: 'outcome', title: 'The Outcome', description: 'Created a centralized, highly reliable data acquisition and distribution hub that integrates GPS, INS, Echo Sounder, and Gyro-compass data into the Combat Management System.', image: '/assets/data_analytics_clean.png' },
       { id: 'whatWeDid', title: 'Engineering Scope', description: 'System Integration, Serial-to-Ethernet Interfacing, Multi-Sensor Data Acquisition, and Real-Time Data Distribution.', image: '/assets/sensor_fusion.png' }
-    ]
-  },
-  {
-    id: 8,
-    number: '08',
-    badge: 'Combat System Integration',
-    title: 'Development of CDS – Video Extractor',
-    description: 'Designed and onboarded a Combat Data System (CDS) Video Extractor on PNS ALAMGIR to capture, process, and distribute mission-critical video streams from onboard combat systems. The solution enables reliable extraction of operational video data for monitoring, recording, analysis, and integration with naval mission systems.',
-    image: '/assets/sensing_clean.png',
-    tech: ['Combat System Integration', 'Video Signal Processing', 'Embedded Hardware Design', 'Real-Time Data Distribution', 'Naval Platform Integration', 'System Verification & Validation'],
-    sections: [
-      { id: 'challenge', title: 'The Challenge', description: 'Extracting mission-critical video streams from disparate onboard combat systems requires high-throughput data capture and processing without introducing latency or signal degradation.', image: '/assets/sensor_fusion.png' },
-      { id: 'approach', title: 'Our Approach', description: 'We designed a CDS Video Extractor that reliably acquires operational video data, processes it in real-time, and routes it for monitoring, recording, and analysis.', image: '/assets/processing_clean.png' },
-      { id: 'outcome', title: 'The Outcome', description: 'Successfully onboarded the CDS Video Extractor on PNS ALAMGIR, enhancing situational awareness and providing crucial video telemetry for post-mission analysis.', image: '/assets/communication_clean.png' },
-      { id: 'whatWeDid', title: 'Engineering Scope', description: 'CDS Interface & Display Development, Real-time Data Processing, Video Acquisition & Extraction, Shipboard System Validation, Embedded Hardware Integration, and Operational Performance Testing.', image: '/assets/data_analytics_clean.png' }
-    ]
-  },
-  {
-    id: 9,
-    number: '09',
-    badge: 'Tactical Data Links (TDL)',
-    title: 'Integration of LINK-Y CCS3 Charlie',
-    description: 'Development and integration of the LINK-Y CCS3 Charlie interface onboard the F-22P Frigate to enable secure, real-time exchange of tactical information between the Combat Management System (CMS) and Tactical Data Link (TDL).',
-    image: '/assets/communication_clean.png',
-    tech: ['Tactical Data Links (TDL)', 'Combat Management Systems (CMS)', 'Mission System Integration', 'Interface Engineering', 'Naval Communication Systems', 'Real-Time Data Exchange', 'System Verification & Validation'],
-    sections: [
-      { id: 'challenge', title: 'The Challenge', description: 'Enabling secure, low-latency exchange of tactical information between complex Combat Management Systems and high-speed Tactical Data Links is essential for modern naval operations.', image: '/assets/communication_clean.png' },
-      { id: 'approach', title: 'Our Approach', description: 'We developed and integrated the LINK-Y CCS3 Charlie interface, implementing robust protocols to ensure seamless data exchange between the CMS and TDL.', image: '/assets/sensor_fusion.png' },
-      { id: 'outcome', title: 'The Outcome', description: 'Successfully onboarded the interface on the F-22P Frigate, significantly enhancing interoperability, situational awareness, and coordinated naval operations.', image: '/assets/data_analytics_clean.png' },
-      { id: 'whatWeDid', title: 'Engineering Scope', description: 'LINK-Y CCS3 Charlie Integration, Interface Protocol Implementation, CMS Interface Development, System Integration & Validation, Tactical Data Exchange, and Onboard Commissioning.', image: '/assets/processing_clean.png' }
-    ]
-  },
-  {
-    id: 10,
-    number: '10',
-    badge: 'Mission System Integration',
-    title: 'Integration of LINK-Y NEZA6 With CMS',
-    description: 'Development and integration of a real-time interface between the LINK-Y Tactical Data Link and the Combat Management System (CMS) onboarded on 054A Frigate to enable reliable exchange of tactical information across onboard mission systems.',
-    image: '/assets/processing_clean.png',
-    tech: ['Tactical Data Links (TDL)', 'Combat Management Systems (CMS)', 'Data Distribution Systems', 'Mission System Integration', 'Real-Time Communication', 'Interface Engineering', 'Protocol Integration', 'System Verification & Validation'],
-    sections: [
-      { id: 'challenge', title: 'The Challenge', description: 'Establishing a reliable interface between advanced Tactical Data Links and Combat Management Systems requires complex message handling, stringent timing validation, and error-free communication.', image: '/assets/processing_clean.png' },
-      { id: 'approach', title: 'Our Approach', description: 'We developed a comprehensive CMS–LINK-Y interface architecture, facilitating standardized communication through a dedicated Data Interface Unit (DIU).', image: '/assets/sensor_fusion.png' },
-      { id: 'outcome', title: 'The Outcome', description: 'Successfully integrated the interface on the 054A Frigate, ensuring synchronized operational data flow and enhanced situational awareness across mission systems.', image: '/assets/communication_clean.png' },
-      { id: 'whatWeDid', title: 'Engineering Scope', description: 'System Integration Testing & Operational Validation, Real-time Tactical Data Exchange, Development of CMS–LINK-Y Interface Architecture, Message Acknowledgement & Timing Validation, DIU Communication, and Communication Performance Verification.', image: '/assets/data_analytics_clean.png' }
     ]
   }
 ];
@@ -275,10 +200,10 @@ export default function Projects() {
         >
           {/* Header Container */}
           <div className="max-w-[1728px] mx-auto w-full px-3 md:px-4 lg:px-5 mb-12 select-none">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#0284c7]">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#23abe6]">
               Strategic Deployment
             </span>
-            <h2 className="w-fit font-display font-black text-3xl md:text-5xl lg:text-6xl tracking-tight mt-4 leading-[1.1] bg-gradient-to-r from-[#2ba9e3] to-[#050c26] bg-clip-text text-transparent pb-1">
+            <h2 className="w-fit font-display font-black text-3xl md:text-5xl lg:text-6xl tracking-tight mt-4 leading-[1.1] bg-gradient-to-r from-[#23abe6] to-[#050c26] bg-clip-text text-transparent pb-1">
               Flagship Solutions
             </h2>
             <p className="text-gray-400 font-sans text-base md:text-lg leading-relaxed mt-4 max-w-2xl">
@@ -297,7 +222,7 @@ export default function Projects() {
                 <Link
                   key={project.id}
                   to={`/project/${project.id}`}
-                  className="flex-shrink-0 relative rounded-3xl border border-black/5 overflow-hidden bg-gray-50 aspect-[16/10] group shadow-sm hover:shadow-md transition-all duration-500 text-left focus:outline-none focus:ring-4 focus:ring-[#0284c7]/30"
+                  className="flex-shrink-0 relative rounded-3xl border border-black/5 overflow-hidden bg-gray-50 aspect-[16/10] group shadow-sm hover:shadow-md transition-all duration-500 text-left focus:outline-none focus:ring-4 focus:ring-[#23abe6]/30"
                   style={{
                     width: 'min(720px, 85vw)',
                   }}
@@ -314,7 +239,7 @@ export default function Projects() {
                   {/* Information Panel */}
                   <div className="absolute bottom-0 inset-x-0 p-5 sm:p-8 flex flex-col justify-end bg-black/40 backdrop-blur-md border-t border-white/10 rounded-b-3xl select-none">
                     <div className="flex items-center gap-3">
-                      <span className="font-display font-black text-lg text-cyan-400">
+                      <span className="font-display font-black text-lg text-[#23abe6]">
                         {project.number}
                       </span>
                       <span className="text-[9px] font-bold uppercase tracking-widest text-white/50">

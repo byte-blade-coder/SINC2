@@ -17,7 +17,7 @@ const NavLink: React.FC<NavLinkProps> = ({ href, active, onClick, scrolled, chil
       onClick={onClick}
       className={`
         relative px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider
-        transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500
+        transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#23abe6]
         ${scrolled
           ? (active ? 'text-[#050c26]' : 'text-[#050c26]/60 hover:text-[#050c26]')
           : (active ? 'text-white' : 'text-white/60 hover:text-white')
@@ -110,7 +110,7 @@ export const GlassNavbar: React.FC = () => {
         {/* Logo Section */}
         <a
           href="#home"
-          className="flex items-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 rounded-lg"
+          className="flex items-center shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#23abe6] rounded-lg"
           onClick={() => setActiveLink('Home')}
         >
           {/* Logo Entry Blur-to-Sharp */}
@@ -163,7 +163,7 @@ export const GlassNavbar: React.FC = () => {
               href="#get-started"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              className="relative overflow-hidden group flex items-center justify-center gap-2 h-10 px-5 rounded-full text-xs font-semibold uppercase tracking-wider text-white bg-[#0369a1] hover:shadow-[0_0_20px_rgba(3,105,161,0.4)] transition-all duration-300"
+              className="relative overflow-hidden group flex items-center justify-center gap-2 h-10 px-5 rounded-full text-xs font-semibold uppercase tracking-wider text-white bg-[#23abe6] hover:shadow-[0_0_20px_rgba(35,171,230,0.4)] transition-all duration-300"
             >
               {/* CTA Shine Sweep Effect */}
               <span className="absolute inset-0 w-full h-full bg-white/20 -skew-x-12 -left-full group-hover:animate-shine pointer-events-none" />
@@ -177,7 +177,7 @@ export const GlassNavbar: React.FC = () => {
           <div className="flex lg:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`p-2 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500 ${(scrolled && !isDark) ? 'text-[#050c26] hover:bg-black/5' : 'text-white/80 hover:bg-white/5'
+              className={`p-2 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#23abe6] ${(scrolled && !isDark) ? 'text-[#050c26] hover:bg-black/5' : 'text-white/80 hover:bg-white/5'
                 }`}
               aria-label="Toggle Navigation Menu"
             >
@@ -220,7 +220,7 @@ export const GlassNavbar: React.FC = () => {
             <a
               href="#get-started"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-center gap-2 w-full py-4 rounded-xl text-sm font-semibold uppercase tracking-wider text-white bg-[#0369a1]"
+              className="flex items-center justify-center gap-2 w-full py-4 rounded-xl text-sm font-semibold uppercase tracking-wider text-white bg-[#23abe6]"
             >
               <span>Get Started</span>
               <ArrowRight className="w-4 h-4" />
