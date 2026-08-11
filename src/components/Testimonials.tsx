@@ -3,26 +3,20 @@ import { Trophy, ArrowRight, User } from 'lucide-react';
 
 export const Testimonials = () => {
   return (
-    <section className="relative w-full h-full pb-12 md:pb-20 pt-24 md:pt-32 bg-[#050505] overflow-clip flex flex-col items-center justify-center z-10">
+    <section className="relative w-full h-full py-12 md:py-16 bg-[#050505] overflow-clip flex flex-col items-center justify-center z-10">
 
-      {/* Outer Rounded Container */}
-      <div className="w-[calc(100%-2rem)] max-w-[1728px] mx-auto bg-[#111211] rounded-[24px] border border-[#292B29] relative flex flex-col items-center z-10 px-6 pb-12 pt-16 md:px-12 md:pb-20 md:pt-20 lg:px-16 lg:pb-24 lg:pt-24 xl:px-24 xl:pb-32 xl:pt-28 shadow-2xl">
-
-        {/* Abstract Geometric Background (Solid Rings, No Gradients) */}
-        <div className="absolute inset-0 overflow-hidden rounded-[24px] pointer-events-none z-0">
-          <div className="absolute -top-[20%] -right-[10%] w-[80vw] h-[80vw] max-w-[1200px] max-h-[1200px] border-[40px] border-[#151615] rounded-full" />
-          <div className="absolute -bottom-[30%] -left-[10%] w-[60vw] h-[60vw] max-w-[900px] max-h-[900px] border-[2px] border-[#1a1c1a] rounded-full" />
-          <div className="absolute top-[10%] left-[20%] w-[100vw] h-[100vw] max-w-[1500px] max-h-[1500px] border-[1px] border-[#151615] rounded-full" />
-        </div>
+      {/* Content Wrapper */}
+      <div className="w-full max-w-[1728px] mx-auto relative flex flex-col items-center z-10 px-4 md:px-8 lg:px-12">
 
         {/* Two-Column Composition */}
-        <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-10 xl:gap-16 items-stretch">
+        <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-10 xl:gap-12 items-stretch">
+
 
           {/* LEFT SIDE: Visuals & Cards */}
           <div className="relative w-full mt-8 lg:mt-0 h-full">
 
             {/* Main Image Container */}
-            <div className="relative w-full h-full min-h-[400px] rounded-[20px] overflow-hidden bg-[#050505] shadow-xl z-10">
+            <div className="relative w-full h-full min-h-[300px] rounded-[20px] overflow-hidden bg-[#050505] shadow-xl z-10">
               <img
                 src="/assets/sensor_fusion.png"
                 alt="Our Team"
@@ -41,13 +35,13 @@ export const Testimonials = () => {
 
                 <div className="flex flex-col relative z-10 text-[#050505]">
                   <h3 className="font-display font-black text-5xl md:text-6xl tracking-tighter leading-none mb-1">
-                    20+
+                    10+
                   </h3>
                   <span className="font-bold text-xs tracking-widest uppercase mb-3">
-                    Experience
+                    Years
                   </span>
                   <p className="font-medium text-xs md:text-sm leading-tight max-w-[140px] opacity-90">
-                    Years of Excellence in IT Solutions Company.
+                    Of delivering indigenous R&D solutions.
                   </p>
                 </div>
               </div>
@@ -58,45 +52,50 @@ export const Testimonials = () => {
           {/* RIGHT SIDE: Main Content Card */}
           <div className="relative w-full mt-24 sm:mt-16 lg:mt-0 z-10 h-full">
 
-            <div className="bg-[#050505] rounded-[20px] h-full p-8 md:p-12 lg:p-14 border border-[#1a1c1a] relative z-10 shadow-2xl flex flex-col justify-center">
+            <div className="bg-[#050505] rounded-[20px] h-full p-6 md:p-8 lg:p-10 border border-[#1a1c1a] relative z-10 shadow-2xl flex flex-col justify-center">
 
               {/* Badge/Title Area */}
-              <div className="mb-8">
+              <div className="mb-6">
                 <span className="text-[#23abe6] text-xs font-bold uppercase tracking-[0.2em]">
                   [ ABOUT SINC LAB ]
                 </span>
-                <h2 className="text-white font-display font-black text-3xl md:text-4xl lg:text-[44px] leading-[1.1] tracking-tight mt-4 max-w-xl">
-                  Pioneering Solutions That<br className="hidden md:block" />
-                  Redefine Sensor Fusion &<br className="hidden md:block" />
-                  3D Technologies.
+                <h2 className="text-white font-display font-black text-3xl md:text-4xl lg:text-[40px] leading-[1.1] tracking-tight mt-4 max-w-xl">
+                  Enhancing Mission-Critical<br className="hidden md:block" />
+                  Readiness Through<br className="hidden md:block" />
+                  Innovative Engineering.
                 </h2>
               </div>
 
-              {/* Paragraph */}
-              <p className="text-[#a0a0a0] font-sans text-base leading-relaxed mb-10 max-w-lg">
-                We are a team of visionary engineers and tech innovators pushing the boundaries of spatial computing, sensor fusion, and 3D visualization. Transforming complex data into actionable intelligence.
-              </p>
+              {/* Paragraphs */}
+              <div className="text-[#a0a0a0] font-sans text-[15px] leading-relaxed mb-8 max-w-xl space-y-4">
+                <p>
+                  SINC is a research and development lab dedicated to enhancing mission-critical readiness through innovative engineering, technology insertion, and functional replacement solutions. Our expertise spans sensing, embedded processing, secure communications, and data analytics to address operational challenges across maritime and defense environments.
+                </p>
+                <p>
+                  Driven by reliability, sustainability, and indigenous innovation, we develop practical systems/sub-systems that overcome obsolescence, supply chain constraints, and evolving operational requirements. Our solutions are designed to transition seamlessly from R&D designs into practical implementations.
+                </p>
+              </div>
 
               {/* Statistics */}
-              <div className="flex items-center gap-8 md:gap-12 mb-10 pt-8 border-t border-[#1a1c1a]">
+              <div className="flex items-center gap-8 md:gap-12 mb-8 pt-6 border-t border-[#1a1c1a]">
                 <div className="flex flex-col">
-                  <span className="text-[#23abe6] font-display font-black text-4xl md:text-5xl leading-none tracking-tighter mb-2">3K+</span>
-                  <span className="text-[#a0a0a0] text-sm font-medium">Successful Projects.</span>
+                  <span className="text-[#23abe6] font-display font-black text-4xl md:text-5xl leading-none tracking-tighter mb-2">4</span>
+                  <span className="text-[#a0a0a0] text-sm font-medium">Core Technology Pillars.</span>
                 </div>
                 <div className="w-[1px] h-12 bg-[#1a1c1a]" />
                 <div className="flex flex-col">
-                  <span className="text-[#23abe6] font-display font-black text-4xl md:text-5xl leading-none tracking-tighter mb-2">98+</span>
-                  <span className="text-[#a0a0a0] text-sm font-medium">IT Professionals.</span>
+                  <span className="text-[#23abe6] font-display font-black text-4xl md:text-5xl leading-none tracking-tighter mb-2">15+</span>
+                  <span className="text-[#a0a0a0] text-sm font-medium">Flagship Solutions.</span>
                 </div>
               </div>
 
               {/* CTA Button */}
-              <button className="group flex items-center bg-[#111211] hover:bg-[#1a1c1a] border border-[#292B29] rounded-full p-1.5 pr-6 transition-all duration-300 w-fit">
+              <a href="https://sincresearch.com" target="_blank" rel="noopener noreferrer" className="group flex items-center bg-[#111211] hover:bg-[#1a1c1a] border border-[#292B29] rounded-full p-1.5 pr-6 transition-all duration-300 w-fit">
                 <div className="w-10 h-10 bg-[#23abe6] rounded-full flex items-center justify-center mr-4 group-hover:scale-105 transition-transform duration-300 shadow-[0_0_15px_rgba(35,171,230,0.4)]">
                   <ArrowRight className="w-4 h-4 text-[#050505] -rotate-45 group-hover:rotate-0 transition-transform duration-300" />
                 </div>
-                <span className="text-white font-semibold text-sm">Learn More</span>
-              </button>
+                <span className="text-white font-semibold text-sm">sincresearch.com</span>
+              </a>
 
             </div>
 
@@ -111,7 +110,7 @@ export const Testimonials = () => {
                   <path id="badge-text-path" d="M 50, 50 m -35, 0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="transparent" />
                   <text className="text-[9.5px] font-bold uppercase tracking-[0.25em] fill-[#a0a0a0]">
                     <textPath href="#badge-text-path" startOffset="0%">
-                      AWARD WINNING AGENCY • SINCE 2019 •
+                      RESEARCH & DEVELOPMENT LAB • SINC • 
                     </textPath>
                   </text>
                 </svg>
