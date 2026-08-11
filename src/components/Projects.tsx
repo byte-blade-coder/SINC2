@@ -26,6 +26,36 @@ export const projectsData: Project[] = [
   {
     id: 1,
     number: '01',
+    badge: 'Weapon Systems Integration',
+    title: 'Development of ICDs for 6×30 mm Gun',
+    description: 'Development of ICDs and hardware solution to interface SOT-2SE with 6×30mm Gun onboard PNS AZMT and DHST, enabling seamless interoperability with the SOT FCS and the Gun.',
+    image: '/assets/sensor_fusion.png',
+    tech: ['Systems Integration', 'Fire Control', 'ICD Development', 'Signal Conversion'],
+    sections: [
+      { id: 'challenge', title: 'The Challenge', description: 'Integrating modern fire control systems with existing weapon platforms requires seamless, low-latency interfacing capable of bridging digital commands with analog or synchro-based inputs.', image: '/assets/sensor_fusion.png' },
+      { id: 'approach', title: 'Our Approach', description: 'We developed custom Interface Control Documents (ICDs) and bespoke hardware to convert Synchro to Digital and Digital to Synchro signals in real-time, successfully interfacing SOT-2SE with JS RCCS.', image: '/assets/processing_clean.png' },
+      { id: 'outcome', title: 'The Outcome', description: 'Achieved complete interoperability between the SOT FCS and the 6×30mm Gun onboard PNS AZMT and DHST, validating the system through rigorous verification protocols.', image: '/assets/data_analytics_clean.png' },
+      { id: 'whatWeDid', title: 'Engineering Scope', description: 'ICD Development, System Verification & Validation, Weapon System Integration, Digital-to-Analog and Analog-to-Digital Interface Development, and Interface Hardware Development.', image: '/assets/communication_clean.png' }
+    ]
+  },
+  {
+    id: 2,
+    number: '02',
+    badge: 'Weapon Systems Integration',
+    title: 'Development of ICDs for 7×30 mm Gun',
+    description: 'Development of ICDs and hardware solution to interface SOT-2SE with 6×30mm Gun onboard PNS AZMT and DHST, enabling seamless interoperability with the SOT FCS and the Gun.',
+    image: '/assets/sensor_fusion.png',
+    tech: ['Systems Integration', 'Weapon Systems', 'Synchro Control', 'Fire Control', 'ICD Development', 'Embedded Electronics', 'Signal Conversion'],
+    sections: [
+      { id: 'challenge', title: 'The Challenge', description: 'Integrating modern fire control systems with existing weapon platforms requires seamless, low-latency interfacing capable of bridging digital commands with analog or synchro-based inputs.', image: '/assets/sensor_fusion.png' },
+      { id: 'approach', title: 'Our Approach', description: 'We developed custom Interface Control Documents (ICDs) and bespoke hardware to convert Synchro to Digital and Digital to Synchro signals in real-time.', image: '/assets/processing_clean.png' },
+      { id: 'outcome', title: 'The Outcome', description: 'Achieved complete interoperability between the SOT FCS and the 6×30mm Gun onboard PNS AZMT and DHST, validating the system through rigorous verification protocols.', image: '/assets/data_analytics_clean.png' },
+      { id: 'whatWeDid', title: 'Engineering Scope', description: 'Development of ICDs between 7, System Verification & Validation, Weapon System Integration, Digital-to-Analog and Analog-to-Digital Interface Development, and Interface Hardware Development.', image: '/assets/communication_clean.png' }
+    ]
+  },
+  {
+    id: 3,
+    number: '03',
     badge: 'Autonomous Sensing',
     title: 'Littoral Surveillance Array (LSA-12)',
     description: 'Deploying high-frequency hydrophone clusters to monitor near-shore acoustic signatures and detect low-profile littoral intrusions.',
@@ -39,8 +69,8 @@ export const projectsData: Project[] = [
     ]
   },
   {
-    id: 2,
-    number: '02',
+    id: 4,
+    number: '04',
     badge: 'Signal Processing',
     title: 'Adaptive Noise Cancellation Core (ANC-X)',
     description: 'Real-time extraction of weak sonar returns from background shipping noise using edge-deployed deep learning filters.',
@@ -54,8 +84,8 @@ export const projectsData: Project[] = [
     ]
   },
   {
-    id: 3,
-    number: '03',
+    id: 5,
+    number: '05',
     badge: 'Secure Telemetry',
     title: 'Mesh Acoustic Transceiver (MAT-04)',
     description: 'Quantum-resistant underwater communication link utilizing multi-carrier frequency-hopping spreads for secure data transit.',
@@ -69,8 +99,8 @@ export const projectsData: Project[] = [
     ]
   },
   {
-    id: 4,
-    number: '04',
+    id: 6,
+    number: '06',
     badge: 'Tactical Analytics',
     title: 'Dynamic Threat Assessor (DTA-3)',
     description: 'Volumetric path prediction engine fusing lidar, radar, and sonar vectors to map defensive response paths in real-time.',
@@ -82,7 +112,7 @@ export const projectsData: Project[] = [
       { id: 'outcome', title: 'The Outcome', description: 'Reduced command response latency from minutes to milliseconds, automating defensive posture recommendations across entire fleet groups.', image: '/assets/sensor_fusion.png' },
       { id: 'whatWeDid', title: 'What We Did', description: 'Sensor Fusion Algorithms, 3D Volumetric Rendering, Predictive Physics Engine, and C2 System Integration.', image: '/assets/processing_clean.png' }
     ]
-  },
+  }
 ];
 
 export default function Projects() {
