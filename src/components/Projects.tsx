@@ -86,6 +86,51 @@ export const projectsData: Project[] = [
   {
     id: 5,
     number: '05',
+    badge: 'Meteorological Systems',
+    title: 'Development of Solid State Meteorograph',
+    description: 'Development of an indigenous Solid State Meteorograph for acquisition, processing, and distribution of real-time meteorological information from onboard sensors, computes true wind speed and direction and relays real time information to NRTUs and different sub-displays to support shipboard navigation and operational awareness.',
+    image: '/assets/sensing_clean.png',
+    tech: ['System Integration', 'Multi-Display Information Distribution', 'GPS and Anemometer Interface', 'Embedded Software'],
+    sections: [
+      { id: 'challenge', title: 'The Challenge', description: 'Acquiring and processing real-time meteorological information from onboard sensors in dynamic maritime environments requires precise integration and robust data distribution.', image: '/assets/sensing_clean.png' },
+      { id: 'approach', title: 'Our Approach', description: 'We developed an indigenous Solid State Meteorograph that interfaces with GPS and anemometers to compute true wind speed and direction, routing real-time data to NRTUs.', image: '/assets/sensor_fusion.png' },
+      { id: 'outcome', title: 'The Outcome', description: 'Enhanced shipboard navigation and operational awareness through reliable, real-time meteorological data distribution across multiple sub-displays.', image: '/assets/communication_clean.png' },
+      { id: 'whatWeDid', title: 'System Functions', description: 'Wind Speed & Direction, Temperature, Humidity, Atmospheric Pressure, GPS Position & Heading, True Wind Calculation, and Data Distribution to NRTUs.', image: '/assets/data_analytics_clean.png' }
+    ]
+  },
+  {
+    id: 6,
+    number: '06',
+    badge: 'Avionics Integration',
+    title: 'Development of VOR Navigation Converter',
+    description: 'Design and development of an indigenous VHF Omnidirectional Range (VOR) Navigation Converter to display ILS parameters (localizer) and VOR bearing on aircraft\'s EHSI display.',
+    image: '/assets/processing_clean.png',
+    tech: ['Navigation Systems', 'Embedded Electronics', 'Signal Conversion', 'Avionics Integration'],
+    sections: [
+      { id: 'challenge', title: 'The Challenge', description: 'Interfacing aircraft multi-mode receivers (MMR) and gyro heading data to legacy or distinct EHSI displays requires precise signal conversion and synchro control.', image: '/assets/processing_clean.png' },
+      { id: 'approach', title: 'Our Approach', description: 'We designed a Nav converter that acquires VOR information from the MMR and heading from the Gyro, computes the true bearing, and translates it for the Nav-J unit.', image: '/assets/sensor_fusion.png' },
+      { id: 'outcome', title: 'The Outcome', description: 'Successfully enabled the display of ILS parameters and VOR bearing on the aircraft\'s EHSI display, ensuring seamless navigation data flow.', image: '/assets/communication_clean.png' },
+      { id: 'whatWeDid', title: 'Engineering Scope', description: 'System Integration, Synchro Control Mechanism, Hardware Design, and Synchro / Resolver Conversion.', image: '/assets/data_analytics_clean.png' }
+    ]
+  },
+  {
+    id: 7,
+    number: '07',
+    badge: 'Navigation Systems',
+    title: 'Development of Navigation Interface Unit (NIU)',
+    description: 'Design and development of an indigenous Navigation Interface Unit (NIU) that serves as the central data acquisition and distribution hub for a ship\'s navigation suite.',
+    image: '/assets/communication_clean.png',
+    tech: ['Navigation Systems', 'Embedded Linux Software', 'Serial Communication (RS232)', 'Networked Systems (TCP/IP)'],
+    sections: [
+      { id: 'challenge', title: 'The Challenge', description: 'Modern naval vessels utilize multiple disparate navigation sensors that output serial data, which must be aggregated, parsed, and distributed to modern networked combat systems.', image: '/assets/communication_clean.png' },
+      { id: 'approach', title: 'Our Approach', description: 'We engineered an NIU based on Embedded Linux that interfaces with serial navigation sensors, parses the data, and distributes it over Ethernet (TCP/IP) to the CMS and GUI.', image: '/assets/processing_clean.png' },
+      { id: 'outcome', title: 'The Outcome', description: 'Created a centralized, highly reliable data acquisition and distribution hub that integrates GPS, INS, Echo Sounder, and Gyro-compass data into the Combat Management System.', image: '/assets/data_analytics_clean.png' },
+      { id: 'whatWeDid', title: 'Engineering Scope', description: 'System Integration, Serial-to-Ethernet Interfacing, Multi-Sensor Data Acquisition, and Real-Time Data Distribution.', image: '/assets/sensor_fusion.png' }
+    ]
+  },
+  {
+    id: 8,
+    number: '08',
     badge: 'Autonomous Sensing',
     title: 'Littoral Surveillance Array (LSA-12)',
     description: 'Deploying high-frequency hydrophone clusters to monitor near-shore acoustic signatures and detect low-profile littoral intrusions.',
@@ -99,8 +144,8 @@ export const projectsData: Project[] = [
     ]
   },
   {
-    id: 6,
-    number: '06',
+    id: 9,
+    number: '09',
     badge: 'Signal Processing',
     title: 'Adaptive Noise Cancellation Core (ANC-X)',
     description: 'Real-time extraction of weak sonar returns from background shipping noise using edge-deployed deep learning filters.',
@@ -114,8 +159,8 @@ export const projectsData: Project[] = [
     ]
   },
   {
-    id: 7,
-    number: '07',
+    id: 10,
+    number: '10',
     badge: 'Secure Telemetry',
     title: 'Mesh Acoustic Transceiver (MAT-04)',
     description: 'Quantum-resistant underwater communication link utilizing multi-carrier frequency-hopping spreads for secure data transit.',
@@ -129,8 +174,8 @@ export const projectsData: Project[] = [
     ]
   },
   {
-    id: 8,
-    number: '08',
+    id: 11,
+    number: '11',
     badge: 'Tactical Analytics',
     title: 'Dynamic Threat Assessor (DTA-3)',
     description: 'Volumetric path prediction engine fusing lidar, radar, and sonar vectors to map defensive response paths in real-time.',
