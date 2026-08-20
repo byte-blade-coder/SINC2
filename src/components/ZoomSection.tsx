@@ -566,15 +566,16 @@ export const ZoomSection: React.FC = () => {
 
         <style>{`
           .zoom-cards-container {
-            --card-gap: 24px;
-            --card-gap-y: 44px;
-            --card-width: min(165px, calc((100% - var(--card-gap)) / 2));
+            --card-gap: 16px;
+            --card-gap-y: 20px;
+            --card-width: min(150px, calc((100% - var(--card-gap)) / 2));
             --card-height: var(--card-width);
             --card-spacing-x: calc(var(--card-width) + var(--card-gap));
             --card-spacing-y: calc(var(--card-width) + var(--card-gap-y));
             --container-width: calc(var(--card-width) * 2 + var(--card-gap));
             --container-height: calc(var(--card-height) * 2 + var(--card-gap-y));
-            padding-top: 100px;
+            padding-top: 60px;
+            padding-bottom: 20px;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -588,13 +589,14 @@ export const ZoomSection: React.FC = () => {
           @media (min-width: 768px) {
             .zoom-cards-container {
               --card-gap: 16px;
-              --card-width: min(280px, calc((100% - 48px) / 4));
+              --card-width: min(240px, calc((100% - 48px) / 4), 30vh);
               --card-height: var(--card-width);
               --card-spacing-x: calc(var(--card-width) + var(--card-gap));
               --card-spacing-y: 0px;
               --container-width: calc(var(--card-width) * 4 + var(--card-gap) * 3);
               --container-height: var(--card-height);
-              padding-top: 140px;
+              padding-top: 80px;
+              padding-bottom: 30px;
               justify-content: center;
             }
             .stack-card-2 { left: calc(var(--card-spacing-x) * 2); top: 0; }
@@ -602,8 +604,21 @@ export const ZoomSection: React.FC = () => {
           }
           @media (min-width: 1024px) {
             .zoom-cards-container {
+              --card-gap: 20px;
+              --card-width: min(340px, calc(((100vw - 80px) - 60px) / 4), 38vh);
+              --card-height: var(--card-width);
+              --card-spacing-x: calc(var(--card-width) + var(--card-gap));
+              --card-spacing-y: 0px;
+              --container-width: calc(var(--card-width) * 4 + var(--card-gap) * 3);
+              --container-height: var(--card-height);
+              padding-top: 90px;
+              padding-bottom: 40px;
+            }
+          }
+          @media (min-width: 1440px) {
+            .zoom-cards-container {
               --card-gap: 24px;
-              --card-width: min(390px, calc(((100vw - 80px) - 72px) / 4));
+              --card-width: min(380px, calc(((100vw - 120px) - 72px) / 4), 40vh);
               --card-height: var(--card-width);
               --card-spacing-x: calc(var(--card-width) + var(--card-gap));
               --card-spacing-y: 0px;
@@ -621,7 +636,7 @@ export const ZoomSection: React.FC = () => {
           }
           @media (min-width: 768px) {
             .stack-card:hover, .stack-card:active {
-              margin-top: -15px !important;
+              margin-top: -12px !important;
             }
           }
           .stack-card svg {
@@ -641,15 +656,15 @@ export const ZoomSection: React.FC = () => {
         <div className="zoom-cards-container w-full max-w-[1720px] relative px-4 md:px-8">
 
           {/* Title Header Section above the cards, aligned left */}
-          <div className="w-full flex flex-col items-center md:items-start text-center md:text-left z-10 select-none mb-12 md:mb-20">
-            <h2 id="core-pillars" className="scroll-mt-32 w-fit inline-block mx-auto md:mx-0 font-display font-black text-[28px] sm:text-[54px] md:text-[76px] leading-[0.95] tracking-tighter bg-gradient-to-r from-[#23abe6] to-[#050c26] bg-clip-text text-transparent pb-2 md:pb-3 pt-1">
+          <div className="w-full flex flex-col items-center md:items-start text-center md:text-left z-10 select-none mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+            <h2 id="core-pillars" className="scroll-mt-32 w-fit inline-block mx-auto md:mx-0 font-display font-black text-[26px] sm:text-[44px] md:text-[58px] lg:text-[68px] leading-[0.95] tracking-tighter bg-gradient-to-r from-[#23abe6] to-[#050c26] bg-clip-text text-transparent pb-1 md:pb-2 pt-1">
               Core <br /> Technology Pillars
             </h2>
-            <div className="mt-2 md:mt-6 text-center md:text-left text-gray-600 font-normal text-[13px] sm:text-[14px] md:text-[18px] leading-relaxed max-w-full md:max-w-[60%] space-y-2 md:space-y-4">
-              <p className="text-[13px] sm:text-[14px] md:text-[18px]">
+            <div className="mt-1 md:mt-3 text-center md:text-left text-gray-600 font-normal text-[12px] sm:text-[13px] md:text-[15px] lg:text-[16px] leading-relaxed max-w-full md:max-w-[65%] space-y-1 md:space-y-2">
+              <p>
                 SINC Lab’s engineering and research activities are structured around four core technology domains that enable the development of mission-relevant sensing, processing, communication, and data analytics solutions.
               </p>
-              <p className="text-[13px] sm:text-[14px] md:text-[18px]">
+              <p className="hidden md:block">
                 These pillars collectively support situational awareness, system intelligence, and operational decision support for maritime environments.
               </p>
             </div>
