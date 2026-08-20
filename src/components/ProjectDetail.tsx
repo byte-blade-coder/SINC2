@@ -114,27 +114,29 @@ export default function ProjectDetail() {
       </div>
 
       {/* LEFT COLUMN: Sticky Panel */}
-      <div className="w-full md:w-[40%] h-auto md:h-screen md:sticky top-0 flex flex-col justify-center px-6 py-12 md:px-12 lg:px-16 md:py-0 border-r border-white/5 relative z-40 bg-[#0b0b0b]">
+      <div className="w-full md:w-[45%] lg:w-[40%] h-auto md:h-screen md:sticky top-0 flex flex-col justify-between px-6 py-10 md:px-10 lg:px-16 md:pt-10 md:pb-10 border-r border-white/5 relative z-40 bg-[#0b0b0b] overflow-y-auto no-scrollbar">
         
         {/* Desktop Back Button */}
-        <button 
-          onClick={handleBack}
-          className="hidden md:flex absolute top-12 left-12 lg:left-16 items-center gap-2 text-white/50 hover:text-white transition-colors text-xs font-bold tracking-[0.2em] uppercase group"
-        >
-          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          Back to Work
-        </button>
+        <div className="hidden md:block mb-8">
+          <button 
+            onClick={handleBack}
+            className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors text-xs font-bold tracking-[0.2em] uppercase group py-2"
+          >
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+            Back to Work
+          </button>
+        </div>
 
-        <div className="flex flex-col max-w-lg w-full mx-auto md:mx-0">
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#23abe6] mb-4">
+        <div className="flex flex-col max-w-lg w-full mx-auto md:mx-0 my-auto">
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#23abe6] mb-3">
             {project.badge}
           </span>
-          <h1 className="font-display font-semibold text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-[1.1] mb-8">
+          <h1 className="font-display font-semibold text-3xl sm:text-4xl md:text-4xl lg:text-5xl text-white tracking-tight leading-[1.15] mb-6">
             {project.title}
           </h1>
 
           {/* Dynamic Content (Crossfade) */}
-          <div className="min-h-[180px] hidden md:block">
+          <div className="min-h-[140px] hidden md:block">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeSection.id}
@@ -155,8 +157,8 @@ export default function ProjectDetail() {
           </div>
 
           {/* Services / Tech Stack */}
-          <div className="mt-8 md:mt-12 pt-8 border-t border-white/10">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 mb-4">
+          <div className="mt-6 md:mt-8 pt-6 border-t border-white/10">
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 mb-3">
               Core Technologies
             </h4>
             <div className="flex flex-wrap gap-2">
@@ -172,7 +174,7 @@ export default function ProjectDetail() {
           </div>
 
           {/* Navigation Tabs (Desktop Only) */}
-          <div className="hidden md:flex flex-col gap-4 mt-16">
+          <div className="hidden md:flex flex-col gap-3 mt-8 lg:mt-10">
             {project.sections.map((sec, idx) => {
               const isActive = activeSectionId === sec.id;
               return (
@@ -201,7 +203,7 @@ export default function ProjectDetail() {
           </div>
 
           {/* Live Link Button */}
-          <button className="mt-16 md:mt-24 group flex items-center justify-between w-full py-4 border-b border-white/10 text-white hover:border-[#23abe6] transition-colors">
+          <button className="mt-8 lg:mt-12 group flex items-center justify-between w-full py-4 border-b border-white/10 text-white hover:border-[#23abe6] transition-colors">
             <span className="text-sm font-bold tracking-widest uppercase">View Case Details</span>
             <ArrowUpRight className="w-5 h-5 text-white/40 group-hover:text-[#23abe6] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
           </button>
