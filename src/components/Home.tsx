@@ -82,7 +82,7 @@ export default function Home() {
           <div className="absolute -left-[375px] w-[750px] h-[750px] rounded-full pointer-events-none" style={{ top: '900vh', background: 'rgba(35, 171, 230, 0.22)', filter: 'blur(130px)' }} />
         </div>
 
-        <h1 className="sr-only">SINC 3D - Engineering Maritime Domain Awareness & Advanced Sensory Systems</h1>
+        <h1 className="sr-only">SINC Research - Engineering Maritime Domain Awareness & Advanced Sensory Systems</h1>
         <GlassNavbar />
 
         <main className="w-full flex flex-col items-center">

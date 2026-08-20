@@ -1,7 +1,7 @@
 import React from 'react';
 import { Trophy, ArrowRight, User } from 'lucide-react';
 
-export const Testimonials = () => {
+export const About = () => {
   return (
     <section id="about" className="relative w-full h-full py-12 md:py-16 bg-[#050505] overflow-clip flex flex-col items-center justify-center z-10">
 
@@ -30,7 +30,7 @@ export const Testimonials = () => {
               {/* 1. Overlapping Experience Card */}
               <div className="relative bg-[#23abe6] rounded-[12px] p-6 sm:p-8 shadow-2xl overflow-hidden w-fit shrink-0">
                 {/* Diagonal black corner treatment */}
-                <div className="absolute -top-10 -right-10 w-20 h-20 bg-[#050505] rotate-45" />
+                <div className="absolute -top-10 -right-10 w-20 h-20 rotate-45" />
                 <span className="absolute top-2 right-1.5 text-[#050505] text-[7px] font-black tracking-widest rotate-45 select-none">EXP</span>
 
                 <div className="flex flex-col relative z-10 text-[#050505]">
@@ -141,4 +141,4 @@ export const Testimonials = () => {
   );
 };
 
-export default Testimonials;
+export default About;

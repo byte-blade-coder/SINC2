@@ -2,10 +2,76 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
 
+const scrollToTarget = (href: string) => {
+  const targetId = href.replace('#', '');
+  if (!targetId) return;
+
+  if (targetId === 'home') {
+    if ((window as any).lenis) {
+      (window as any).lenis.scrollTo(0, { duration: 1.2 });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    return;
+  }
+
+  if (targetId === 'core-pillars') {
+    // ZoomSection is pinned for +=600% (6 * window.innerHeight).
+    // All 4 cards finish their stacking animation at the end of the timeline (100% progress = 6 * innerHeight).
+    // Scrolling to 5.85 * innerHeight places the viewport right where all 4 cards are fully stacked and visible.
+    const pinDistance = window.innerHeight * 5.85;
+    if ((window as any).lenis) {
+      (window as any).lenis.scrollTo(pinDistance, { duration: 1.4 });
+    } else {
+      window.scrollTo({ top: pinDistance, behavior: 'smooth' });
+    }
+    return;
+  }
+
+  if (targetId === 'about') {
+    // About (Testimonials/About section) is the dark layer underneath Projects (Flagship Solutions)
+    // It is fully revealed after the blinds retract (progress 0.95+ of #projects section height)
+    const projectsEl = document.getElementById('projects');
+    if (projectsEl) {
+      const topOffset = projectsEl.getBoundingClientRect().top + window.scrollY;
+      const height = projectsEl.offsetHeight - window.innerHeight;
+      const aboutTargetScroll = topOffset + (height * 0.96);
+      if ((window as any).lenis) {
+        (window as any).lenis.scrollTo(aboutTargetScroll, { duration: 1.5 });
+      } else {
+        window.scrollTo({ top: aboutTargetScroll, behavior: 'smooth' });
+      }
+      return;
+    }
+  }
+
+  if (targetId === 'projects') {
+    // Flagship Solutions is the start of #projects
+    const projectsEl = document.getElementById('projects');
+    if (projectsEl) {
+      if ((window as any).lenis) {
+        (window as any).lenis.scrollTo(projectsEl, { duration: 1.2 });
+      } else {
+        projectsEl.scrollIntoView({ behavior: 'smooth' });
+      }
+      return;
+    }
+  }
+
+  const el = document.getElementById(targetId);
+  if (el) {
+    if ((window as any).lenis) {
+      (window as any).lenis.scrollTo(el, { duration: 1.2, offset: -80 });
+    } else {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+};
+
 interface NavLinkProps {
   href: string;
   active: boolean;
-  onClick: () => void;
+  onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
   scrolled: boolean;
   children: React.ReactNode;
 }
@@ -82,7 +148,13 @@ export const GlassNavbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = ['Home', 'Services', 'Research', 'Projects', 'Contact'];
+  const navLinks = [
+    { label: 'Home', href: '#home' },
+    { label: 'Services', href: '#core-pillars' },
+    { label: 'About', href: '#about' },
+    { label: 'Projects', href: '#projects' },
+    { label: 'Contact', href: '#contact' }
+  ];
 
   return (
     <header className="fixed top-3 md:top-6 left-0 right-0 z-50 flex justify-center px-4 md:px-8 pointer-events-none">
@@ -141,16 +213,18 @@ export const GlassNavbar: React.FC = () => {
         <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-1">
           {navLinks.map((link) => (
             <NavLink
-              key={link}
-              href={`#${link.toLowerCase()}`}
-              active={activeLink === link}
+              key={link.label}
+              href={link.href}
+              active={activeLink === link.label}
               scrolled={scrolled && !isDark}
-              onClick={() => {
-                setActiveLink(link);
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveLink(link.label);
+                scrollToTarget(link.href);
                 setMobileMenuOpen(false);
               }}
             >
-              {link}
+              {link.label}
             </NavLink>
           ))}
         </div>
@@ -200,18 +274,20 @@ export const GlassNavbar: React.FC = () => {
             <div className="flex flex-col gap-2">
               {navLinks.map((link) => (
                 <a
-                  key={link}
-                  href={`#${link.toLowerCase()}`}
-                  onClick={() => {
-                    setActiveLink(link);
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveLink(link.label);
+                    scrollToTarget(link.href);
                     setMobileMenuOpen(false);
                   }}
-                  className={`px-4 py-3 rounded-xl text-base font-medium transition-colors ${activeLink === link
+                  className={`px-4 py-3 rounded-xl text-base font-medium transition-colors ${activeLink === link.label
                     ? 'bg-white/10 text-white'
                     : 'text-white/60 hover:text-white hover:bg-white/5'
                     }`}
                 >
-                  {link}
+                  {link.label}
                 </a>
               ))}
             </div>

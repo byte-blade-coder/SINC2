@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useMotionTemplate, useSpring } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Testimonials from './Testimonials';
+import About from './About';
 
 export interface ProjectSection {
   id: string;
@@ -181,9 +181,9 @@ export default function Projects() {
       {/* Sticky Container inside the section */}
       <div className="sticky top-0 left-0 w-full h-screen overflow-hidden">
 
-        {/* BACKGROUND: The dark Testimonials section revealed when the Flagship blinds fold up */}
+        {/* BACKGROUND: The dark About section revealed when the Flagship blinds fold up */}
         <div className="absolute inset-0 z-0 flex flex-col justify-center bg-[#050505]">
-          <Testimonials />
+          <About />
         </div>
 
         {/* FOREGROUND LAYER: The white Flagship content that is masked into blinds */}

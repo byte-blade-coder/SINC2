@@ -20,7 +20,7 @@ export const PremiumFooter = () => {
   return (
     <footer id="contact" className="relative w-full bg-[#050505] pt-32 pb-6 flex flex-col items-center border-t border-white/[0.05] z-20">
 
-      {/* Background Ambient Effects - Matching SINC 3D theme */}
+      {/* Background Ambient Effects - Matching SINC theme */}
       <div className="absolute top-1/4 left-0 w-1/2 h-1/2 bg-[#23abe6]/[0.08] rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-[#23abe6]/[0.06] rounded-full blur-[120px] pointer-events-none" />
 
@@ -65,12 +65,12 @@ export const PremiumFooter = () => {
       <div className="w-[90%] max-w-[1728px] mx-auto px-6 lg:px-0 mt-12 relative z-10">
 
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 mb-16">
+        <div className="flex flex-col md:flex-row justify-between gap-12 lg:gap-8 mb-16">
 
           {/* Brand Column */}
-          <div className="md:col-span-4 flex flex-col gap-6">
+          <div className="flex flex-col gap-6 md:max-w-[400px]">
             <div className="flex items-center gap-3">
-              <img src="/assets/logo.png" alt="SINC 3D Logo" className="h-[45px] md:h-[60px] w-auto object-contain" />
+              <img src="/assets/logo.png" alt="SINC Logo" className="h-[45px] md:h-[60px] w-auto object-contain" />
             </div>
             <p className="text-white/60 text-sm leading-relaxed max-w-[320px]">
               SINC is a research and development lab dedicated to enhancing mission-critical readiness through innovative engineering, technology insertion, and functional replacement solutions.
@@ -78,15 +78,15 @@ export const PremiumFooter = () => {
           </div>
 
           {/* Quick Links Column */}
-          <div className="md:col-span-3 flex flex-col gap-6">
+          <div className="flex flex-col gap-6">
             <h4 className="text-white text-[17px] font-semibold">Quick Links</h4>
             <ul className="flex flex-col gap-4">
               {[
                 { label: "Home", href: "#home" },
                 { label: "Core Pillars", href: "#core-pillars" },
-                { label: "Research", href: "#research" },
-                { label: "Projects", href: "#projects" },
-                { label: "Contact", href: "#contact" }
+                { label: "Flagship Solutions", href: "#projects" },
+                { label: "Contact", href: "#contact" },
+                { label: "About", href: "#about" }
               ].map(lnk => (
                 <li key={lnk.label}>
                   <a href={lnk.href} className="text-white/50 hover:text-[#23abe6] text-[15px] transition-colors duration-200">
@@ -97,34 +97,8 @@ export const PremiumFooter = () => {
             </ul>
           </div>
 
-          {/* Resources Column */}
-          <div className="md:col-span-2 flex flex-col gap-6">
-            <h4 className="text-white text-[17px] font-semibold">Resources</h4>
-            <ul className="flex flex-col gap-4">
-              {[
-                { name: "Contact Us" },
-                { name: "Privacy Policy" },
-                { name: "Recognitions" },
-                { name: "Careers", badge: "NEW" },
-                { name: "News" },
-                { name: "Feedback" }
-              ].map(lnk => (
-                <li key={lnk.name}>
-                  <a href="#" className="text-white/50 hover:text-[#23abe6] text-[15px] transition-colors duration-200 flex items-center gap-2">
-                    {lnk.name}
-                    {lnk.badge && (
-                      <span className="bg-[#23abe6] text-white text-[10px] font-bold px-1.5 py-0.5 rounded-sm">
-                        {lnk.badge}
-                      </span>
-                    )}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
           {/* Contact Info Column */}
-          <div className="md:col-span-3 flex flex-col gap-6">
+          <div className="flex flex-col gap-6">
             <h4 className="text-white text-[17px] font-semibold">Contact Info</h4>
             <div className="flex flex-col gap-5 text-white/50 text-[15px]">
               <p className="leading-relaxed">
@@ -132,7 +106,7 @@ export const PremiumFooter = () => {
               </p>
               <div className="flex flex-col gap-2">
                 <p><strong className="text-white font-semibold">P:</strong> +1 (009) 544-7818</p>
-                <p><strong className="text-white font-semibold">E:</strong> support@sinc3d.com</p>
+                <p><strong className="text-white font-semibold">E:</strong> support@sincresearch.com</p>
               </div>
               <div className="flex items-center gap-2 mt-1">
                 <Clock size={16} className="text-[#23abe6]" />
@@ -145,7 +119,7 @@ export const PremiumFooter = () => {
         {/* Bottom Bar */}
         <div className="mt-8 pt-10 md:pt-12 pb-4 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 relative">
           <div className="text-white/50 text-sm">
-            <strong className="text-white font-semibold">SINC 3D</strong> &copy; {new Date().getFullYear()}. All right reserved.
+            <strong className="text-white font-semibold">SINC Research</strong> &copy; {new Date().getFullYear()}. All right reserved.
           </div>
 
           <div className="flex flex-wrap items-center gap-6">
